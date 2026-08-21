@@ -1,0 +1,72 @@
+state,page,sno,district,taluka,village,st,bifurcated,notified_forest,village_clean,reason
+GOA,168,59,North Goa,Sattari,Velus,GA,False,False,Velus,no census village of this name in the stated taluka
+KARNATAKA,171,1,Belgaum,Belgaum,Dhamne,KA,False,False,Dhamne,no census village of this name in the stated taluka
+KARNATAKA,171,4,Belgaum,Khanapur,Alloli K,KA,False,False,Alloli K,no census village of this name in the stated taluka
+KARNATAKA,173,70,Chamaraja Nagar,Gundlupet,Berambadi District Forest Block-II,KA,False,False,Berambadi District Forest Block-II,no census village of this name in the stated taluka
+KARNATAKA,173,71,Chamaraja Nagar,Gundlupet,Berambadi North State Forest,KA,False,False,Berambadi North State Forest,no census village of this name in the stated taluka
+KARNATAKA,173,72,Chamaraja Nagar,Gundlupet,Berambadi State Forest Block- III,KA,False,False,Berambadi State Forest Block- III,no census village of this name in the stated taluka
+KARNATAKA,174,108,Chikmagalur,Chikmagalur,Meluluvatti,KA,False,False,Meluluvatti,no census village of this name in the stated taluka
+KARNATAKA,175,159,Chikmagalur,Mudigere,Kenjaj Guddada Coffee Estate,KA,False,False,Kenjaj Guddada Coffee Estate,no census village of this name in the stated taluka
+KARNATAKA,175,165,Chikmagalur,Mudigere,Sanvshi,KA,False,False,Sanvshi,no census village of this name in the stated taluka
+KARNATAKA,176,168,Chikmagalur,Mudigere,Tattakolagudda,KA,False,False,Tattakolagudda,no census village of this name in the stated taluka
+KARNATAKA,176,174,Chikmagalur,Narasimharajpura,Bhairapura,KA,False,False,Bhairapura,no census village of this name in the stated taluka
+KARNATAKA,176,184,Chikmagalur,Narasimharajpura,Kadbinbail,KA,False,False,Kadbinbail,no census village of this name in the stated taluka
+KARNATAKA,197,1030,Uttara Kannada,Joida,Kevarle,KA,False,False,Kevarle,no census village of this name in the stated taluka
+KARNATAKA,198,1039,Uttara Kannada,Joida,Kurvada,KA,False,False,Kurvada,no census village of this name in the stated taluka
+KARNATAKA,199,1078,Uttara Kannada,Karwar,Baitkol,KA,False,False,Baitkol,no census village of this name in the stated taluka
+KARNATAKA,201,1180,Uttara Kannada,Siddapur,Haltot,KA,False,False,Haltot,no census village of this name in the stated taluka
+KARNATAKA,201,1181,Uttara Kannada,Siddapur,Handivenimatna,KA,False,False,Handivenimatna,no census village of this name in the stated taluka
+KARNATAKA,203,1240,Uttara Kannada,Siddapur,Sarkuli Kelgin,KA,False,False,Sarkuli Kelgin,no census village of this name in the stated taluka
+KARNATAKA,204,1287,Uttara Kannada,Sirsi,Hedagemane,KA,False,False,Hedagemane,no census village of this name in the stated taluka
+KARNATAKA,205,1335,Uttara Kannada,Sirsi,Naralvali,KA,False,False,Naralvali,no census village of this name in the stated taluka
+KARNATAKA,206,1353,Uttara Kannada,Sirsi,Songimane,KA,False,False,Songimane,no census village of this name in the stated taluka
+KERALA,208,3,Idukki,Devikulam,Edamalakkudy*,KL,True,False,Edamalakkudy,bifurcated hamlet below census village granularity
+KERALA,208,12,Idukki,Devikulam,Munnar*,KL,True,False,Munnar,bifurcated hamlet below census village granularity
+KERALA,208,18,Idukki,Idukki,Kanchiyar*,KL,True,False,Kanchiyar,bifurcated hamlet below census village granularity
+KERALA,209,41,Idukki,Udumbanchola,Erattayar*,KL,True,False,Erattayar,bifurcated hamlet below census village granularity
+KERALA,210,70,Kozhikkode,Thamarassery,Kattippara*,KL,True,False,Kattippara,bifurcated hamlet below census village granularity
+KERALA,210,87,Malappuram,Nilambur,Pothukallu*,KL,True,False,Pothukallu,bifurcated hamlet below census village granularity
+KERALA,211,105,Pathanamthitta,Konni,Seethathodu,KL,False,False,Seethathodu,no census village of this name in the stated taluka
+KERALA,211,117,Thrissur,Chalakkudy,Athirapally*,KL,True,False,Athirapally,bifurcated hamlet below census village granularity
+MAHARASHTRA,214,109,Kolhapur,Bhudargad,Sidanand Nagar*,MH,True,False,Sidanand Nagar,bifurcated hamlet below census village granularity
+MAHARASHTRA,217,215,Kolhapur,Shahuwadi,Bhatatali,MH,False,False,Bhatatali,no census village of this name in the stated taluka
+MAHARASHTRA,218,248,Kolhapur,Shahuwadi,Pawankhind*,MH,True,False,Pawankhind,bifurcated hamlet below census village granularity
+MAHARASHTRA,222,400,Nashik,Surgana,Kund,MH,False,False,Kund,no census village of this name in the stated taluka
+MAHARASHTRA,232,820,Pune,Mawal,Mawal,MH,False,False,Mawal,no census village of this name in the stated taluka
+MAHARASHTRA,233,844,Pune,Mawal,Tungarli,MH,False,False,Tungarli,no census village of this name in the stated taluka
+MAHARASHTRA,233,849,Pune,Mawal,Vallahvan,MH,False,False,Vallahvan,no census village of this name in the stated taluka
+MAHARASHTRA,238,1033,Raigad,Karjat,Kamatpada*,MH,True,False,Kamatpada,bifurcated hamlet below census village granularity
+MAHARASHTRA,238,1043,Raigad,Karjat,Mechkarwadi*,MH,True,False,Mechkarwadi,bifurcated hamlet below census village granularity
+MAHARASHTRA,238,1047,Raigad,Karjat,Navsuchiwadi*,MH,True,False,Navsuchiwadi,bifurcated hamlet below census village granularity
+MAHARASHTRA,238,1049,Raigad,Karjat,Pachkadawadi*,MH,True,False,Pachkadawadi,bifurcated hamlet below census village granularity
+MAHARASHTRA,244,1268,Raigad,Roha,Cherathi*,MH,True,False,Cherathi,bifurcated hamlet below census village granularity
+MAHARASHTRA,244,1280,Raigad,Roha,Fugarewadi*,MH,True,False,Fugarewadi,bifurcated hamlet below census village granularity
+MAHARASHTRA,244,1286,Raigad,Roha,Goyandawadi*,MH,True,False,Goyandawadi,bifurcated hamlet below census village granularity
+MAHARASHTRA,244,1290,Raigad,Roha,Kalkaiwadi*,MH,True,False,Kalkaiwadi,bifurcated hamlet below census village granularity
+MAHARASHTRA,245,1309,Raigad,Roha,Killawadi*,MH,True,False,Killawadi,bifurcated hamlet below census village granularity
+MAHARASHTRA,245,1312,Raigad,Roha,Kolad Adiwasiwadi*,MH,True,False,Kolad Adiwasiwadi,bifurcated hamlet below census village granularity
+MAHARASHTRA,245,1323,Raigad,Roha,Narali,MH,False,False,Narali,no census village of this name in the stated taluka
+MAHARASHTRA,245,1331,Raigad,Roha,Rajkhalati*,MH,True,False,Rajkhalati,bifurcated hamlet below census village granularity
+MAHARASHTRA,245,1339,Raigad,Roha,Shenvai Adiwasiwadi*,MH,True,False,Shenvai Adiwasiwadi,bifurcated hamlet below census village granularity
+MAHARASHTRA,245,1344,Raigad,Roha,Sukhdarwadi*,MH,True,False,Sukhdarwadi,bifurcated hamlet below census village granularity
+MAHARASHTRA,246,1355,Raigad,Roha,Titaviwadi*,MH,True,False,Titaviwadi,bifurcated hamlet below census village granularity
+MAHARASHTRA,246,1381,Raigad,Sudhagad,Bhavsher*,MH,True,False,Bhavsher,bifurcated hamlet below census village granularity
+MAHARASHTRA,248,1431,Raigad,Sudhagad,Sharadnagar*,MH,True,False,Sharadnagar,bifurcated hamlet below census village granularity
+MAHARASHTRA,248,1445,Raigad,Sudhagad,Wakangaon*,MH,True,False,Wakangaon,bifurcated hamlet below census village granularity
+MAHARASHTRA,249,1480,Ratnagiri,Chiplun,Parshuram- Pedhe,MH,False,False,Parshuram- Pedhe,no census village of this name in the stated taluka
+MAHARASHTRA,256,1753,Ratnagiri,Sangmeshwar,Thorli Dhamani*,MH,True,False,Thorli Dhamani,bifurcated hamlet below census village granularity
+TAMIL NADU,276,19,Coimbatore,Udumalaipettai,Anamalai R.F.,TN,False,True,Anamalai R.F.,no census village of this name in the stated taluka
+TAMIL NADU,276,21,Coimbatore,Udumalaipettai,Kudiraiar & Kukkal R.F.,TN,False,True,Kudiraiar & Kukkal R.F.,composite entry naming two features
+TAMIL NADU,276,24,Coimbatore,Valparai,Area Under Forest,TN,False,False,Area Under Forest,"placeholder text, names no specific village"
+TAMIL NADU,276,25,Coimbatore,Valparai,Area Under Forest,TN,False,False,Area Under Forest,"placeholder text, names no specific village"
+TAMIL NADU,276,26,Coimbatore,Valparai,Valparai (TP),TN,False,False,Valparai (TP),no census village of this name in the stated taluka
+TAMIL NADU,276,27,Coimbatore,Valparai,Valparai (TP),TN,False,False,Valparai (TP),no census village of this name in the stated taluka
+TAMIL NADU,276,28,Coimbatore,Valparai,Valparai (TP),TN,False,False,Valparai (TP),no census village of this name in the stated taluka
+TAMIL NADU,276,29,Coimbatore,Valparai,Valparai (TP),TN,False,False,Valparai (TP),no census village of this name in the stated taluka
+TAMIL NADU,276,52,Kanyakumari,Thovala,Asambu R.F.,TN,False,True,Asambu R.F.,no census village of this name in the stated taluka
+TAMIL NADU,277,58,Kanyakumari,Thovala,Thadagamalai R.F.,TN,False,True,Thadagamalai R.F.,no census village of this name in the stated taluka
+TAMIL NADU,277,79,The Nilgiris,Kotagiri,Nilgiri Eastern Slopes,TN,False,False,Nilgiri Eastern Slopes,no census village of this name in the stated taluka
+TAMIL NADU,277,80,The Nilgiris,Kundah,Kilkunda (TP),TN,False,False,Kilkunda (TP),no census village of this name in the stated taluka
+TAMIL NADU,278,109,Tirunelveli,Shenkottai,Achampudur (TP),TN,False,False,Achampudur (TP),no census village of this name in the stated taluka
+TAMIL NADU,278,110,Tirunelveli,Shenkottai,Achampudur (TP),TN,False,False,Achampudur (TP),no census village of this name in the stated taluka
+TAMIL NADU,278,116,Tirunelveli,Tenkasi,Kadayanallur Upper Slopes,TN,False,False,Kadayanallur Upper Slopes,no census village of this name in the stated taluka

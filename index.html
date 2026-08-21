@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Western Ghats ESA Atlas — village boundaries of the 2024 draft notification</title>
+<meta name="description" content="Interactive atlas and open data for the Western Ghats Ecologically Sensitive Area draft notification S.O. 3060(E) of 31 July 2024. 4,331 village polygons across six states with census codes, plus GeoJSON, Shapefile, KML and a free JSON API.">
+<link rel="canonical" href="https://nikunjfriends25-droid.github.io/western-ghats-esa/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Western Ghats ESA Atlas">
+<meta property="og:title" content="Western Ghats ESA Atlas — village boundaries of the 2024 draft notification">
+<meta property="og:description" content="4,331 village polygons of the Western Ghats Ecologically Sensitive Area (S.O. 3060(E), 31 July 2024), with census codes, area figures, downloads and a free JSON API.">
+<meta property="og:url" content="https://nikunjfriends25-droid.github.io/western-ghats-esa/">
+<meta property="og:image" content="https://nikunjfriends25-droid.github.io/western-ghats-esa/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Western Ghats ESA Atlas">
+<meta name="twitter:description" content="Village boundaries of the Western Ghats Ecologically Sensitive Area draft notification, 2024. Open data and API.">
+<meta name="twitter:image" content="https://nikunjfriends25-droid.github.io/western-ghats-esa/og.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='13' font-size='13'>🏞️</text></svg>">
+<link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebSite","@id":"https://nikunjfriends25-droid.github.io/western-ghats-esa/#website",
+  "url":"https://nikunjfriends25-droid.github.io/western-ghats-esa/",
+  "name":"Western Ghats ESA Atlas",
+  "description":"Interactive atlas and open data for the Western Ghats Ecologically Sensitive Area draft notification of 2024."},
+ {"@type":"Dataset","@id":"https://nikunjfriends25-droid.github.io/western-ghats-esa/#dataset",
+  "name":"Western Ghats Ecologically Sensitive Area village boundaries (draft, 2024)",
+  "description":"Village-level polygons of the Ecologically Sensitive Area defined by MoEFCC draft notification S.O. 3060(E) dated 31 July 2024, derived by matching the gazette village list to census village boundaries. Includes 2011 Census codes and LGD codes.",
+  "license":"https://creativecommons.org/licenses/by/4.0/",
+  "creator":{"@type":"Person","name":"Nikunj Jambu"},
+  "spatialCoverage":{"@type":"Place","name":"Western Ghats, India"},
+  "distribution":[
+   {"@type":"DataDownload","encodingFormat":"GeoJSON","contentUrl":"https://nikunjfriends25-droid.github.io/western-ghats-esa/downloads/"},
+   {"@type":"DataDownload","encodingFormat":"application/vnd.google-earth.kml+xml","contentUrl":"https://nikunjfriends25-droid.github.io/western-ghats-esa/downloads/"}]}]}
+</script>
+</head>
+<body>
+
+<header id="top">
+  <h1>Western Ghats ESA Atlas</h1>
+  <p class="sub">Village boundaries of the Ecologically Sensitive Area &mdash; draft notification <strong>S.O. 3060(E)</strong>, 31 July 2024</p>
+  <nav><a href="#about">About</a> <a href="#api">API</a> <a href="https://github.com/nikunjfriends25-droid/western-ghats-esa">Source</a></nav>
+</header>
+
+<main id="app">
+  <aside id="panel">
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-tab="explore" role="tab">Explore</button>
+      <button class="tab" data-tab="missing" role="tab">Not mapped</button>
+      <button class="tab" data-tab="get" role="tab">Download</button>
+    </div>
+
+    <section class="tabpane active" data-pane="explore">
+      <label>State
+        <select id="f-state"><option value="">All six states</option></select>
+      </label>
+      <label>District
+        <select id="f-district" disabled><option value="">All districts</option></select>
+      </label>
+      <label>Taluka
+        <select id="f-taluka" disabled><option value="">All talukas</option></select>
+      </label>
+      <label>Find a village
+        <input id="f-search" type="search" placeholder="type a village name" autocomplete="off">
+      </label>
+      <div id="results"></div>
+
+      <div id="stats" class="card"></div>
+
+      <div class="card">
+        <h3>Layers</h3>
+        <label class="chk"><input type="checkbox" id="l-villages" checked> ESA villages</label>
+        <label class="chk"><input type="checkbox" id="l-points"> Gazette boundary points (401)</label>
+        <label class="chk"><input type="checkbox" id="l-kerala"> Kerala official ESA (state KML)</label>
+        <h3>Category</h3>
+        <ul class="legend">
+          <li><i style="background:#2e7d32"></i>Whole village</li>
+          <li><i style="background:#f9a825"></i>Bifurcated &mdash; part only<span class="warn">over-estimate</span></li>
+          <li><i style="background:#00695c"></i>Notified forest</li>
+          <li><i style="background:#5e35b1"></i>Kerala village<span class="warn">portion-wise</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="tabpane" data-pane="missing">
+      <p class="note">Gazette rows with no polygon in this dataset. These are mostly
+      structural &mdash; entries naming two features at once, rows repeated for different
+      survey blocks, or hamlets below census village granularity &mdash; not simple
+      name-matching failures.</p>
+      <div id="missing-summary"></div>
+      <div id="missing-list"></div>
+    </section>
+
+    <section class="tabpane" data-pane="get">
+      <p class="note">Per-state files. Attribute table is identical in every format and
+      includes the 2011 Census code and LGD village code.</p>
+      <div id="downloads"></div>
+      <div class="card">
+        <h3>Everything, all states</h3>
+        <p class="note">Full-resolution GeoPackage (75&nbsp;MB) and merged GeoJSON (52&nbsp;MB)
+        are attached to the latest release rather than served here, to keep the site light.</p>
+        <a class="btn" href="https://github.com/nikunjfriends25-droid/western-ghats-esa/releases/latest">Go to release &rarr;</a>
+        <h3>Reference</h3>
+        <a class="btn" href="downloads/WG_ESA_2024_boundary_points.geojson" download>Boundary points, GeoJSON</a>
+        <a class="btn" href="downloads/WG_ESA_2024_boundary_points.csv" download>Boundary points, CSV</a>
+        <a class="btn" href="downloads/WG_ESA_2024_unmatched.csv" download>Unmapped rows, CSV</a>
+        <a class="btn" href="downloads/METHOD.md">Method &amp; verification notes</a>
+      </div>
+    </section>
+  </aside>
+
+  <div id="mapwrap">
+    <div id="map"></div>
+    <div id="detail" hidden></div>
+    <div id="loading" hidden>Loading&hellip;</div>
+  </div>
+</main>
+
+<section id="about" class="prose">
+  <h2>About this atlas</h2>
+  <p>On 31 July 2024 the Ministry of Environment, Forest and Climate Change published draft
+  notification <strong>S.O. 3060(E)</strong>, listing 4,402 villages across Goa, Gujarat,
+  Karnataka, Kerala, Maharashtra and Tamil Nadu proposed as an Ecologically Sensitive Area
+  in the Western Ghats. The notification names those villages in a table. It does not
+  publish their boundaries.</p>
+  <p>This atlas reconstructs those boundaries. Every village named in Annexure&nbsp;C was
+  matched to its polygon in the all-India census village boundary dataset, giving
+  <strong>4,331 of 4,402 rows (98.4%)</strong> a mapped extent carrying its 2011 Census code.</p>
+
+  <h3>How far can you trust it?</h3>
+  <p>Three independent checks, because a village-name match can be confidently wrong.</p>
+  <ol>
+    <li><strong>Against the gazette's own coordinates.</strong> Annexure&nbsp;B lists 401
+    points on the ESA's outer boundary. Measured against the reconstructed boundary, the
+    median distance is 101&nbsp;m in Goa, 244&nbsp;m in Gujarat and 536&nbsp;m in Karnataka.
+    These are boundary points, so the test is distance to the polygon edge, not whether they
+    fall inside.</li>
+    <li><strong>Against Kerala's own published ESA.</strong> Kerala released its ESA as KML.
+    <strong>98.1%</strong> of that official area falls inside these polygons.</li>
+    <li><strong>Against the notified areas.</strong> Annexure&nbsp;A states an area per state.
+    The reconstruction totals <strong>56,254&nbsp;km²</strong> against a notified
+    <strong>56,826&nbsp;km²</strong> &mdash; a ratio of 0.99.</li>
+  </ol>
+
+  <h3>Where it is weakest</h3>
+  <p>Two limits matter more than the headline numbers.</p>
+  <p><strong>Bifurcated villages are drawn whole.</strong> The gazette marks some villages
+  with an asterisk to mean only part of the village falls inside the ESA. No partial extent is
+  published, so those polygons show the entire village and <em>over-state</em> the area. Only
+  the State Governments' physical-verification maps can resolve them.</p>
+  <p><strong>Kerala is portion-wise by design.</strong> Kerala defines its ESA as portions of
+  villages, which is why its ratio here is 1.30 rather than 1.00. For Kerala, treat the
+  official state KML layer as authoritative and these village polygons as context.</p>
+  <p><strong>Karnataka is the least complete state</strong> at 0.86 of its notified area.</p>
+  <p class="note">This is an independent reconstruction for reference and research. It is not
+  an official record, has no legal standing, and must not be used to determine whether a
+  specific parcel of land falls inside the ESA. For that, consult the notification itself and
+  the relevant State Government.</p>
+
+  <h2 id="api">Using the data programmatically</h2>
+  <p>The API is a tree of static JSON files served over HTTPS with
+  <code>Access-Control-Allow-Origin: *</code>, so you can call it from a browser, a notebook
+  or another site with no key and no rate limit. It is read-only and addressed by path &mdash;
+  there are no query parameters, because there is no server.</p>
+  <table class="api">
+    <tr><th>Endpoint</th><th>Returns</th></tr>
+    <tr><td><code>api/v1/summary.json</code></td><td>Per-state counts, areas and notified comparison</td></tr>
+    <tr><td><code>api/v1/states/{CODE}.json</code></td><td>Every village in a state, attributes only. Codes: GA GJ KA KL MH TN</td></tr>
+    <tr><td><code>api/v1/villages/{censuscode}.json</code></td><td>One village as a GeoJSON Feature, full resolution</td></tr>
+    <tr><td><code>api/v1/boundary-points.json</code></td><td>The 401 Annexure&nbsp;B boundary points</td></tr>
+    <tr><td><code>api/v1/unmatched.json</code></td><td>Gazette rows with no polygon, with a reason for each</td></tr>
+  </table>
+  <pre><code>curl https://nikunjfriends25-droid.github.io/western-ghats-esa/api/v1/villages/626770.json</code></pre>
+
+  <h3>Sources &amp; licence</h3>
+  <p>Gazette text: MoEFCC draft notification S.O. 3060(E), 31 July 2024. Village boundaries and
+  census codes: all-India village boundary dataset. Kerala ESA KML: Government of Kerala.
+  Basemap: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>
+  contributors, tiles by <a href="https://carto.com/attributions">CARTO</a>.
+  This reconstruction is released under
+  <a href="https://creativecommons.org/licenses/by/4.0/">CC&nbsp;BY&nbsp;4.0</a>; the
+  underlying government data remains under its own terms.</p>
+</section>
+
+<footer>
+  <p>Western Ghats ESA Atlas &middot; <span id="ver"></span> &middot;
+  <a href="https://github.com/nikunjfriends25-droid/western-ghats-esa">Source &amp; method on GitHub</a></p>
+</footer>
+
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
