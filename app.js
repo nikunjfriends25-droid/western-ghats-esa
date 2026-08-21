@@ -18,11 +18,23 @@ const CAT_LABEL = {
   notified_forest: 'Notified forest', kerala_village: 'Kerala village (portion-wise)',
   kerala_bifurcated_village: 'Kerala village, bifurcated'
 };
+const CAT_SHORT = {
+  whole_village: 'Whole village', bifurcated_village: 'Bifurcated',
+  notified_forest: 'Notified forest', kerala_village: 'Kerala',
+  kerala_bifurcated_village: 'Kerala, bifurcated'
+};
+const CAT_HELP = {
+  whole_village: 'The entire revenue village lies inside the ESA.',
+  bifurcated_village: 'Gazette marks * — only part of the village is inside. The polygon is the whole village and over-states the ESA.',
+  notified_forest: 'A Reserve Forest or forest block rather than a revenue village.',
+  kerala_village: 'Kerala defines its ESA as village portions; this polygon is the whole village.',
+  kerala_bifurcated_village: 'Kerala row also marked * in the gazette.'
+};
 const $ = s => document.querySelector(s);
 const fmt = n => n == null ? '—' : n.toLocaleString('en-IN',
   { maximumFractionDigits: n < 100 ? 2 : 0 });
 
-const state = { rows: [], byCode: new Map(), summary: null, sel: null, filtered: [] };
+const state = { rows: [], byCode: new Map(), summary: null, filtered: [], cats: new Set() };
 const busy = (on, msg) => { const l = $('#loading'); l.hidden = !on; if (msg) l.textContent = msg; };
 
 /* ---------------- map ---------------- */
@@ -63,7 +75,7 @@ map.addControl(new maplibregl.AttributionControl({ compact: true }));
       state.rows.push(r);
       if (r.censuscode) state.byCode.set(String(r.censuscode), r);
     }));
-    buildFilters(); buildDownloads(); loadMissing(); applyFilter();
+    buildFilters(); buildCats(); buildDownloads(); loadMissing(); applyFilter();
     $('#ver').textContent = `${summary.version} · ${fmt(summary.matched)} villages`;
     busy(false);
   } catch (e) {
@@ -157,9 +169,9 @@ async function openVillage(code) {
   d.innerHTML = `
     <button class="close" aria-label="Close">&times;</button>
     <h3>${esc(p.gz_village)}</h3>
-    <div class="note">${esc(p.gz_taluka)}, ${esc(p.gz_district)}, ${esc(p.gz_state)}</div>
+    <div class="sub">${esc(p.gz_taluka)}, ${esc(p.gz_district)}, ${esc(p.gz_state)}</div>
     <span class="badge" style="background:${COLOR[p.esa_category] || '#777'}">${CAT_LABEL[p.esa_category] || p.esa_category}</span>
-    <dl>
+    <dl class="kv">
       <dt>Area</dt><dd>${fmt(p.area_km2)} km²</dd>
       <dt>Gazette S.No.</dt><dd>${esc(p.gz_sno)}</dd>
       <dt>Census name</dt><dd>${esc(p.cen_village)}</dd>
@@ -218,6 +230,7 @@ function applyFilter() {
   if (q) rows = rows.filter(r =>
     String(r.gz_village).toLowerCase().includes(q) ||
     String(r.cen_village || '').toLowerCase().includes(q));
+  if (state.cats.size) rows = rows.filter(r => state.cats.has(r.esa_category));
   state.filtered = rows;
 
   const codes = rows.map(r => String(r.censuscode)).filter(c => c && c !== 'null');
@@ -249,10 +262,11 @@ function renderResults(rows) {
   const box = $('#results');
   if (rows.length === state.rows.length) { box.innerHTML = ''; return; }
   box.innerHTML = rows.slice(0, 250).map(r =>
-    `<div class="hit" tabindex="0" data-c="${esc(r.censuscode)}">${esc(r.gz_village)}
-      <small>${esc(r.gz_taluka)}, ${esc(r.gz_district)} · ${fmt(r.area_km2)} km²</small></div>`
+    `<div class="hit" tabindex="0" role="button" data-c="${esc(r.censuscode)}">
+       <b>${esc(r.gz_village)}</b>
+       <small>${esc(r.gz_taluka)}, ${esc(r.gz_district)} · ${fmt(r.area_km2)} km²</small></div>`
   ).join('') + (rows.length > 250
-    ? `<div class="note">…and ${fmt(rows.length - 250)} more. Narrow the filter.</div>` : '');
+    ? `<div class="more">…and ${fmt(rows.length - 250)} more. Narrow the filter.</div>` : '');
   box.querySelectorAll('.hit').forEach(el => {
     const go = () => openVillage(el.dataset.c);
     el.onclick = go;
@@ -262,66 +276,104 @@ function renderResults(rows) {
 
 function renderStats(rows, st) {
   const area = rows.reduce((a, r) => a + (r.area_km2 || 0), 0);
-  const s = state.summary;
-  let notified = null, unmatched = null;
-  if (st) { const e = s.states.find(x => x.state === st); notified = e.notified_km2; unmatched = e.unmatched; }
-  else { notified = s.states.reduce((a, x) => a + x.notified_km2, 0);
-         unmatched = s.states.reduce((a, x) => a + x.unmatched, 0); }
-  const showRatio = rows.length === (st
-    ? s.states.find(x => x.state === st).villages : s.matched);
-  const pct = showRatio && notified ? Math.min(100, area / notified * 100) : null;
-  $('#stats').innerHTML = `
-    <h3>${st ? st.replace('TAMIL NADU', 'Tamil Nadu') : 'All six states'}</h3>
-    <div class="statrow"><span>Villages shown</span><b>${fmt(rows.length)}</b></div>
-    <div class="statrow"><span>Mapped area</span><b>${fmt(area)} km²</b></div>
-    ${showRatio ? `
-      <div class="statrow"><span>Notified area</span><b>${fmt(notified)} km²</b></div>
-      <div class="bar"><span style="width:${pct}%"></span></div>
-      <div class="note">${(area / notified * 100).toFixed(0)}% of the area stated in Annexure A.
-        ${fmt(unmatched)} gazette row${unmatched === 1 ? '' : 's'} not mapped.</div>`
-      : `<div class="note">Filtered selection — area is the sum of the villages shown.</div>`}`;
+  const sum = state.summary;
+  const whole = !st && !state.cats.size &&
+    rows.length === sum.matched;
+  const stateWhole = st && !state.cats.size &&
+    rows.length === sum.states.find(x => x.state === st).villages;
+  const notified = st ? sum.states.find(x => x.state === st).notified_km2
+                      : sum.states.reduce((a, x) => a + x.notified_km2, 0);
+  const unmapped = st ? sum.states.find(x => x.state === st).unmatched
+                      : sum.states.reduce((a, x) => a + x.unmatched, 0);
+  const comparable = whole || stateWhole;
+  const ratio = area / notified;
+
+  $('#metrics').innerHTML = `
+    <div class="metric"><div class="k">Villages</div><div class="v">${fmt(rows.length)}</div></div>
+    <div class="metric"><div class="k">Mapped area</div>
+      <div class="v">${fmt(area)}<small>km²</small></div></div>
+    ${comparable ? `
+      <div class="metric wide">
+        <div class="k">Against Annexure A</div>
+        <div class="v">${(ratio * 100).toFixed(0)}<small>% of ${fmt(notified)} km² notified</small></div>
+        <div class="bar"><i style="width:${Math.min(100, ratio * 100)}%"></i></div>
+        <p class="hint">${fmt(unmapped)} gazette row${unmapped === 1 ? '' : 's'} in
+          ${st ? 'this state' : 'the notification'} could not be mapped.</p>
+      </div>`
+    : `<div class="metric wide"><div class="k">Filtered subset</div>
+         <p class="hint">Area is the sum of the ${fmt(rows.length)} village${rows.length === 1 ? '' : 's'}
+         shown. Clear the filters to compare against the notified area.</p></div>`}`;
+}
+
+/* ---------------- zone category chips ---------------- */
+function buildCats() {
+  const counts = {};
+  state.rows.forEach(r => counts[r.esa_category] = (counts[r.esa_category] || 0) + 1);
+  const order = ['whole_village', 'bifurcated_village', 'notified_forest',
+                 'kerala_village', 'kerala_bifurcated_village'];
+  $('#cats').innerHTML = order.filter(c => counts[c]).map(c =>
+    `<button class="chip" data-cat="${c}" aria-pressed="false" title="${CAT_HELP[c] || ''}">
+       <i class="sw" style="background:${COLOR[c]}"></i>${CAT_SHORT[c]}
+       <span class="n">${fmt(counts[c])}</span></button>`).join('');
+  $('#cats').querySelectorAll('.chip').forEach(b => b.onclick = () => {
+    const c = b.dataset.cat;
+    if (state.cats.has(c)) state.cats.delete(c); else state.cats.add(c);
+    syncCats(); applyFilter();
+  });
+  syncCats();
+}
+function syncCats() {
+  const none = state.cats.size === 0;
+  $('#cats').querySelectorAll('.chip').forEach(b =>
+    b.setAttribute('aria-pressed', String(none || state.cats.has(b.dataset.cat))));
+  $('#cat-hint').textContent = none
+    ? 'All categories shown. Click one to isolate it.'
+    : `Showing ${[...state.cats].map(c => CAT_SHORT[c]).join(', ')} only. Click again to clear.`;
 }
 
 /* ---------------- layers ---------------- */
-$('#l-villages').onchange = e => ['v-fill', 'v-line'].forEach(l =>
-  map.getLayer(l) && map.setLayoutProperty(l, 'visibility', e.target.checked ? 'visible' : 'none'));
+const press = (el, on) => el.setAttribute('aria-pressed', String(on));
 
-$('#l-points').onchange = async e => {
-  if (e.target.checked && !map.getSource('pts')) {
+$('#l-points').onclick = async () => {
+  const el = $('#l-points'), on = el.getAttribute('aria-pressed') !== 'true';
+  press(el, on);
+  if (!state.mapReady) return;
+  if (on && !map.getSource('pts')) {
     busy(true, 'Loading boundary points…');
     map.addSource('pts', { type: 'geojson', data: await fetch('data/points.geojson').then(r => r.json()) });
     map.addLayer({ id: 'pts', type: 'circle', source: 'pts',
       paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 5, 2.6, 12, 6],
-               'circle-color': '#c62828', 'circle-stroke-color': '#fff', 'circle-stroke-width': 1 } });
+               'circle-color': '#c2382f', 'circle-stroke-color': '#fff', 'circle-stroke-width': 1.2 } });
     map.on('click', 'pts', ev => {
       const p = ev.features[0].properties;
-      new maplibregl.Popup({ closeButton: true })
-        .setLngLat(ev.lngLat)
-        .setHTML(`<b>Annexure B point ${esc(p.point)}</b><br>${esc(p.state)}<br>
-                  ${(+p.lat).toFixed(4)}, ${(+p.lon).toFixed(4)}<br>
-                  <small>gazette page ${esc(p.page)}</small>`)
-        .addTo(map);
+      new maplibregl.Popup().setLngLat(ev.lngLat).setHTML(
+        `<b>Annexure B point ${esc(p.point)}</b><br>${esc(p.state)}<br>
+         ${(+p.lat).toFixed(4)}, ${(+p.lon).toFixed(4)}<br>
+         <small>gazette page ${esc(p.page)}</small>`).addTo(map);
     });
     busy(false);
   } else if (map.getLayer('pts')) {
-    map.setLayoutProperty('pts', 'visibility', e.target.checked ? 'visible' : 'none');
+    map.setLayoutProperty('pts', 'visibility', on ? 'visible' : 'none');
   }
 };
 
-$('#l-kerala').onchange = async e => {
-  if (e.target.checked && !map.getSource('kl')) {
+$('#l-kerala').onclick = async () => {
+  const el = $('#l-kerala'), on = el.getAttribute('aria-pressed') !== 'true';
+  press(el, on);
+  if (!state.mapReady) return;
+  if (on && !map.getSource('kl')) {
     busy(true, 'Loading Kerala official ESA…');
     try {
       map.addSource('kl', { type: 'geojson', data: await fetch('data/kerala_official.geojson').then(r => r.json()) });
       map.addLayer({ id: 'kl-fill', type: 'fill', source: 'kl',
-        paint: { 'fill-color': '#0277bd', 'fill-opacity': 0.3 } }, 'v-line');
+        paint: { 'fill-color': '#0277bd', 'fill-opacity': 0.32 } }, 'v-line');
       map.addLayer({ id: 'kl-line', type: 'line', source: 'kl',
-        paint: { 'line-color': '#01579b', 'line-width': 1.3 } });
+        paint: { 'line-color': '#01579b', 'line-width': 1.4 } });
     } catch (err) { console.error(err); }
     busy(false);
   } else {
     ['kl-fill', 'kl-line'].forEach(l => map.getLayer(l) &&
-      map.setLayoutProperty(l, 'visibility', e.target.checked ? 'visible' : 'none'));
+      map.setLayoutProperty(l, 'visibility', on ? 'visible' : 'none'));
   }
 };
 
@@ -330,37 +382,43 @@ async function loadMissing() {
   const d = await fetch('api/v1/unmatched.json').then(r => r.json());
   const by = {};
   d.rows.forEach(r => { (by[r.state] = by[r.state] || []).push(r); });
+  const pct = state.summary.matched / state.summary.gazette_rows * 100;
   $('#missing-summary').innerHTML = `
-    <div class="card"><div class="statrow"><span>Gazette rows</span><b>${fmt(state.summary.gazette_rows)}</b></div>
-    <div class="statrow"><span>Mapped</span><b>${fmt(state.summary.matched)}</b></div>
-    <div class="statrow"><span>Not mapped</span><b>${fmt(d.count)}</b></div>
-    <div class="bar"><span style="width:${state.summary.matched / state.summary.gazette_rows * 100}%"></span></div>
-    <div class="note">${(state.summary.matched / state.summary.gazette_rows * 100).toFixed(1)}% of gazette rows have a polygon.</div></div>`;
+    <div class="metrics">
+      <div class="metric"><div class="k">Gazette rows</div><div class="v">${fmt(state.summary.gazette_rows)}</div></div>
+      <div class="metric"><div class="k">Not mapped</div><div class="v">${fmt(d.count)}</div></div>
+      <div class="metric wide"><div class="k">Coverage</div>
+        <div class="v">${pct.toFixed(1)}<small>% of rows have a polygon</small></div>
+        <div class="bar"><i style="width:${pct}%"></i></div></div>
+    </div>`;
   $('#missing-list').innerHTML = Object.entries(by).sort((a, b) => b[1].length - a[1].length)
-    .map(([st, rs]) => `<div class="card"><h3>${esc(st)} — ${rs.length}</h3>` +
+    .map(([st, rs]) => `<div class="block"><h3>${esc(st)} — ${rs.length}</h3>` +
       rs.map(r => `<div class="miss"><b>${esc(r.village)}</b>
         <small>${esc(r.taluka)}, ${esc(r.district)} · S.No. ${esc(r.sno)}</small>
-        <small>${esc(r.reason)}</small></div>`).join('') + '</div>').join('');
+        <small class="why">${esc(r.reason)}</small></div>`).join('') + '</div>').join('');
 }
 
 /* ---------------- downloads ---------------- */
 function buildDownloads() {
-  $('#downloads').innerHTML = state.summary.states.map(s => `
-    <div class="dlgroup">
-      <h3>${esc(s.state === 'TAMIL NADU' ? 'Tamil Nadu' : s.state)}</h3>
-      <p>${fmt(s.villages)} villages · ${fmt(s.area_km2)} km²</p>
+  $('#downloads').innerHTML = state.summary.states.map(s => {
+    const name = s.state === 'TAMIL NADU' ? 'Tamil Nadu'
+      : s.state[0] + s.state.slice(1).toLowerCase();
+    return `<div class="dl">
+      <header><h4>${name}</h4>
+        <span class="meta">${fmt(s.villages)} villages · ${fmt(s.area_km2)} km²</span></header>
       <div class="dlrow">
         <a href="downloads/WG_ESA_2024_${s.code}.geojson" download>GeoJSON</a>
         <a href="downloads/WG_ESA_2024_${s.code}_shapefile.zip" download>Shapefile</a>
         <a href="downloads/WG_ESA_2024_${s.code}.kml" download>KML</a>
         <a href="downloads/WG_ESA_2024_${s.code}.csv" download>CSV</a>
-      </div>
-    </div>`).join('');
+      </div></div>`;
+  }).join('');
 }
 
 /* ---------------- tabs ---------------- */
 document.querySelectorAll('.tab').forEach(t => t.onclick = () => {
-  document.querySelectorAll('.tab').forEach(x => x.classList.toggle('active', x === t));
-  document.querySelectorAll('.tabpane').forEach(p =>
-    p.classList.toggle('active', p.dataset.pane === t.dataset.tab));
+  document.querySelectorAll('.tab').forEach(x =>
+    x.setAttribute('aria-selected', String(x === t)));
+  document.querySelectorAll('.pane').forEach(p =>
+    p.toggleAttribute('data-active', p.dataset.pane === t.dataset.tab));
 });
