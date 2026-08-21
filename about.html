@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Method &amp; caveats — Western Ghats ESA Atlas</title>
+<meta name="description" content="How the Western Ghats ESA village boundaries were reconstructed from the 2024 draft notification, how they were verified three independent ways, and where the reconstruction is weakest.">
+<link rel="canonical" href="https://nikunjfriends25-droid.github.io/western-ghats-esa/about.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Western Ghats ESA Atlas">
+<meta property="og:title" content="Method &amp; caveats — Western Ghats ESA Atlas">
+<meta property="og:description" content="How the Western Ghats ESA village boundaries were reconstructed, verified, and where they are weakest.">
+<meta property="og:url" content="https://nikunjfriends25-droid.github.io/western-ghats-esa/about.html">
+<meta property="og:image" content="https://nikunjfriends25-droid.github.io/western-ghats-esa/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nikunjfriends25-droid.github.io/western-ghats-esa/og.png">
+<meta name="author" content="Nikunj Jambu">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='13' font-size='13'>🏞️</text></svg>">
+<link href="style.css" rel="stylesheet">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="mark">🏞️</span>
+    <h1>Western Ghats ESA Atlas</h1>
+    <span class="tag">Method &amp; caveats</span>
+  </div>
+  <nav>
+    <a href="index.html" class="cta">Open the atlas</a>
+    <a href="api.html">API</a>
+    <a href="https://github.com/nikunjfriends25-droid/western-ghats-esa">GitHub</a>
+  </nav>
+</header>
+
+<div class="docwrap">
+<nav class="docnav">
+  <h4>Contents</h4>
+  <ol>
+    <li><a href="#what">What this is</a></li>
+    <li><a href="#extract">Reading the gazette</a></li>
+    <li><a href="#match">Matching names to polygons</a></li>
+    <li><a href="#verify">Three verifications</a></li>
+    <li><a href="#limits">Where it is weakest</a></li>
+    <li><a href="#zones">Why there are no zones</a></li>
+    <li><a href="#cats">What the categories mean</a></li>
+    <li><a href="#sources">Sources &amp; licence</a></li>
+  </ol>
+  <div class="back"><a href="index.html">&larr; Back to the atlas</a></div>
+</nav>
+<main class="doc">
+  <h2 id="what">What this is</h2>
+  <p class="lede">On 31 July 2024 the Ministry of Environment, Forest and Climate Change
+  published draft notification <strong><a href="https://moef.gov.in/storage/tender/1723024218.pdf">S.O. 3060(E)</a></strong>
+  (<a href="https://moef.gov.in/storage/tender/1723024218.pdf">PDF, 4.9&nbsp;MB, 279 pages</a>), listing 4,402 villages across
+  Goa, Gujarat, Karnataka, Kerala, Maharashtra and Tamil Nadu proposed as an Ecologically
+  Sensitive Area in the Western Ghats. The notification names those villages in a table.
+  It does not publish their boundaries.</p>
+  <p>This atlas reconstructs them. Every village named in Annexure&nbsp;C was matched to its
+  polygon in the all-India census village boundary dataset, giving
+  <strong>4,331 of 4,402 rows (98.4%)</strong> a mapped extent carrying its 2011 Census code
+  and LGD code.</p>
+
+  <h2 id="extract">Reading the gazette</h2>
+  <p>The village list and the boundary coordinates are read directly from the text layer of the
+  notification published by MoEFCC, so every name and every coordinate is taken exactly as
+  printed rather than recognised from an image.</p>
+  <p><a class="btn primary" href="https://moef.gov.in/storage/tender/1723024218.pdf">Download the notification &mdash; PDF, 4.9&nbsp;MB &darr;</a></p>
+  <p class="hint">279 pages, hosted by MoEFCC at
+  <code>moef.gov.in/storage/tender/1723024218.pdf</code>. Everything in this atlas is derived
+  from that file.</p>
+  <p>Two checks confirm nothing was dropped in the reading. All six state serial runs reconcile
+  exactly and contiguously — Goa 108, Gujarat 64, Karnataka 1,449, Kerala 131,
+  Maharashtra 2,515, Tamil Nadu 135, giving <strong>4,402 rows</strong>, which is the count the
+  notification itself states. Annexure&nbsp;B yields <strong>401 boundary points</strong>, and
+  all 402 coordinate pairs printed in it are accounted for: the single one excluded is a typo in
+  the gazette, Karnataka point 45, which reads 71.2007,&nbsp;31.6736 — a location in Punjab,
+  some 2,000&nbsp;km from the Western Ghats.</p>
+
+  <h2 id="match">Matching names to polygons</h2>
+  <p>Village names were matched to census records hierarchically — district and taluka first,
+  then district, then state-wide — under a strict <strong>1:1 constraint</strong>, so no polygon
+  is ever assigned to two gazette rows.</p>
+  <p>Three things made the difference over a naive fuzzy match:</p>
+  <ul>
+    <li>Each census village offers <strong>three romanised spellings</strong>
+      (<code>name</code>, <code>censusname</code>, <code>lgd_villagename</code>) as match aliases.</li>
+    <li>Both sides are additionally compared under a <strong>transliteration folding</strong>
+      (<code>oo→u</code>, <code>ee→i</code>, doubled consonants collapsed, trailing vowels
+      dropped). Without it, <em>Marayur</em> against <em>Marayoor</em> scores only 80 and is
+      rejected; with it, the pair is effectively identical.</li>
+    <li>Thresholds scale with how much the search was narrowed. District-plus-taluka already
+      cuts the pool to a handful of villages — Devikulam taluka has twelve — so it runs a looser
+      threshold (72) than a district-wide (85) or state-wide (93) search.</li>
+  </ul>
+
+  <div class="callout">
+    <p><strong>A name can match perfectly in the wrong place.</strong> The gazette's
+    <em>Khadi</em> in Surat scored a perfect 100 against <em>Khada</em> in Junagadh — 295&nbsp;km
+    away in Saurashtra, nowhere near the Western Ghats. Raigad's <em>Wandoli</em> matched a
+    village in Gadchiroli, 631&nbsp;km across Maharashtra.</p>
+    <p>So a geographic gate is applied: villages matched at district-and-taluka scope define
+    each state's ESA core, and any wider-scope match landing more than 50&nbsp;km outside that
+    core is rejected and retried against its remaining candidates. Thirty outliers were caught;
+    twenty-three found a correct nearer village instead. No match now sits beyond 50&nbsp;km of
+    its state core.</p>
+  </div>
+
+  <h2 id="verify">Three independent verifications</h2>
+  <p>A village-name match can be confidently wrong, so the result is checked three ways that do
+  not share a failure mode.</p>
+
+  <h3>1 · Against the gazette's own coordinates</h3>
+  <p>Annexure&nbsp;B lists 401 "prominent points on the outer boundary" of the ESA. These are
+  <em>boundary</em> points, so the correct test is how far each lies from the edge of the
+  reconstructed polygon — not whether it falls inside. A point sitting exactly on a boundary is
+  a coin-flip for a point-in-polygon test, and roughly half of them do fall inside, which is
+  the expected signature.</p>
+  <table>
+    <tr><th>State</th><th>Points</th><th>Median distance</th><th>Within 2 km</th><th>Within 5 km</th></tr>
+    <tr><td>Goa</td><td>39</td><td><strong>101 m</strong></td><td>39</td><td>39</td></tr>
+    <tr><td>Gujarat</td><td>61</td><td><strong>244 m</strong></td><td>60</td><td>61</td></tr>
+    <tr><td>Tamil Nadu</td><td>109</td><td>404 m</td><td>94</td><td>101</td></tr>
+    <tr><td>Maharashtra</td><td>135</td><td>495 m</td><td>127</td><td>135</td></tr>
+    <tr><td>Karnataka</td><td>57</td><td>536 m</td><td>48</td><td>56</td></tr>
+  </table>
+  <p>Goa's median of 101&nbsp;m is finer than the census village boundaries' own positional
+  accuracy, so the reconstructed edge is effectively the edge the gazette describes.</p>
+
+  <h3>2 · Against Kerala's own published ESA</h3>
+  <p>Kerala released its ESA as KML. <strong>98.1%</strong> of that official area falls inside
+  these polygons; 67 of its 98 polygons are more than 99% covered and 86 are more than 95%
+  covered. Reverse coverage is only 66.7% — which is expected, not a failure, because Kerala's
+  ESA is defined as village <em>portions</em> while this atlas holds whole villages.</p>
+
+  <h3>3 · Against the notified areas</h3>
+  <p>Annexure&nbsp;A states an area per state, giving a third check that is independent of both
+  geometry sources.</p>
+  <table>
+    <tr><th>State</th><th>Reconstructed km²</th><th>Notified km²</th><th>Ratio</th></tr>
+    <tr><td>Maharashtra</td><td>17,117</td><td>17,340</td><td><strong>0.99</strong></td></tr>
+    <tr><td>Goa</td><td>1,436</td><td>1,461</td><td><strong>0.98</strong></td></tr>
+    <tr><td>Gujarat</td><td>464</td><td>449</td><td>1.03</td></tr>
+    <tr><td>Tamil Nadu</td><td>6,422</td><td>6,914</td><td>0.93</td></tr>
+    <tr><td>Karnataka</td><td>17,785</td><td>20,668</td><td>0.86</td></tr>
+    <tr><td>Kerala</td><td>13,030</td><td>9,994</td><td>1.30</td></tr>
+    <tr><td><strong>Total</strong></td><td><strong>56,254</strong></td><td><strong>56,826</strong></td><td><strong>0.99</strong></td></tr>
+  </table>
+  <p>The three checks improved together across successive revisions of the method, which is the
+  reassuring part: a matching rule loose enough to invent false pairings would push polygons to
+  wrong places and degrade checks 1 and 2 even while the match count rose.</p>
+
+  <h2 id="limits">Where it is weakest</h2>
+
+  <div class="callout warn">
+    <p><strong>Bifurcated villages are drawn whole.</strong> The gazette marks some villages
+    with an asterisk, meaning only part of the village falls inside the ESA. No partial extent
+    is published anywhere, so those polygons show the <em>entire</em> village and therefore
+    <strong>over-state</strong> the ESA. Only the State Governments' physical-verification maps
+    can resolve them. The atlas flags every such village when you open it.</p>
+  </div>
+
+  <p><strong>Kerala is portion-wise by design.</strong> This is why Kerala's ratio is 1.30
+  rather than 1.00 — it is not an error in the matching. For Kerala, treat the official state
+  KML layer as authoritative and these village polygons as context. You can overlay the
+  official layer directly in the atlas.</p>
+
+  <p><strong>Karnataka is the least complete state</strong>, at 0.86 of its notified area, with
+  19 rows unmapped. Its census transliterations diverge from the gazette's more than any other
+  state's.</p>
+
+  <p><strong>The 71 unmapped rows are mostly structural.</strong> They are composite cells
+  naming two features at once (<code>Amravathi R.F./Anamalai R.F.</code>), gazette rows repeated
+  for different survey blocks (<code>Valparai (TP)</code> appears four times, and the 1:1
+  constraint gives the polygon to the first occurrence), placeholder text
+  (<code>Area Under Forest</code>), and small Raigad hamlets below census village granularity.
+  The full list, with a reason for each, is in the atlas under "Not mapped".</p>
+
+  <div class="callout warn">
+    <p><strong>This is not an official record.</strong> It is an independent reconstruction for
+    reference and research, with no legal standing. It must not be used to determine whether a
+    specific parcel of land falls inside the ESA. For that, consult the notification itself and
+    the relevant State Government.</p>
+  </div>
+
+  <h2 id="zones">Why there are no Zone 1/2/3</h2>
+  <p>A common expectation is that the Western Ghats ESA is graded into Zone&nbsp;1, Zone&nbsp;2 and
+  Zone&nbsp;3. It is not — and the distinction matters if you are comparing this atlas against
+  older maps or reports.</p>
+  <p>The graded scheme comes from the <strong>Western Ghats Ecology Expert Panel</strong> (the
+  Gadgil report, 2011), which proposed dividing the range into <strong>ESZ&nbsp;1, ESZ&nbsp;2 and
+  ESZ&nbsp;3</strong> with progressively lighter restrictions. <strong>That scheme was never
+  notified.</strong></p>
+  <p>What followed was the <strong>High Level Working Group</strong> (the Kasturirangan report,
+  submitted 15&nbsp;April&nbsp;2013), which the 2024 draft notification is built on. It took a
+  different approach: rather than grading the whole range, it identified roughly
+  <strong>37% of the Western Ghats — 59,940&nbsp;km² of natural landscape</strong> — as a single
+  continuous ecologically sensitive band, and left everything outside it unclassified.</p>
+  <p>So S.O.&nbsp;3060(E) defines <strong>one undivided ESA</strong>. Searching the full
+  279-page notification for zone terminology returns nothing: the only occurrences of "ESZ" are
+  an email address (<code>esz-mef@nic.in</code>) and the file number
+  <code>F.No.1/04/2012-ESZ-RE</code>. The only "categories" it names are categories of
+  <em>projects and activities</em> that are prohibited or regulated, and the CPCB's
+  Red/Orange/White <em>industry</em> categories — neither of which is spatial.</p>
+  <div class="callout">
+    <p>Consequently the categories in this atlas are <strong>not statutory zones</strong>. They
+    record how each village was mapped and how much to trust its extent — nothing about
+    differing levels of legal protection. Every village shown is subject to the same single set
+    of ESA restrictions.</p>
+  </div>
+
+  <h2 id="cats">What the categories mean</h2>
+  <table>
+    <tr><th>Category</th><th>Count</th><th>Meaning</th></tr>
+    <tr><td>Whole village</td><td>4,131</td><td>The entire revenue village lies in the ESA</td></tr>
+    <tr><td>Kerala village</td><td>122</td><td>Kerala row; the state defines its ESA portion-wise</td></tr>
+    <tr><td>Notified forest</td><td>51</td><td>Reserve Forests and forest blocks rather than revenue villages</td></tr>
+    <tr><td>Bifurcated</td><td>26</td><td>Gazette marks <code>*</code> — part only; polygon over-states</td></tr>
+    <tr><td>Kerala, bifurcated</td><td>1</td><td>Both of the above</td></tr>
+  </table>
+
+  <h2 id="sources">Sources &amp; licence</h2>
+  <p>Gazette text: MoEFCC draft notification
+  <a href="https://moef.gov.in/storage/tender/1723024218.pdf">S.O.&nbsp;3060(E), 31&nbsp;July&nbsp;2024</a> (PDF, 4.9&nbsp;MB).
+  Village boundaries and census codes: all-India village boundary dataset.
+  Kerala ESA KML: Government of Kerala. Basemap:
+  © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors,
+  tiles by <a href="https://carto.com/attributions">CARTO</a>.</p>
+  <p>This reconstruction is released under
+  <a href="https://creativecommons.org/licenses/by/4.0/">CC&nbsp;BY&nbsp;4.0</a>. The underlying
+  government data remains under its own terms. Compiled and maintained by
+  <strong>Nikunj Jambu</strong>.</p>
+</main>
+</div>
+
+<footer class="footer">
+  <span class="who">Compiled &amp; maintained by <b>Nikunj Jambu</b></span>
+  <span class="right">
+    <a href="index.html">Open the atlas</a>
+    <a href="api.html">API</a>
+    <a href="https://github.com/nikunjfriends25-droid/western-ghats-esa">Source</a>
+  </span>
+</footer>
+<script src="doc.js"></script>
+</body>
+</html>

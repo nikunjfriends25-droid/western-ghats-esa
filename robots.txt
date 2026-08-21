@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nikunjfriends25-droid.github.io/western-ghats-esa/sitemap.xml

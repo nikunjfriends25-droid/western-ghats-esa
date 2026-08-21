@@ -1,0 +1,240 @@
+:root{
+  --bg:#eef1ec; --surface:#fff; --surface-2:#f7f9f6; --ink:#12150f; --ink-2:#4a5247;
+  --muted:#79826f; --line:#dbe1d6; --line-2:#c9d2c3;
+  --accent:#2f6d3a; --accent-2:#e8f2e6; --accent-ink:#fff;
+  --whole:#3f8f4a; --bifur:#d99215; --forest:#1d7a72; --kerala:#6a4fbb; --point:#c2382f;
+  --shadow:0 1px 2px rgba(18,21,15,.06),0 8px 24px -8px rgba(18,21,15,.14);
+  --r:10px; --rail:330px;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#10130f; --surface:#191d18; --surface-2:#20251f; --ink:#e9ece6; --ink-2:#b3bcaf;
+    --muted:#7f8a7a; --line:#2a302a; --line-2:#3a423a; --accent:#7fc08a; --accent-2:#1e2a1f;
+    --accent-ink:#0d1a0e; --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -10px rgba(0,0,0,.6);}
+}
+*{box-sizing:border-box}
+html{height:100%}
+body{min-height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:14.5px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{line-height:1.2;margin:0;font-weight:650;letter-spacing:-.01em}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px}
+button{font:inherit}
+
+/* ---------- shell ---------- */
+.shell{display:grid;grid-template-rows:auto 1fr auto;height:100vh}
+
+.topbar{display:flex;align-items:center;gap:1rem;padding:.55rem 1rem;
+  background:var(--surface);border-bottom:1px solid var(--line);z-index:20}
+.brand{display:flex;align-items:baseline;gap:.55rem;min-width:0}
+.brand .mark{width:26px;height:26px;border-radius:7px;background:var(--accent);
+  color:var(--accent-ink);display:grid;place-items:center;font-size:.9rem;flex:0 0 auto;
+  align-self:center}
+.brand h1{font-size:1rem;white-space:nowrap}
+.brand .tag{font-size:.76rem;color:var(--muted);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis}
+.topbar nav{margin-left:auto;display:flex;gap:.15rem;align-items:center}
+.topbar nav a{padding:.35rem .6rem;border-radius:7px;font-size:.83rem;
+  color:var(--ink-2);text-decoration:none}
+.topbar nav a:hover{background:var(--surface-2);color:var(--ink)}
+.topbar nav a.cta{background:var(--accent);color:var(--accent-ink)}
+.topbar nav a.cta:hover{filter:brightness(1.06)}
+
+.work{display:grid;grid-template-columns:var(--rail) 1fr;min-height:0}
+.rail{background:var(--surface);border-right:1px solid var(--line);
+  overflow-y:auto;display:flex;flex-direction:column;min-height:0}
+.stage{position:relative;min-width:0}
+#map{position:absolute;inset:0;background:var(--surface-2)}
+
+/* ---------- tabs ---------- */
+.tabs{display:flex;gap:.15rem;padding:.5rem .6rem 0;position:sticky;top:0;
+  background:var(--surface);z-index:6;border-bottom:1px solid var(--line)}
+.tab{flex:1;padding:.5rem .3rem .6rem;border:0;background:none;cursor:pointer;
+  color:var(--muted);font-size:.82rem;border-bottom:2px solid transparent;
+  border-radius:6px 6px 0 0}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected=true]{color:var(--ink);font-weight:650;border-bottom-color:var(--accent)}
+.pane{display:none;padding:.85rem}
+.pane[data-active]{display:block}
+
+/* ---------- controls ---------- */
+.field{margin:0 0 .65rem}
+.field>span{display:block;font-size:.73rem;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--muted);margin-bottom:.25rem;font-weight:600}
+select,input[type=search]{width:100%;padding:.46rem .55rem;border:1px solid var(--line-2);
+  border-radius:8px;background:var(--surface-2);color:var(--ink);font:inherit;font-size:.88rem}
+select:focus,input:focus{outline:2px solid var(--accent);outline-offset:-1px}
+select:disabled{opacity:.45}
+
+.block{margin:1rem 0 0;padding-top:.85rem;border-top:1px solid var(--line)}
+.block:first-child{margin-top:0;padding-top:0;border-top:0}
+.block>h3{font-size:.73rem;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--muted);margin-bottom:.5rem}
+
+/* category + layer chips */
+.chips{display:flex;flex-wrap:wrap;gap:.3rem}
+.chip{display:inline-flex;align-items:center;gap:.4rem;padding:.32rem .55rem;
+  border:1px solid var(--line-2);border-radius:99px;background:var(--surface-2);
+  color:var(--ink-2);font-size:.78rem;cursor:pointer;user-select:none;line-height:1.3}
+.chip:hover{border-color:var(--accent)}
+.chip .sw{width:9px;height:9px;border-radius:50%;flex:0 0 auto;box-shadow:0 0 0 2px var(--surface)}
+.chip .n{color:var(--muted);font-variant-numeric:tabular-nums;font-size:.72rem}
+.chip[aria-pressed=true]{background:var(--accent-2);border-color:var(--accent);color:var(--ink);font-weight:600}
+.chip[aria-pressed=false]{opacity:.5}
+.chip[aria-pressed=false] .sw{background:var(--muted)!important}
+
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:.4rem}
+.metric{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r);
+  padding:.5rem .6rem}
+.metric .k{font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.metric .v{font-size:1.15rem;font-weight:660;font-variant-numeric:tabular-nums;
+  letter-spacing:-.02em;margin-top:.05rem}
+.metric .v small{font-size:.62em;font-weight:500;color:var(--muted);margin-left:.15em}
+.metric.wide{grid-column:1/-1}
+.bar{height:6px;border-radius:99px;background:var(--line);overflow:hidden;margin:.45rem 0 .3rem}
+.bar>i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.hint{font-size:.75rem;color:var(--muted);margin:.3rem 0 0}
+
+#results{max-height:250px;overflow-y:auto;margin-top:.2rem;
+  border:1px solid var(--line);border-radius:var(--r)}
+#results:empty{display:none}
+.hit{padding:.42rem .55rem;cursor:pointer;border-bottom:1px solid var(--line)}
+.hit:last-child{border-bottom:0}
+.hit:hover,.hit:focus{background:var(--accent-2);outline:none}
+.hit b{font-weight:600;font-size:.86rem;display:block}
+.hit small{color:var(--muted);font-size:.74rem}
+.more{padding:.45rem .55rem;font-size:.75rem;color:var(--muted)}
+
+/* ---------- detail card ---------- */
+#detail{position:absolute;right:14px;top:14px;width:300px;max-height:calc(100% - 28px);
+  overflow-y:auto;background:var(--surface);border:1px solid var(--line);
+  border-radius:14px;padding:.9rem;box-shadow:var(--shadow);z-index:12}
+#detail h3{font-size:1.05rem}
+#detail .sub{color:var(--muted);font-size:.78rem;margin:.1rem 0 .55rem}
+#detail .close{position:absolute;right:.45rem;top:.35rem;width:26px;height:26px;
+  border:0;border-radius:7px;background:none;color:var(--muted);font-size:1.15rem;cursor:pointer}
+#detail .close:hover{background:var(--surface-2);color:var(--ink)}
+.badge{display:inline-flex;align-items:center;gap:.35rem;padding:.18rem .5rem;
+  border-radius:99px;font-size:.72rem;font-weight:600;color:#fff}
+dl.kv{display:grid;grid-template-columns:auto 1fr;gap:.25rem .7rem;margin:.7rem 0 0;
+  font-size:.82rem}
+dl.kv dt{color:var(--muted);font-size:.77rem}
+dl.kv dd{margin:0;word-break:break-word;font-variant-numeric:tabular-nums}
+.flag{background:#fdf3e2;color:#7a4a06;border:1px solid #f0dcb6;border-radius:9px;
+  padding:.45rem .55rem;margin-top:.55rem;font-size:.77rem;line-height:1.45}
+@media (prefers-color-scheme:dark){.flag{background:#2e2513;color:#f2cf94;border-color:#4a3c1c}}
+
+#loading{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  background:var(--surface);border:1px solid var(--line);border-radius:99px;
+  padding:.45rem 1rem;font-size:.83rem;box-shadow:var(--shadow);z-index:11}
+
+/* ---------- downloads / missing ---------- */
+.dl{border:1px solid var(--line);border-radius:var(--r);padding:.6rem .65rem;margin-bottom:.5rem}
+.dl header{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem;
+  margin-bottom:.45rem}
+.dl h4{font-size:.9rem}
+.dl .meta{font-size:.72rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.dlrow{display:grid;grid-template-columns:repeat(4,1fr);gap:.25rem}
+.dlrow a,.btn{display:block;text-align:center;padding:.34rem .2rem;border:1px solid var(--line-2);
+  border-radius:7px;text-decoration:none;color:var(--ink-2);font-size:.74rem;
+  background:var(--surface-2);font-weight:600}
+.dlrow a:hover,.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn{margin-top:.3rem;font-size:.79rem;padding:.42rem .5rem}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.primary:hover{color:var(--accent-ink);filter:brightness(1.06)}
+
+.miss{padding:.45rem 0;border-bottom:1px solid var(--line)}
+.miss:last-child{border-bottom:0}
+.miss b{font-size:.85rem;display:block}
+.miss small{display:block;color:var(--muted);font-size:.73rem}
+.miss .why{color:var(--ink-2);font-style:italic}
+
+.note{font-size:.78rem;color:var(--muted);line-height:1.5;margin:0 0 .7rem}
+
+/* ---------- footer ---------- */
+.footer{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem;
+  padding:.5rem 1rem;background:var(--surface);border-top:1px solid var(--line);
+  font-size:.77rem;color:var(--muted)}
+.footer .who{color:var(--ink-2)}
+.footer .who b{color:var(--ink);font-weight:650}
+.footer .right{margin-left:auto;display:flex;gap:.9rem;flex-wrap:wrap}
+
+/* ---------- document pages ---------- */
+/* Two columns so a wide screen carries a sticky contents rail beside the prose
+   instead of two empty margins. */
+.docwrap{display:grid;grid-template-columns:minmax(0,1fr);gap:0;
+  max-width:1120px;margin:0 auto;padding:1.6rem 1.4rem 4rem}
+@media (min-width:1000px){
+  .docwrap{grid-template-columns:236px minmax(0,1fr);gap:3rem;padding-top:2.2rem}
+}
+.docnav{align-self:start}
+@media (min-width:1000px){
+  .docnav{position:sticky;top:1.5rem;max-height:calc(100vh - 3rem);overflow-y:auto}
+}
+.docnav h4{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--muted);margin-bottom:.55rem}
+.docnav ol{list-style:none;margin:0;padding:0;counter-reset:s}
+.docnav li{counter-increment:s;margin:.1rem 0}
+.docnav a{display:block;padding:.32rem .55rem .32rem 1.9rem;border-radius:7px;
+  font-size:.83rem;color:var(--ink-2);text-decoration:none;position:relative;line-height:1.35}
+.docnav a::before{content:counter(s);position:absolute;left:.55rem;color:var(--muted);
+  font-size:.72rem;font-variant-numeric:tabular-nums;top:.4rem}
+.docnav a:hover{background:var(--surface);color:var(--ink)}
+.docnav a.on{background:var(--accent-2);color:var(--ink);font-weight:600}
+.docnav a.on::before{color:var(--accent)}
+.docnav .back{margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--line)}
+
+/* Prose keeps a readable measure, but tables and code use the full column width --
+   that is where the extra space on a wide screen actually helps. */
+.doc{min-width:0}
+.doc>h2,.doc>h3,.doc>p,.doc>ul,.doc>ol,.doc>.callout{max-width:74ch}
+.doc>h2{font-size:1.5rem;margin:2.6rem 0 .7rem;scroll-margin-top:1.5rem}
+.doc>h2:first-child{margin-top:0}
+.doc h3{font-size:1.02rem;margin:1.8rem 0 .5rem;color:var(--ink)}
+.doc p,.doc li{color:var(--ink-2);margin:0 0 .9rem}
+.doc ul,.doc ol{padding-left:1.25rem}
+.doc li{margin-bottom:.55rem}
+.doc strong{color:var(--ink);font-weight:640}
+.lede{font-size:1.1rem;line-height:1.6;color:var(--ink)!important;
+  border-left:3px solid var(--accent);padding-left:1rem;margin-left:0}
+/* display:block keeps the horizontal scroll on narrow screens, but a block fills
+   its container while the rows only span their content -- which paints empty
+   background to the right of the last column. fit-content makes the box hug. */
+.doc table{border-collapse:collapse;font-size:.87rem;margin:1.1rem 0 1.4rem;
+  display:block;width:fit-content;max-width:100%;overflow-x:auto;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.doc th,.doc td{text-align:left;padding:.5rem .8rem;border-bottom:1px solid var(--line);
+  white-space:nowrap}
+.doc td:last-child{white-space:normal;min-width:18ch}
+.doc tr:last-child th,.doc tr:last-child td{border-bottom:0}
+.doc thead th,.doc tr:first-child th{font-size:.72rem;text-transform:uppercase;
+  letter-spacing:.05em;color:var(--muted);background:var(--surface)}
+.doc tbody tr:hover,.doc tr:hover{background:var(--surface)}
+.doc code{background:var(--surface);border:1px solid var(--line);border-radius:5px;
+  padding:.08rem .34rem;font-size:.87em}
+.doc pre{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  padding:.85rem 1rem;overflow-x:auto;font-size:.83rem;line-height:1.5;max-width:100%}
+.doc pre code{border:0;padding:0;background:none}
+.callout{background:var(--surface);border:1px solid var(--line);
+  border-left:3px solid var(--accent);border-radius:var(--r);padding:.9rem 1.1rem;margin:1.3rem 0}
+.callout.warn{border-left-color:var(--bifur)}
+.callout p:last-child{margin-bottom:0}
+.callout p{color:var(--ink-2)}
+
+/* .btn is a full-width block in the dashboard rail; inside prose it should size
+   to its label instead of stretching the whole measure. */
+.doc a.btn{display:inline-flex;align-items:center;gap:.4rem;width:auto;
+  padding:.5rem .9rem;font-size:.86rem;margin:.2rem 0 .3rem}
+
+@media (max-width:900px){
+  :root{--rail:290px}
+  .brand .tag{display:none}
+}
+@media (max-width:760px){
+  .shell{height:auto;min-height:100vh}
+  .work{grid-template-columns:1fr;grid-template-rows:auto 66vh}
+  .rail{border-right:0;border-bottom:1px solid var(--line);max-height:none}
+  .stage{min-height:340px}
+  #detail{left:14px;right:14px;width:auto;max-height:58%}
+  .dlrow{grid-template-columns:repeat(2,1fr)}
+}

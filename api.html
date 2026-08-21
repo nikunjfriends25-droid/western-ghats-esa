@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>API — Western Ghats ESA Atlas</title>
+<meta name="description" content="Free static JSON API for the Western Ghats Ecologically Sensitive Area village boundaries. No key, no rate limit, CORS enabled. Endpoints for state summaries, individual village geometry, boundary points and unmapped rows.">
+<link rel="canonical" href="https://nikunjfriends25-droid.github.io/western-ghats-esa/api.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Western Ghats ESA Atlas">
+<meta property="og:title" content="API — Western Ghats ESA Atlas">
+<meta property="og:description" content="Free static JSON API for the Western Ghats ESA village boundaries. No key, no rate limit, CORS enabled.">
+<meta property="og:url" content="https://nikunjfriends25-droid.github.io/western-ghats-esa/api.html">
+<meta property="og:image" content="https://nikunjfriends25-droid.github.io/western-ghats-esa/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nikunjfriends25-droid.github.io/western-ghats-esa/og.png">
+<meta name="author" content="Nikunj Jambu">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='13' font-size='13'>🏞️</text></svg>">
+<link href="style.css" rel="stylesheet">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="mark">🏞️</span>
+    <h1>Western Ghats ESA Atlas</h1>
+    <span class="tag">API reference</span>
+  </div>
+  <nav>
+    <a href="index.html" class="cta">Open the atlas</a>
+    <a href="about.html">Method &amp; caveats</a>
+    <a href="https://github.com/nikunjfriends25-droid/western-ghats-esa">GitHub</a>
+  </nav>
+</header>
+
+<div class="docwrap">
+<nav class="docnav">
+  <h4>Contents</h4>
+  <ol>
+    <li><a href="#use">Using the data</a></li>
+    <li><a href="#endpoints">Endpoints</a></li>
+    <li><a href="#overlay">Overlaying the ESA</a></li>
+    <li><a href="#examples">Examples</a></li>
+    <li><a href="#fields">Field reference</a></li>
+    <li><a href="#licence">Stability &amp; licence</a></li>
+  </ol>
+  <div class="back"><a href="index.html">&larr; Back to the atlas</a></div>
+</nav>
+<main class="doc">
+  <h2 id="use">Using the data programmatically</h2>
+  <p class="lede">The API is a tree of static JSON files served over HTTPS with
+  <code>Access-Control-Allow-Origin:&nbsp;*</code>. You can call it from a browser, a notebook
+  or another website with no key, no sign-up and no rate limit.</p>
+  <p>It is read-only and addressed entirely by path. There are no query parameters, because
+  there is no server — filtering happens on your side, after you fetch. In exchange you get
+  something that cannot go down under load, cannot rotate a key on you, and is cached on a CDN.</p>
+
+  <p>Base URL:</p>
+  <pre><code>https://nikunjfriends25-droid.github.io/western-ghats-esa/</code></pre>
+
+  <h2 id="endpoints">Endpoints</h2>
+  <table>
+    <tr><th>Path</th><th>Returns</th></tr>
+    <tr><td><code>api/v1/summary.json</code></td>
+        <td>Per-state village counts, mapped area, notified area and ratio</td></tr>
+    <tr><td><code>api/v1/states/{CODE}.json</code></td>
+        <td>Every village in one state, attributes only, no geometry.<br>
+            Codes: <code>GA GJ KA KL MH TN</code></td></tr>
+    <tr><td><code>api/v1/geometry/{CODE}.json</code></td>
+        <td>Every village in one state <em>with</em> geometry, as a GeoJSON
+            <code>FeatureCollection</code>. Simplified to ~33&nbsp;m for overlay use</td></tr>
+    <tr><td><code>api/v1/outline/{CODE}.json</code></td>
+        <td>One state's ESA dissolved to a single outer boundary</td></tr>
+    <tr><td><code>api/v1/outline.json</code></td>
+        <td>The whole ESA dissolved, one feature per state — the lightest way to draw it</td></tr>
+    <tr><td><code>api/v1/villages/{censuscode}.json</code></td>
+        <td>One village as a GeoJSON <code>Feature</code>, full resolution</td></tr>
+    <tr><td><code>api/v1/boundary-points.json</code></td>
+        <td>The 401 Annexure&nbsp;B boundary points with state and gazette page</td></tr>
+    <tr><td><code>api/v1/unmatched.json</code></td>
+        <td>Gazette rows with no polygon, each with a reason</td></tr>
+  </table>
+
+  <h3>Bulk geometry</h3>
+  <p>Whole-state GeoJSON, Shapefile, KML and CSV are plain files under <code>downloads/</code> —
+  fetch them the same way. The merged full-resolution GeoPackage is attached to the
+  <a href="https://github.com/nikunjfriends25-droid/western-ghats-esa/releases/latest">latest release</a>
+  rather than served here.</p>
+
+  <h2 id="overlay">Overlaying the ESA on your own map</h2>
+  <p>Three levels of detail, so you can pick the lightest thing that answers your question.</p>
+  <table>
+    <tr><th>Use</th><th>Endpoint</th><th>Size</th></tr>
+    <tr><td>Just show where the ESA is</td><td><code>api/v1/outline.json</code></td><td>smallest</td></tr>
+    <tr><td>Show one state's villages</td><td><code>api/v1/geometry/{CODE}.json</code></td><td>moderate</td></tr>
+    <tr><td>Exact boundary of one village</td><td><code>api/v1/villages/{censuscode}.json</code></td><td>tiny, full resolution</td></tr>
+  </table>
+  <p>Every one of these returns valid GeoJSON, so it drops straight into MapLibre, Leaflet,
+  OpenLayers, Mapbox, QGIS or GeoPandas with no conversion.</p>
+
+  <p>MapLibre or Mapbox:</p>
+  <pre><code>const base = 'https://nikunjfriends25-droid.github.io/western-ghats-esa/';
+
+map.addSource('esa', { type: 'geojson', data: base + 'api/v1/outline.json' });
+map.addLayer({ id: 'esa-fill', type: 'fill', source: 'esa',
+  paint: { 'fill-color': '#2f6d3a', 'fill-opacity': 0.35 } });
+map.addLayer({ id: 'esa-line', type: 'line', source: 'esa',
+  paint: { 'line-color': '#1d4a25', 'line-width': 1.2 } });</code></pre>
+
+  <p>Leaflet:</p>
+  <pre><code>fetch(base + 'api/v1/geometry/KL.json')
+  .then(r =&gt; r.json())
+  .then(gj =&gt; L.geoJSON(gj, {
+    style: { color: '#2f6d3a', weight: 1, fillOpacity: 0.3 },
+    onEachFeature: (f, l) =&gt; l.bindPopup(f.properties.gz_village)
+  }).addTo(map));</code></pre>
+
+  <p>QGIS — add these as a vector layer straight from the URL
+  (<em>Layer ▸ Add Layer ▸ Add Vector Layer ▸ Protocol: HTTP</em>), or in the Python console:</p>
+  <pre><code>iface.addVectorLayer(
+    "https://nikunjfriends25-droid.github.io/western-ghats-esa/api/v1/outline.json",
+    "Western Ghats ESA", "ogr")</code></pre>
+
+  <p>Intersect the ESA with your own points, in GeoPandas:</p>
+  <pre><code>import geopandas as gpd
+base = "https://nikunjfriends25-droid.github.io/western-ghats-esa/"
+esa   = gpd.read_file(base + "api/v1/outline.json")
+sites = gpd.read_file("my_sites.geojson").to_crs(esa.crs)
+inside = gpd.sjoin(sites, esa, predicate="within")
+print(len(inside), "of", len(sites), "sites fall inside the draft ESA")</code></pre>
+
+  <div class="callout warn">
+    <p><strong>Geometry from <code>outline</code> and <code>geometry</code> is simplified to
+    about 33&nbsp;m</strong> for overlay use, so it is not suitable for measuring or for any
+    parcel-level question. Use <code>api/v1/villages/{censuscode}.json</code>, or the release
+    GeoPackage, when you need the full-resolution edge — and read
+    <a href="about.html#limits">the caveats</a> first.</p>
+  </div>
+
+  <h2 id="examples">Examples</h2>
+  <p>One village, by 2011 Census code:</p>
+  <pre><code>curl https://nikunjfriends25-droid.github.io/western-ghats-esa/api/v1/villages/626770.json</code></pre>
+
+  <p>Every Kerala village that the gazette marks as bifurcated:</p>
+  <pre><code>const base = 'https://nikunjfriends25-droid.github.io/western-ghats-esa/';
+const kl = await fetch(base + 'api/v1/states/KL.json').then(r =&gt; r.json());
+const partial = kl.rows.filter(r =&gt; r.bifurcated);
+console.log(partial.map(r =&gt; r.gz_village));</code></pre>
+
+  <p>Load a whole state into GeoPandas:</p>
+  <pre><code>import geopandas as gpd
+base = "https://nikunjfriends25-droid.github.io/western-ghats-esa/"
+ka = gpd.read_file(base + "downloads/WG_ESA_2024_KA.geojson")
+print(ka.area_km2.sum(), "km2 across", len(ka), "villages")</code></pre>
+
+  <p>Total mapped area against what was notified:</p>
+  <pre><code>curl -s https://nikunjfriends25-droid.github.io/western-ghats-esa/api/v1/summary.json \
+  | jq '.states[] | {state, area_km2, notified_km2, ratio}'</code></pre>
+
+  <div class="callout">
+    <p><strong>There are no Zone 1/2/3 fields.</strong> The 2024 notification defines a single,
+    undivided ESA. <code>esa_category</code> records how a village was mapped, not a level of
+    legal protection — see <a href="about.html#zones">why there are no zones</a>.</p>
+  </div>
+
+  <h2 id="fields">Field reference</h2>
+  <table>
+    <tr><th>Field</th><th>Meaning</th></tr>
+    <tr><td><code>gz_state</code>, <code>gz_district</code>, <code>gz_taluka</code>, <code>gz_village</code></td>
+        <td>As printed in Annexure&nbsp;C of the notification</td></tr>
+    <tr><td><code>gz_village_raw</code></td><td>Verbatim, including the <code>*</code> bifurcation marker</td></tr>
+    <tr><td><code>gz_sno</code></td><td>Gazette serial number within its state</td></tr>
+    <tr><td><code>cen_village</code>, <code>cen_subdistrict</code>, <code>cen_district</code></td>
+        <td>The matched census record</td></tr>
+    <tr><td><code>censuscode</code></td><td>2011 Census village code — the join key to census tables</td></tr>
+    <tr><td><code>lgd_villagecode</code></td><td>Local Government Directory village code</td></tr>
+    <tr><td><code>esa_category</code></td>
+        <td><code>whole_village</code>, <code>bifurcated_village</code>, <code>notified_forest</code>,
+            <code>kerala_village</code>, <code>kerala_bifurcated_village</code></td></tr>
+    <tr><td><code>bifurcated</code></td><td><code>true</code> when only part of the village is in the ESA</td></tr>
+    <tr><td><code>score</code></td><td>Name similarity, 0–100</td></tr>
+    <tr><td><code>scope</code></td><td>How wide the search had to go: <code>dist+tal</code>, <code>dist</code>, <code>state</code></td></tr>
+    <tr><td><code>area_km2</code></td><td>Polygon area, computed in EPSG:7755</td></tr>
+  </table>
+
+  <div class="callout warn">
+    <p><strong>Read the caveats before drawing conclusions.</strong> Villages with
+    <code>bifurcated: true</code> are returned as whole polygons and over-state the ESA, and all
+    Kerala rows are whole villages where the state's own definition is portion-wise. A low
+    <code>score</code> or a <code>scope</code> of <code>state</code> means the pairing is less
+    certain. See <a href="about.html#limits">Method &amp; caveats</a>.</p>
+  </div>
+
+  <h2 id="licence">Stability &amp; licence</h2>
+  <p>Paths under <code>api/v1/</code> are intended to stay put; a breaking change would appear
+  as <code>api/v2/</code>. Data is released under
+  <a href="https://creativecommons.org/licenses/by/4.0/">CC&nbsp;BY&nbsp;4.0</a>, and derived from
+  the MoEFCC draft notification <a href="https://moef.gov.in/storage/tender/1723024218.pdf">S.O.&nbsp;3060(E)</a> (PDF, 4.9&nbsp;MB) — attribute
+  <em>Western Ghats ESA Atlas, Nikunj Jambu</em> and link back. The underlying government data
+  remains under its own terms.</p>
+</main>
+</div>
+
+<footer class="footer">
+  <span class="who">Compiled &amp; maintained by <b>Nikunj Jambu</b></span>
+  <span class="right">
+    <a href="index.html">Open the atlas</a>
+    <a href="about.html">Method &amp; caveats</a>
+    <a href="https://github.com/nikunjfriends25-droid/western-ghats-esa">Source</a>
+  </span>
+</footer>
+<script src="doc.js"></script>
+</body>
+</html>

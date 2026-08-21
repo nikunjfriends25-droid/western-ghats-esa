@@ -1,0 +1,65 @@
+gz_state,gz_district,gz_taluka,gz_village,gz_village_raw,gz_sno,esa_category,bifurcated,notified_forest,cen_village,cen_subdistrict,cen_district,censuscode,lgd_villagecode,score,scope,area_km2
+GUJARAT,Navsari,Bansda,Kala Amba,Kala Amba,1,whole_village,False,False,Kala Amba,Bansda,Navsari,523161,523161,100.0,dist+tal,3.754
+GUJARAT,Navsari,Bansda,Kevdi,Kevdi,2,whole_village,False,False,Kevdi,Bansda,Navsari,523165,523165,100.0,dist+tal,7.63
+GUJARAT,Navsari,Bansda,Sadad Devi,Sadad Devi,3,whole_village,False,False,Sadad Devi,Bansda,Navsari,523163,523163,100.0,dist+tal,7.021
+GUJARAT,Navsari,Bansda,Vaghai,Vaghai,4,whole_village,False,False,Vaghai,Bansda,Navsari,523188,523188,100.0,dist+tal,6.272
+GUJARAT,Navsari,Bansda,Ambabari,Ambabari,5,whole_village,False,False,Ambabari,Bansda,Navsari,523164,523164,100.0,dist+tal,7.314
+GUJARAT,Surat,Songadh,Khokhsa,Khokhsa,6,whole_village,False,False,Khokhsa,Songadh,Tapi,524635,524635,100.0,state,3.404
+GUJARAT,Surat,Songadh,Kanji,Kanji,7,whole_village,False,False,Kanji,Songadh,Tapi,524636,524636,100.0,state,12.886
+GUJARAT,Surat,Songadh,Ekva Golan,Ekva Golan,8,whole_village,False,False,Ekva Golan,Songadh,Tapi,524699,524699,100.0,state,16.919
+GUJARAT,Surat,Songadh,Medha,Medha,9,whole_village,False,False,Medha,Songadh,Tapi,524658,524658,100.0,state,15.744
+GUJARAT,Surat,Songadh,Nana Tarpada,Nana Tarpada,10,whole_village,False,False,Nana Tarpada,Songadh,Tapi,524660,524660,100.0,state,7.091
+GUJARAT,Surat,Songadh,Ojhar,Ojhar,11,whole_village,False,False,Ojhar,Songadh,Tapi,524661,524661,100.0,state,6.334
+GUJARAT,Surat,Songadh,Bharadada,Bharadada,12,whole_village,False,False,Bharadada,Songadh,Tapi,524665,524665,100.0,state,3.834
+GUJARAT,Surat,Songadh,Hindla,Hindla,13,whole_village,False,False,Hindla,Songadh,Tapi,524662,524662,100.0,state,2.661
+GUJARAT,Surat,Songadh,Khadi,Khadi,14,whole_village,False,False,Khadi,Songadh,Tapi,524663,524663,100.0,state,6.174
+GUJARAT,Surat,Songadh,Temka,Temka,15,whole_village,False,False,Temka,Songadh,Tapi,524678,524678,100.0,state,2.203
+GUJARAT,Surat,Songadh,Dardi,Dardi,16,whole_village,False,False,Dardi,Songadh,Tapi,524680,524680,100.0,state,2.854
+GUJARAT,Surat,Songadh,Seljhar,Seljhar,17,whole_village,False,False,Seljhar,Songadh,Tapi,524688,524688,100.0,state,2.83
+GUJARAT,Surat,Songadh,Kapad Bandh,Kapad Bandh,18,whole_village,False,False,Kapad Bandh,Songadh,Tapi,524692,524692,100.0,state,12.944
+GUJARAT,Surat,Uchchhal,Jharanpada,Jharanpada,19,whole_village,False,False,Jharanpada,Uchchhal,Tapi,524534,524534,100.0,state,4.99
+GUJARAT,Surat,Vyara,Dholia Umar,Dholia Umar,20,whole_village,False,False,Dholia Umar,Vyara,Tapi,524792,524792,100.0,state,4.439
+GUJARAT,Surat,Vyara,Chhevdi,Chhevdi,21,whole_village,False,False,Chhevdi,Vyara,Tapi,524793,524793,100.0,state,1.294
+GUJARAT,Surat,Vyara,Bhurivel,Bhurivel,22,whole_village,False,False,Bhurivel CT,Ukai,Tapi,524717,524717,100.0,state,1.497
+GUJARAT,Surat,Vyara,Dhamandevi,Dhamandevi,23,whole_village,False,False,Dhamandevi,Dolvan,Tapi,524815,524815,100.0,state,10.105
+GUJARAT,Surat,Vyara,Amonia,Amonia,24,whole_village,False,False,Amonia,Dolvan,Tapi,524839,524839,100.0,state,19.018
+GUJARAT,The Dangs,The Dangs,Bandhpada,Bandhpada,25,whole_village,False,False,Bandhpada,Subir,Dangs,522540,522540,100.0,dist,7.451
+GUJARAT,The Dangs,The Dangs,Girmal,Girmal,26,whole_village,False,False,Girmal,Subir,Dangs,522542,522542,100.0,dist,37.391
+GUJARAT,The Dangs,The Dangs,Dhulda,Dhulda,27,whole_village,False,False,Dhulda,Subir,Dangs,522541,522541,100.0,dist,22.706
+GUJARAT,The Dangs,The Dangs,Kakarda,Kakarda,28,whole_village,False,False,Kakarda,Waghai,Dangs,522596,522596,100.0,dist,2.052
+GUJARAT,The Dangs,The Dangs,Chikhala (Kalibelsaja),Chikhala (Kalibelsaja),29,whole_village,False,False,Chikhala Kalibelsaja,Waghai,Dangs,522570,522570,100.0,dist,22.433
+GUJARAT,The Dangs,The Dangs,Sawardakasad,Sawardakasad,30,whole_village,False,False,Sawardakasad,Subir,Dangs,522571,522571,100.0,dist,13.803
+GUJARAT,The Dangs,The Dangs,Mahal,Mahal,31,whole_village,False,False,Mahal,Subir,Dangs,522572,522572,100.0,dist,2.507
+GUJARAT,The Dangs,The Dangs,Chikar (Jhavdasaja),Chikar (Jhavdasaja),32,whole_village,False,False,Chikar Jhavdasaja,Waghai,Dangs,522640,522640,100.0,dist,6.326
+GUJARAT,The Dangs,The Dangs,Jhari,Jhari,33,whole_village,False,False,Jhari,Subir,Dangs,522660,522660,100.0,dist,9.466
+GUJARAT,The Dangs,The Dangs,Wadiawan,Wadiawan,34,whole_village,False,False,Wadiawan,Ahwa,Dangs,522707,522707,100.0,dist,12.563
+GUJARAT,The Dangs,The Dangs,Chinchdhara,Chinchdhara,35,whole_village,False,False,Chinchdhara,Ahwa,Dangs,522749,522749,100.0,dist,1.783
+GUJARAT,The Dangs,The Dangs,Karadiamba,Karadiamba,36,whole_village,False,False,Karadiamba,Ahwa,Dangs,522750,522750,100.0,dist,1.834
+GUJARAT,The Dangs,The Dangs,Mahardar,Mahardar,37,whole_village,False,False,Mahardar,Ahwa,Dangs,522754,522754,100.0,dist,5.66
+GUJARAT,The Dangs,The Dangs,Morzira,Morzira,38,whole_village,False,False,Morzira,Ahwa,Dangs,522744,522744,100.0,dist,6.926
+GUJARAT,The Dangs,The Dangs,Madalbari,Madalbari,39,whole_village,False,False,Madalbari,Ahwa,Dangs,522746,522746,100.0,dist,3.422
+GUJARAT,The Dangs,The Dangs,Javtala,Javtala,40,whole_village,False,False,Javtala,Ahwa,Dangs,522743,522743,100.0,dist,15.009
+GUJARAT,The Dangs,The Dangs,Chinchli,Chinchli,41,whole_village,False,False,Chinchli,Ahwa,Dangs,522755,522755,100.0,dist,6.613
+GUJARAT,The Dangs,The Dangs,Ravchond,Ravchond,42,whole_village,False,False,Ravchond,Ahwa,Dangs,522740,522740,100.0,dist,9.822
+GUJARAT,The Dangs,The Dangs,Isdar(Borkhalsaja),Isdar(Borkhalsaja),43,whole_village,False,False,Isdar Gadhvi,Ahwa,Dangs,522674,522674,100.0,dist,3.63
+GUJARAT,The Dangs,The Dangs,Kosambia,Kosambia,44,whole_village,False,False,Kosambia,Ahwa,Dangs,522758,522758,100.0,dist,3.526
+GUJARAT,The Dangs,The Dangs,Linga,Linga,45,whole_village,False,False,Linga,Ahwa,Dangs,522759,522759,100.0,dist,13.361
+GUJARAT,The Dangs,The Dangs,Anjankund,Anjankund,46,whole_village,False,False,Anjankund,Ahwa,Dangs,522757,522757,100.0,dist,7.261
+GUJARAT,The Dangs,The Dangs,Ukhatiya,Ukhatiya,47,whole_village,False,False,Ukhatiya,Ahwa,Dangs,522787,522787,100.0,dist,7.896
+GUJARAT,The Dangs,The Dangs,Kamad,Kamad,48,whole_village,False,False,Kamad,Ahwa,Dangs,522786,522786,100.0,dist,4.961
+GUJARAT,The Dangs,The Dangs,Chinchod,Chinchod,49,whole_village,False,False,Chinchod,Waghai,Dangs,522801,522801,100.0,dist,1.894
+GUJARAT,The Dangs,The Dangs,Sinbandh,Sinbandh,50,whole_village,False,False,Sinbandh,Ahwa,Dangs,522788,522788,100.0,dist,3.977
+GUJARAT,The Dangs,The Dangs,Pipalpada (Galkundsaja),Pipalpada (Galkundsaja),51,whole_village,False,False,Pipalpada,Ahwa,Dangs,522702,522702,100.0,dist,4.114
+GUJARAT,The Dangs,The Dangs,Murambi,Murambi,52,whole_village,False,False,Murambi,Waghai,Dangs,522824,522824,100.0,dist,7.116
+GUJARAT,The Dangs,The Dangs,Payarpada,Payarpada,53,whole_village,False,False,Payarpada,Ahwa,Dangs,522820,522820,100.0,dist,3.65
+GUJARAT,The Dangs,The Dangs,Wanki,Wanki,54,whole_village,False,False,Wanki,Ahwa,Dangs,522819,522819,100.0,dist,5.607
+GUJARAT,The Dangs,The Dangs,Ambalia,Ambalia,55,whole_village,False,False,Ambalia,Ahwa,Dangs,522817,522817,100.0,dist,1.519
+GUJARAT,The Dangs,The Dangs,Vanar,Vanar,56,whole_village,False,False,Vanar,Ahwa,Dangs,522816,522816,100.0,dist,3.814
+GUJARAT,The Dangs,The Dangs,Umarya,Umarya,57,whole_village,False,False,Umarya,Ahwa,Dangs,522818,522818,100.0,dist,0.474
+GUJARAT,The Dangs,The Dangs,Jamdar,Jamdar,58,whole_village,False,False,Jamdar,Ahwa,Dangs,522821,522821,100.0,dist,4.781
+GUJARAT,The Dangs,The Dangs,Samgahan,Samgahan,59,whole_village,False,False,Samgahan,Ahwa,Dangs,522822,522822,100.0,dist,4.219
+GUJARAT,The Dangs,The Dangs,Kotamdar,Kotamdar,60,whole_village,False,False,Kotamdar,Ahwa,Dangs,522841,522841,100.0,dist,10.931
+GUJARAT,The Dangs,The Dangs,Ranpada,Ranpada,61,whole_village,False,False,Ranpada,Ahwa,Dangs,522823,522823,100.0,dist,3.351
+GUJARAT,The Dangs,The Dangs,Jogbari,Jogbari,62,whole_village,False,False,Jogbari,Ahwa,Dangs,522838,522838,100.0,dist,2.456
+GUJARAT,The Dangs,The Dangs,Malegaon,Malegaon,63,whole_village,False,False,Malegaon,Ahwa,Dangs,522840,522840,100.0,dist,4.739
+GUJARAT,The Dangs,The Dangs,Baradpani,Baradpani,64,whole_village,False,False,Baradpani,Ahwa,Dangs,522839,522839,100.0,dist,3.326
