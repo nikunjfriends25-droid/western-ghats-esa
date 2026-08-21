@@ -9,6 +9,10 @@
       <SimpleField name="esa_category" type="string"/>
       <SimpleField name="area_km2" type="double"/>
     </Schema>
+    <Schema id="WG_ESA_2024_TN.schema">
+      <SimpleField name="esa_category" type="string"/>
+      <SimpleField name="area_km2" type="double"/>
+    </Schema>
     <Document id="WG_ESA_2024_TN">
       <name>WG_ESA_2024_TN</name>
       <Placemark id="WG_ESA_2024_TN.1">

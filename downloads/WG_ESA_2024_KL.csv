@@ -1,124 +1,124 @@
-gz_state,gz_district,gz_taluka,gz_village,gz_village_raw,gz_sno,esa_category,bifurcated,notified_forest,cen_village,cen_subdistrict,cen_district,censuscode,lgd_villagecode,score,scope,area_km2
-KERALA,Ernakulam,Kothamangalam,Kuttampuzha,Kuttampuzha,1,kerala_village,False,False,Kuttampuzha,Kothamangalam,Ernakulam,628041,628041,100.0,dist+tal,659.894
-KERALA,Idukki,Devikulam,Anaviratty,Anaviratty,2,kerala_village,False,False,Anaviratty,Devikulam,Idukki,628057,628057,100.0,dist+tal,22.362
-KERALA,Idukki,Devikulam,Kanthaloor,Kanthaloor,4,kerala_village,False,False,Kanthalloor,Devikulam,Idukki,628051,628051,100.0,dist+tal,47.502
-KERALA,Idukki,Devikulam,KDH,KDH,5,kerala_village,False,False,Kannan Devan Hills,Devikulam,Idukki,628054,628054,100.0,dist+tal,485.053
-KERALA,Idukki,Devikulam,Keezhanthoor,Keezhanthoor,6,kerala_village,False,False,Keezhanthoor,Devikulam,Idukki,628050,628050,100.0,dist+tal,67.997
-KERALA,Idukki,Devikulam,Kottakamboor,Kottakamboor,7,kerala_village,False,False,Kottakamboor,Devikulam,Idukki,628052,628052,100.0,dist+tal,41.252
-KERALA,Idukki,Devikulam,Kunjithanny,Kunjithanny,8,kerala_village,False,False,Kunjithanny,Devikulam,Idukki,628059,628059,100.0,dist+tal,17.844
-KERALA,Idukki,Devikulam,Mankulam,Mankulam,9,kerala_village,False,False,Mankulam,Devikulam,Idukki,628055,628055,100.0,dist+tal,80.176
-KERALA,Idukki,Devikulam,Mannamkandam,Mannamkandam,10,kerala_village,False,False,Mannamkandam,Devikulam,Idukki,628056,628056,100.0,dist+tal,183.407
-KERALA,Idukki,Devikulam,Marayur,Marayur,11,kerala_village,False,False,Marayoor,Devikulam,Idukki,628049,628049,100.0,dist+tal,110.39
-KERALA,Idukki,Devikulam,Pallivasal,Pallivasal,13,kerala_village,False,False,Pallivasal,Devikulam,Idukki,628058,628058,100.0,dist+tal,38.633
-KERALA,Idukki,Devikulam,Vattavada,Vattavada,14,kerala_village,False,False,Vattavada,Devikulam,Idukki,628053,628053,100.0,dist+tal,27.062
-KERALA,Idukki,Devikulam,Vellathooval,Vellathooval,15,kerala_village,False,False,Vellathuval,Devikulam,Idukki,628060,628060,100.0,dist+tal,34.007
-KERALA,Idukki,Idukki,Ayyappankovil,Ayyappankovil,16,kerala_village,False,False,Ayyappancoil,Idukki,Idukki,628080,628080,88.0,dist+tal,118.835
-KERALA,Idukki,Idukki,Idukki,Idukki,17,kerala_village,False,False,Idukki,Idukki,Idukki,628099,628099,100.0,dist+tal,268.52
-KERALA,Idukki,Idukki,Kanjikuzhi,Kanjikuzhi,19,kerala_village,False,False,Kanjikuzhi,Idukki,Idukki,628087,628087,100.0,dist+tal,72.605
-KERALA,Idukki,Idukki,Kattappana,Kattappana,20,kerala_village,False,False,Kattappana,Idukki,Idukki,628079,628079,100.0,dist+tal,80.117
-KERALA,Idukki,Idukki,Konnathady,Konnathady,21,kerala_village,False,False,Konnathady,Idukki,Idukki,628061,628061,100.0,dist+tal,74.853
-KERALA,Idukki,Idukki,Thankamany,Thankamany,22,kerala_village,False,False,Thankamony,Idukki,Idukki,628073,628073,90.0,dist+tal,54.418
-KERALA,Idukki,Idukki,Upputhodu,Upputhodu,23,kerala_village,False,False,Upputhode,Idukki,Idukki,628072,628072,100.0,dist+tal,30.232
-KERALA,Idukki,Idukki,Vathikudi,Vathikudi,24,kerala_village,False,False,Vathikudy,Idukki,Idukki,628071,628071,94.1,dist+tal,52.098
-KERALA,Idukki,Peerumedu,Kokkayar,Kokkayar,25,kerala_village,False,False,Kokkayar,Peerumade,Idukki,628106,628106,100.0,dist+tal,55.408
-KERALA,Idukki,Peerumedu,Kumily,Kumily,26,kerala_village,False,False,Kumily,Peerumade,Idukki,628110,628110,100.0,dist+tal,194.875
-KERALA,Idukki,Peerumedu,Manjumala,Manjumala,27,kerala_village,False,False,Manjumala,Peerumade,Idukki,628108,628108,100.0,dist+tal,86.046
-KERALA,Idukki,Peerumedu,Mlappara,Mlappara,28,kerala_village,False,False,Mlappara,Peerumade,Idukki,628111,628111,100.0,dist+tal,580.704
-KERALA,Idukki,Peerumedu,Peerumedu,Peerumedu,29,kerala_village,False,False,Peerumade,Peerumade,Idukki,628107,628107,85.7,dist+tal,46.735
-KERALA,Idukki,Peerumedu,Periyar,Periyar,30,kerala_village,False,False,Periyar,Peerumade,Idukki,628109,628109,100.0,dist+tal,69.085
-KERALA,Idukki,Peerumedu,Peruvanthanam,Peruvanthanam,31,kerala_village,False,False,Peruvanthanam,Peerumade,Idukki,628112,628112,100.0,dist+tal,77.454
-KERALA,Idukki,Peerumedu,Upputhara,Upputhara,32,kerala_village,False,False,Upputhara,Peerumade,Idukki,628104,628104,100.0,dist+tal,30.051
-KERALA,Idukki,Thodupuzha,Arakkulam,Arakkulam,33,kerala_village,False,False,Arakkulam,Thodupuzha,Idukki,628100,628100,100.0,dist+tal,35.297
-KERALA,Idukki,Thodupuzha,Udumpannoor,Udumpannoor,34,kerala_village,False,False,Udumbannoor,Thodupuzha,Idukki,628088,628088,90.9,dist+tal,80.422
-KERALA,Idukki,Udumbanchola,Anakkara,Anakkara,35,kerala_village,False,False,Anakkara,Udumbanchola,Idukki,628083,628083,100.0,dist+tal,38.809
-KERALA,Idukki,Udumbanchola,Anavilasom,Anavilasom,36,kerala_village,False,False,Anavilasam,Udumbanchola,Idukki,628081,628081,90.0,dist+tal,31.785
-KERALA,Idukki,Udumbanchola,Bisonvalley,Bisonvalley,37,kerala_village,False,False,Baisonvally,Udumbanchola,Idukki,628063,628063,90.9,dist+tal,48.321
-KERALA,Idukki,Udumbanchola,Chakkupallom,Chakkupallom,38,kerala_village,False,False,Chakkupallam,Udumbanchola,Idukki,628082,628082,91.7,dist+tal,26.297
-KERALA,Idukki,Udumbanchola,Chathurangappara,Chathurangappara,39,kerala_village,False,False,Chathurangapara,Udumbanchola,Idukki,628069,628069,100.0,dist+tal,29.862
-KERALA,Idukki,Udumbanchola,Chinnakkanal,Chinnakkanal,40,kerala_village,False,False,Chinnakanal,Udumbanchola,Idukki,628064,628064,100.0,dist+tal,69.489
-KERALA,Idukki,Udumbanchola,Kalkoonthal,Kalkoonthal,42,kerala_village,False,False,Kalkoonthal,Udumbanchola,Idukki,628074,628074,100.0,dist+tal,57.551
-KERALA,Idukki,Udumbanchola,Kanthipara,Kanthipara,43,kerala_village,False,False,Kanthippara,Udumbanchola,Idukki,628067,628067,100.0,dist+tal,27.831
-KERALA,Idukki,Udumbanchola,Karunapuram,Karunapuram,44,kerala_village,False,False,Karunapuram,Udumbanchola,Idukki,628077,628077,100.0,dist+tal,54.987
-KERALA,Idukki,Udumbanchola,Pampadumpara,Pampadumpara,45,kerala_village,False,False,Pampadumpara,Udumbanchola,Idukki,628076,628076,100.0,dist+tal,37.222
-KERALA,Idukki,Udumbanchola,Parathodu,Parathodu,46,kerala_village,False,False,Parathodu,Udumbanchola,Idukki,628075,628075,100.0,dist+tal,58.387
-KERALA,Idukki,Udumbanchola,Pooppara,Pooppara,47,kerala_village,False,False,Poopara,Udumbanchola,Idukki,628065,628065,100.0,dist+tal,45.171
-KERALA,Idukki,Udumbanchola,Rajakkad,Rajakkad,48,kerala_village,False,False,Rajakkad,Udumbanchola,Idukki,628062,628062,100.0,dist+tal,26.099
-KERALA,Idukki,Udumbanchola,Rajakumari,Rajakumari,49,kerala_village,False,False,Rajakumari,Udumbanchola,Idukki,628066,628066,100.0,dist+tal,41.034
-KERALA,Idukki,Udumbanchola,Santhampara,Santhampara,50,kerala_village,False,False,Santhanpara,Udumbanchola,Idukki,628068,628068,90.9,dist+tal,36.093
-KERALA,Idukki,Udumbanchola,Udumbanchola,Udumbanchola,51,kerala_village,False,False,Udumbanchola,Udumbanchola,Idukki,628070,628070,100.0,dist+tal,40.399
-KERALA,Idukki,Udumbanchola,Vandanmedu,Vandanmedu,52,kerala_village,False,False,Vandanmedu,Udumbanchola,Idukki,628078,628078,100.0,dist+tal,21.192
-KERALA,Kannur,Iritty,Aralam,Aralam,53,kerala_village,False,False,Aralam,Iritty,Kannur,627256,627256,100.0,dist+tal,122.172
-KERALA,Kannur,Iritty,Kottiyur,Kottiyur,54,kerala_village,False,False,Kottiyoor,Iritty,Kannur,627257,627257,100.0,dist+tal,84.139
-KERALA,Kannur,Thalassery,Cheruvanchery,Cheruvanchery,55,kerala_village,False,False,Cheruvanchery,Thalassery,Kannur,627269,627269,100.0,dist+tal,100.201
-KERALA,Kollam,Pathanapuram,Piravanthur,Piravanthur,56,kerala_village,False,False,Piravanthur,Pathanapuram,Kollam,628389,628389,100.0,dist+tal,72.137
-KERALA,Kollam,Pathanapuram,Punnala,Punnala,57,kerala_village,False,False,Punnala,Pathanapuram,Kollam,628388,628388,100.0,dist+tal,65.196
-KERALA,Kollam,Punalur,Aryankavu,Aryankavu,58,kerala_village,False,False,Arienkavu,Punalur,Kollam,628393,628393,80.0,dist+tal,160.367
-KERALA,Kollam,Punalur,Channapetta,Channapetta,59,kerala_village,False,False,Channappetta,Punalur,Kollam,628403,628403,100.0,dist+tal,32.949
-KERALA,Kollam,Punalur,Edamon,Edamon,60,kerala_village,False,False,Edamon,Punalur,Kollam,628391,628391,100.0,dist+tal,93.593
-KERALA,Kollam,Punalur,Kulathupuzha,Kulathupuzha,61,kerala_village,False,False,Kulathupuzha,Punalur,Kollam,628394,628394,100.0,dist+tal,337.164
-KERALA,Kollam,Punalur,Thenmala,Thenmala,62,kerala_village,False,False,Thenmala,Punalur,Kollam,628392,628392,100.0,dist+tal,104.122
-KERALA,Kollam,Punalur,Thingalkarikkakom,Thingalkarikkakom,63,kerala_village,False,False,Thinkalkarikkakom,Punalur,Kollam,628395,628395,94.1,dist+tal,71.19
-KERALA,Kottayam,Kanjirappally,Koottickal,Koottickal,64,kerala_village,False,False,Koottickal,Kanjirappally,Kottayam,628194,628194,100.0,dist+tal,47.96
-KERALA,Kottayam,Meenachil,Melukavu,Melukavu,65,kerala_village,False,False,Melukavu,Meenachil,Kottayam,628119,628119,100.0,dist+tal,27.657
-KERALA,Kottayam,Meenachil,Poonjar Thekkekara,Poonjar Thekkekara,66,kerala_village,False,False,Poonjar Thekkekara,Meenachil,Kottayam,628136,628136,100.0,dist+tal,45.396
-KERALA,Kottayam,Meenachil,Teekoy,Teekoy,67,kerala_village,False,False,Teekoy,Meenachil,Kottayam,628122,628122,100.0,dist+tal,36.627
-KERALA,Kozhikkode,Koyilandy,Chakkittapara,Chakkittapara,68,kerala_village,False,False,Chakkittapara,Koyilandi,Kozhikode,627372,627372,100.0,dist+tal,118.762
-KERALA,Kozhikkode,Koyilandy,Chembanoda,Chembanoda,69,kerala_village,False,False,Chempanoda,Koyilandi,Kozhikode,627371,627371,90.0,dist+tal,52.024
-KERALA,Kozhikkode,Thamarassery,Kedavur,Kedavur,71,kerala_village,False,False,Kedavur,Thamarassery,Kozhikode,627406,627406,100.0,dist+tal,47.526
-KERALA,Kozhikkode,Thamarassery,Kodancheri,Kodancheri,72,kerala_village,False,False,Kodencheri,Thamarassery,Kozhikode,627410,627410,90.0,dist+tal,26.084
-KERALA,Kozhikkode,Thamarassery,Nellippoyil,Nellippoyil,73,kerala_village,False,False,Nellipoyil,Thamarassery,Kozhikode,627411,627411,100.0,dist+tal,33.718
-KERALA,Kozhikkode,Thamarassery,Puthuppadi,Puthuppadi,74,kerala_village,False,False,Puthuppadi,Thamarassery,Kozhikode,627407,627407,100.0,dist+tal,39.615
-KERALA,Kozhikkode,Thamarassery,Thiruvambadi,Thiruvambadi,75,kerala_village,False,False,Thiruvambadi,Thamarassery,Kozhikode,627413,627413,100.0,dist+tal,88.308
-KERALA,Kozhikkode,Vadakara,Kavilumpara,Kavilumpara,76,kerala_village,False,False,Kavilumpara,Vatakara,Kozhikode,627345,627345,100.0,dist+tal,83.679
-KERALA,Kozhikkode,Vadakara,Thinur,Thinur,77,kerala_village,False,False,Thinoor,Vatakara,Kozhikode,627344,627344,100.0,dist+tal,30.458
-KERALA,Malappuram,Nilambur,Akampadam,Akampadam,78,kerala_village,False,False,Akampadam,Nilambur,Malappuram,627471,627471,100.0,dist+tal,92.926
-KERALA,Malappuram,Nilambur,Amarambalam,Amarambalam,79,kerala_village,False,False,Amarambalam,Nilambur,Malappuram,627476,627476,100.0,dist+tal,78.192
-KERALA,Malappuram,Nilambur,Chokkad,Chokkad,80,kerala_village,False,False,Chokkad,Nilambur,Malappuram,627482,627482,100.0,dist+tal,61.95
-KERALA,Malappuram,Nilambur,Chungathara,Chungathara,81,kerala_village,False,False,Chungathara,Nilambur,Malappuram,627473,627473,100.0,dist+tal,77.624
-KERALA,Malappuram,Nilambur,Kalikavu,Kalikavu,82,kerala_village,False,False,Kalikavu,Nilambur,Malappuram,627483,627483,100.0,dist+tal,33.436
-KERALA,Malappuram,Nilambur,Karulayi,Karulayi,83,kerala_village,False,False,Karulai,Nilambur,Malappuram,627477,627477,93.3,dist+tal,295.797
-KERALA,Malappuram,Nilambur,Karuvarakundu,Karuvarakundu,84,kerala_village,False,False,Karuvarakundu,Nilambur,Malappuram,627487,627487,100.0,dist+tal,41.149
-KERALA,Malappuram,Nilambur,Kerala Estate,Kerala Estate,85,kerala_village,False,False,Kerala Estate,Nilambur,Malappuram,627486,627486,100.0,dist+tal,35.161
-KERALA,Malappuram,Nilambur,Kurimbalangode,Kurimbalangode,86,kerala_village,False,False,Kurumbilangode,Nilambur,Malappuram,627472,627472,85.7,dist+tal,162.079
-KERALA,Malappuram,Nilambur,Vazhikadavu,Vazhikadavu,88,kerala_village,False,False,Vazhikkadavu,Nilambur,Malappuram,627475,627475,100.0,dist+tal,135.417
-KERALA,Palakkad,Alathoor,Kizhakkancheri-I,Kizhakkancheri-I,89,kerala_village,False,False,Kizhakkencheri I,Alathur,Palakkad,627712,627712,93.3,dist+tal,48.925
-KERALA,Palakkad,Attappadi,Agali,Agali,90,kerala_village,False,False,Agali,Tribal Taluk Office Attappadi,Palakkad,627611,627611,100.0,dist+tal,79.012
-KERALA,Palakkad,Attappadi,Kallamala,Kallamala,91,kerala_village,False,False,Kallamala,Tribal Taluk Office Attappadi,Palakkad,627614,627614,100.0,dist+tal,64.75
-KERALA,Palakkad,Attappadi,Kottathara,Kottathara,92,kerala_village,False,False,Kottathara,Tribal Taluk Office Attappadi,Palakkad,627612,627612,100.0,dist+tal,75.912
-KERALA,Palakkad,Attappadi,Padavayal,Padavayal,93,kerala_village,False,False,Padavayal,Tribal Taluk Office Attappadi,Palakkad,627609,627609,100.0,dist+tal,293.961
-KERALA,Palakkad,Attappadi,Pudur,Pudur,94,kerala_village,False,False,Pudur,Tribal Taluk Office Attappadi,Palakkad,627610,627610,100.0,dist+tal,98.697
-KERALA,Palakkad,Attappadi,Sholayoor,Sholayoor,95,kerala_village,False,False,Sholayur,Tribal Taluk Office Attappadi,Palakkad,627613,627613,100.0,dist+tal,57.191
-KERALA,Palakkad,Chittur,Muthalamada-I,Muthalamada-I,96,kerala_village,False,False,Muthalamada I,Chittur,Palakkad,627680,627680,100.0,dist+tal,226.728
-KERALA,Palakkad,Chittur,Muthalamada-II,Muthalamada-II,97,kerala_village,False,False,Muthalamada II,Chittur,Palakkad,627681,627681,100.0,dist+tal,25.153
-KERALA,Palakkad,Chittur,Nelliyampathy,Nelliyampathy,98,kerala_village,False,False,Nelliyampathy,Chittur,Palakkad,627676,627676,100.0,dist+tal,397.044
-KERALA,Palakkad,Mannarkad,Palakkayam,Palakkayam,99,kerala_village,False,False,Palakkayam,Mannarkad,Palakkad,627615,627615,100.0,dist+tal,121.22
-KERALA,Palakkad,Palakkad,Malampuzha-I,Malampuzha-I,100,kerala_village,False,False,Malampuzha I,Palakkad,Palakkad,627638,627638,100.0,dist+tal,94.814
-KERALA,Palakkad,Palakkad,Pudusseri East,Pudusseri East,101,kerala_village,False,False,Pudussery East,Palakkad,Palakkad,627647,627647,92.3,dist+tal,100.449
-KERALA,Palakkad,Palakkad,Puthuppariyaram-I,Puthuppariyaram-I,102,kerala_village,False,False,Puthuppariyaram II,Palakkad,Palakkad,627637,627637,100.0,dist+tal,70.272
-KERALA,Pathanamthitta,Konni,Aruvappulam,Aruvappulam,103,kerala_village,False,False,Aruvappulam,Konni,Pathanamthitta,628339,628339,100.0,dist+tal,437.547
-KERALA,Pathanamthitta,Konni,Chittar,Chittar*,104,kerala_bifurcated_village,True,False,Chittar,Konni,Pathanamthitta,628321,628321,100.0,dist+tal,670.34
-KERALA,Pathanamthitta,Konni,Thannithodu,Thannithodu,106,kerala_village,False,False,Thannithode,Konni,Pathanamthitta,628341,628341,100.0,dist+tal,142.947
-KERALA,Pathanamthitta,Ranni,Kollamula,Kollamula,107,kerala_village,False,False,Kollamula,Ranni,Pathanamthitta,628312,628312,100.0,dist+tal,65.066
-KERALA,Pathanamthitta,Ranni,Perunad,Perunad,108,kerala_village,False,False,Perunad,Ranni,Pathanamthitta,628313,628313,100.0,dist+tal,194.797
-KERALA,Pathanamthitta,Ranni,Vadasserikkara,Vadasserikkara,109,kerala_village,False,False,Vadasserikkara,Ranni,Pathanamthitta,628320,628320,100.0,dist+tal,45.62
-KERALA,Thiruvananthapuram,Kattakada,Amboori,Amboori,110,kerala_village,False,False,Amboori,Kattakkada,Thiruvananthapuram,628524,628524,100.0,dist+tal,30.339
-KERALA,Thiruvananthapuram,Kattakada,Kallikkad,Kallikkad,111,kerala_village,False,False,Kallikkad,Kattakkada,Thiruvananthapuram,628522,628522,100.0,dist+tal,15.443
-KERALA,Thiruvananthapuram,Kattakada,Manoorkkara,Manoorkkara,112,kerala_village,False,False,Mannoorkara,Kattakkada,Thiruvananthapuram,628495,628495,100.0,dist+tal,93.907
-KERALA,Thiruvananthapuram,Kattakada,Vazhichal,Vazhichal,113,kerala_village,False,False,Vazhichal,Kattakkada,Thiruvananthapuram,628523,628523,100.0,dist+tal,109.582
-KERALA,Thiruvananthapuram,Nedumangad,Peringammala,Peringammala,114,kerala_village,False,False,Peringamala,Nedumangad,Thiruvananthapuram,628483,628483,100.0,dist+tal,125.144
-KERALA,Thiruvananthapuram,Nedumangad,Thennur,Thennur,115,kerala_village,False,False,Thennoor,Nedumangad,Thiruvananthapuram,628484,628484,100.0,dist+tal,115.11
-KERALA,Thiruvananthapuram,Nedumangad,Vithura,Vithura,116,kerala_village,False,False,Vithura,Nedumangad,Thiruvananthapuram,628494,628494,100.0,dist+tal,119.885
-KERALA,Thrissur,Chalakkudy,Pariyaram,Pariyaram,118,kerala_village,False,False,Pariyaram,Chalakkudy,Thrissur,627903,627903,100.0,dist+tal,706.211
-KERALA,Wayanad,Mananthavady,Periya,Periya,119,kerala_village,False,False,Periya,Mananthavady,Wayanad,627298,627298,100.0,dist+tal,63.932
-KERALA,Wayanad,Mananthavady,Thirunelli,Thirunelli,120,kerala_village,False,False,Thirunelly,Mananthavady,Wayanad,627293,627293,94.1,dist+tal,150.646
-KERALA,Wayanad,Mananthavady,Thondernad,Thondernad,121,kerala_village,False,False,Thondernad,Mananthavady,Wayanad,627299,627299,100.0,dist+tal,96.822
-KERALA,Wayanad,Mananthavady,Thrissilery,Thrissilery,122,kerala_village,False,False,Thrissilery,Mananthavady,Wayanad,627294,627294,100.0,dist+tal,55.417
-KERALA,Wayanad,Sulthanbathery,Kidanganad,Kidanganad,123,kerala_village,False,False,Kidanganad,Sulthanbathery,Wayanad,627313,627313,100.0,dist+tal,175.791
-KERALA,Wayanad,Sulthanbathery,Noolpuzha,Noolpuzha,124,kerala_village,False,False,Noolpuzha,Sulthanbathery,Wayanad,627319,627319,100.0,dist+tal,125.321
-KERALA,Wayanad,Vythiri,Achooranam,Achooranam,125,kerala_village,False,False,Achooranam,Vythiri,Wayanad,627333,627333,100.0,dist+tal,20.954
-KERALA,Wayanad,Vythiri,Chundel,Chundel,126,kerala_village,False,False,Chundale,Vythiri,Wayanad,627336,627336,85.7,dist+tal,16.516
-KERALA,Wayanad,Vythiri,Kottappadi,Kottappadi,127,kerala_village,False,False,Kottappadi Part,Vythiri,Wayanad,627337,627337,100.0,dist+tal,56.697
-KERALA,Wayanad,Vythiri,Kunnathidavaka,Kunnathidavaka,128,kerala_village,False,False,Kunnathidavaka,Vythiri,Wayanad,627335,627335,100.0,dist+tal,31.52
-KERALA,Wayanad,Vythiri,Pozhuthana,Pozhuthana,129,kerala_village,False,False,Pozhuthana,Vythiri,Wayanad,627334,627334,100.0,dist+tal,48.221
-KERALA,Wayanad,Vythiri,Thariyod,Thariyod,130,kerala_village,False,False,Thariyode,Vythiri,Wayanad,627332,627332,100.0,dist+tal,56.924
-KERALA,Wayanad,Vythiri,Vellarimala,Vellarimala,131,kerala_village,False,False,Vellarimala,Vythiri,Wayanad,627340,627340,100.0,dist+tal,56.718
+vid,gz_state,gz_district,gz_taluka,gz_village,gz_village_raw,gz_sno,esa_category,bifurcated,notified_forest,cen_village,cen_subdistrict,cen_district,censuscode,lgd_villagecode,score,scope,area_km2
+628041,KERALA,Ernakulam,Kothamangalam,Kuttampuzha,Kuttampuzha,1,kerala_village,False,False,Kuttampuzha,Kothamangalam,Ernakulam,628041,628041,100.0,dist+tal,659.894
+628057,KERALA,Idukki,Devikulam,Anaviratty,Anaviratty,2,kerala_village,False,False,Anaviratty,Devikulam,Idukki,628057,628057,100.0,dist+tal,22.362
+628051,KERALA,Idukki,Devikulam,Kanthaloor,Kanthaloor,4,kerala_village,False,False,Kanthalloor,Devikulam,Idukki,628051,628051,100.0,dist+tal,47.502
+628054,KERALA,Idukki,Devikulam,KDH,KDH,5,kerala_village,False,False,Kannan Devan Hills,Devikulam,Idukki,628054,628054,100.0,dist+tal,485.053
+628050,KERALA,Idukki,Devikulam,Keezhanthoor,Keezhanthoor,6,kerala_village,False,False,Keezhanthoor,Devikulam,Idukki,628050,628050,100.0,dist+tal,67.997
+628052,KERALA,Idukki,Devikulam,Kottakamboor,Kottakamboor,7,kerala_village,False,False,Kottakamboor,Devikulam,Idukki,628052,628052,100.0,dist+tal,41.252
+628059,KERALA,Idukki,Devikulam,Kunjithanny,Kunjithanny,8,kerala_village,False,False,Kunjithanny,Devikulam,Idukki,628059,628059,100.0,dist+tal,17.844
+628055,KERALA,Idukki,Devikulam,Mankulam,Mankulam,9,kerala_village,False,False,Mankulam,Devikulam,Idukki,628055,628055,100.0,dist+tal,80.176
+628056,KERALA,Idukki,Devikulam,Mannamkandam,Mannamkandam,10,kerala_village,False,False,Mannamkandam,Devikulam,Idukki,628056,628056,100.0,dist+tal,183.407
+628049,KERALA,Idukki,Devikulam,Marayur,Marayur,11,kerala_village,False,False,Marayoor,Devikulam,Idukki,628049,628049,100.0,dist+tal,110.39
+628058,KERALA,Idukki,Devikulam,Pallivasal,Pallivasal,13,kerala_village,False,False,Pallivasal,Devikulam,Idukki,628058,628058,100.0,dist+tal,38.633
+628053,KERALA,Idukki,Devikulam,Vattavada,Vattavada,14,kerala_village,False,False,Vattavada,Devikulam,Idukki,628053,628053,100.0,dist+tal,27.062
+628060,KERALA,Idukki,Devikulam,Vellathooval,Vellathooval,15,kerala_village,False,False,Vellathuval,Devikulam,Idukki,628060,628060,100.0,dist+tal,34.007
+628080,KERALA,Idukki,Idukki,Ayyappankovil,Ayyappankovil,16,kerala_village,False,False,Ayyappancoil,Idukki,Idukki,628080,628080,88.0,dist+tal,118.835
+628099,KERALA,Idukki,Idukki,Idukki,Idukki,17,kerala_village,False,False,Idukki,Idukki,Idukki,628099,628099,100.0,dist+tal,268.52
+628087,KERALA,Idukki,Idukki,Kanjikuzhi,Kanjikuzhi,19,kerala_village,False,False,Kanjikuzhi,Idukki,Idukki,628087,628087,100.0,dist+tal,72.605
+628079,KERALA,Idukki,Idukki,Kattappana,Kattappana,20,kerala_village,False,False,Kattappana,Idukki,Idukki,628079,628079,100.0,dist+tal,80.117
+628061,KERALA,Idukki,Idukki,Konnathady,Konnathady,21,kerala_village,False,False,Konnathady,Idukki,Idukki,628061,628061,100.0,dist+tal,74.853
+628073,KERALA,Idukki,Idukki,Thankamany,Thankamany,22,kerala_village,False,False,Thankamony,Idukki,Idukki,628073,628073,90.0,dist+tal,54.418
+628072,KERALA,Idukki,Idukki,Upputhodu,Upputhodu,23,kerala_village,False,False,Upputhode,Idukki,Idukki,628072,628072,100.0,dist+tal,30.232
+628071,KERALA,Idukki,Idukki,Vathikudi,Vathikudi,24,kerala_village,False,False,Vathikudy,Idukki,Idukki,628071,628071,94.1,dist+tal,52.098
+628106,KERALA,Idukki,Peerumedu,Kokkayar,Kokkayar,25,kerala_village,False,False,Kokkayar,Peerumade,Idukki,628106,628106,100.0,dist+tal,55.408
+628110,KERALA,Idukki,Peerumedu,Kumily,Kumily,26,kerala_village,False,False,Kumily,Peerumade,Idukki,628110,628110,100.0,dist+tal,194.875
+628108,KERALA,Idukki,Peerumedu,Manjumala,Manjumala,27,kerala_village,False,False,Manjumala,Peerumade,Idukki,628108,628108,100.0,dist+tal,86.046
+628111,KERALA,Idukki,Peerumedu,Mlappara,Mlappara,28,kerala_village,False,False,Mlappara,Peerumade,Idukki,628111,628111,100.0,dist+tal,580.704
+628107,KERALA,Idukki,Peerumedu,Peerumedu,Peerumedu,29,kerala_village,False,False,Peerumade,Peerumade,Idukki,628107,628107,85.7,dist+tal,46.735
+628109,KERALA,Idukki,Peerumedu,Periyar,Periyar,30,kerala_village,False,False,Periyar,Peerumade,Idukki,628109,628109,100.0,dist+tal,69.085
+628112,KERALA,Idukki,Peerumedu,Peruvanthanam,Peruvanthanam,31,kerala_village,False,False,Peruvanthanam,Peerumade,Idukki,628112,628112,100.0,dist+tal,77.454
+628104,KERALA,Idukki,Peerumedu,Upputhara,Upputhara,32,kerala_village,False,False,Upputhara,Peerumade,Idukki,628104,628104,100.0,dist+tal,30.051
+628100,KERALA,Idukki,Thodupuzha,Arakkulam,Arakkulam,33,kerala_village,False,False,Arakkulam,Thodupuzha,Idukki,628100,628100,100.0,dist+tal,35.297
+628088,KERALA,Idukki,Thodupuzha,Udumpannoor,Udumpannoor,34,kerala_village,False,False,Udumbannoor,Thodupuzha,Idukki,628088,628088,90.9,dist+tal,80.422
+628083,KERALA,Idukki,Udumbanchola,Anakkara,Anakkara,35,kerala_village,False,False,Anakkara,Udumbanchola,Idukki,628083,628083,100.0,dist+tal,38.809
+628081,KERALA,Idukki,Udumbanchola,Anavilasom,Anavilasom,36,kerala_village,False,False,Anavilasam,Udumbanchola,Idukki,628081,628081,90.0,dist+tal,31.785
+628063,KERALA,Idukki,Udumbanchola,Bisonvalley,Bisonvalley,37,kerala_village,False,False,Baisonvally,Udumbanchola,Idukki,628063,628063,90.9,dist+tal,48.321
+628082,KERALA,Idukki,Udumbanchola,Chakkupallom,Chakkupallom,38,kerala_village,False,False,Chakkupallam,Udumbanchola,Idukki,628082,628082,91.7,dist+tal,26.297
+628069,KERALA,Idukki,Udumbanchola,Chathurangappara,Chathurangappara,39,kerala_village,False,False,Chathurangapara,Udumbanchola,Idukki,628069,628069,100.0,dist+tal,29.862
+628064,KERALA,Idukki,Udumbanchola,Chinnakkanal,Chinnakkanal,40,kerala_village,False,False,Chinnakanal,Udumbanchola,Idukki,628064,628064,100.0,dist+tal,69.489
+628074,KERALA,Idukki,Udumbanchola,Kalkoonthal,Kalkoonthal,42,kerala_village,False,False,Kalkoonthal,Udumbanchola,Idukki,628074,628074,100.0,dist+tal,57.551
+628067,KERALA,Idukki,Udumbanchola,Kanthipara,Kanthipara,43,kerala_village,False,False,Kanthippara,Udumbanchola,Idukki,628067,628067,100.0,dist+tal,27.831
+628077,KERALA,Idukki,Udumbanchola,Karunapuram,Karunapuram,44,kerala_village,False,False,Karunapuram,Udumbanchola,Idukki,628077,628077,100.0,dist+tal,54.987
+628076,KERALA,Idukki,Udumbanchola,Pampadumpara,Pampadumpara,45,kerala_village,False,False,Pampadumpara,Udumbanchola,Idukki,628076,628076,100.0,dist+tal,37.222
+628075,KERALA,Idukki,Udumbanchola,Parathodu,Parathodu,46,kerala_village,False,False,Parathodu,Udumbanchola,Idukki,628075,628075,100.0,dist+tal,58.387
+628065,KERALA,Idukki,Udumbanchola,Pooppara,Pooppara,47,kerala_village,False,False,Poopara,Udumbanchola,Idukki,628065,628065,100.0,dist+tal,45.171
+628062,KERALA,Idukki,Udumbanchola,Rajakkad,Rajakkad,48,kerala_village,False,False,Rajakkad,Udumbanchola,Idukki,628062,628062,100.0,dist+tal,26.099
+628066,KERALA,Idukki,Udumbanchola,Rajakumari,Rajakumari,49,kerala_village,False,False,Rajakumari,Udumbanchola,Idukki,628066,628066,100.0,dist+tal,41.034
+628068,KERALA,Idukki,Udumbanchola,Santhampara,Santhampara,50,kerala_village,False,False,Santhanpara,Udumbanchola,Idukki,628068,628068,90.9,dist+tal,36.093
+628070,KERALA,Idukki,Udumbanchola,Udumbanchola,Udumbanchola,51,kerala_village,False,False,Udumbanchola,Udumbanchola,Idukki,628070,628070,100.0,dist+tal,40.399
+628078,KERALA,Idukki,Udumbanchola,Vandanmedu,Vandanmedu,52,kerala_village,False,False,Vandanmedu,Udumbanchola,Idukki,628078,628078,100.0,dist+tal,21.192
+627256,KERALA,Kannur,Iritty,Aralam,Aralam,53,kerala_village,False,False,Aralam,Iritty,Kannur,627256,627256,100.0,dist+tal,122.172
+627257,KERALA,Kannur,Iritty,Kottiyur,Kottiyur,54,kerala_village,False,False,Kottiyoor,Iritty,Kannur,627257,627257,100.0,dist+tal,84.139
+627269,KERALA,Kannur,Thalassery,Cheruvanchery,Cheruvanchery,55,kerala_village,False,False,Cheruvanchery,Thalassery,Kannur,627269,627269,100.0,dist+tal,100.201
+628389,KERALA,Kollam,Pathanapuram,Piravanthur,Piravanthur,56,kerala_village,False,False,Piravanthur,Pathanapuram,Kollam,628389,628389,100.0,dist+tal,72.137
+628388,KERALA,Kollam,Pathanapuram,Punnala,Punnala,57,kerala_village,False,False,Punnala,Pathanapuram,Kollam,628388,628388,100.0,dist+tal,65.196
+628393,KERALA,Kollam,Punalur,Aryankavu,Aryankavu,58,kerala_village,False,False,Arienkavu,Punalur,Kollam,628393,628393,80.0,dist+tal,160.367
+628403,KERALA,Kollam,Punalur,Channapetta,Channapetta,59,kerala_village,False,False,Channappetta,Punalur,Kollam,628403,628403,100.0,dist+tal,32.949
+628391,KERALA,Kollam,Punalur,Edamon,Edamon,60,kerala_village,False,False,Edamon,Punalur,Kollam,628391,628391,100.0,dist+tal,93.593
+628394,KERALA,Kollam,Punalur,Kulathupuzha,Kulathupuzha,61,kerala_village,False,False,Kulathupuzha,Punalur,Kollam,628394,628394,100.0,dist+tal,337.164
+628392,KERALA,Kollam,Punalur,Thenmala,Thenmala,62,kerala_village,False,False,Thenmala,Punalur,Kollam,628392,628392,100.0,dist+tal,104.122
+628395,KERALA,Kollam,Punalur,Thingalkarikkakom,Thingalkarikkakom,63,kerala_village,False,False,Thinkalkarikkakom,Punalur,Kollam,628395,628395,94.1,dist+tal,71.19
+628194,KERALA,Kottayam,Kanjirappally,Koottickal,Koottickal,64,kerala_village,False,False,Koottickal,Kanjirappally,Kottayam,628194,628194,100.0,dist+tal,47.96
+628119,KERALA,Kottayam,Meenachil,Melukavu,Melukavu,65,kerala_village,False,False,Melukavu,Meenachil,Kottayam,628119,628119,100.0,dist+tal,27.657
+628136,KERALA,Kottayam,Meenachil,Poonjar Thekkekara,Poonjar Thekkekara,66,kerala_village,False,False,Poonjar Thekkekara,Meenachil,Kottayam,628136,628136,100.0,dist+tal,45.396
+628122,KERALA,Kottayam,Meenachil,Teekoy,Teekoy,67,kerala_village,False,False,Teekoy,Meenachil,Kottayam,628122,628122,100.0,dist+tal,36.627
+627372,KERALA,Kozhikkode,Koyilandy,Chakkittapara,Chakkittapara,68,kerala_village,False,False,Chakkittapara,Koyilandi,Kozhikode,627372,627372,100.0,dist+tal,118.762
+627371,KERALA,Kozhikkode,Koyilandy,Chembanoda,Chembanoda,69,kerala_village,False,False,Chempanoda,Koyilandi,Kozhikode,627371,627371,90.0,dist+tal,52.024
+627406,KERALA,Kozhikkode,Thamarassery,Kedavur,Kedavur,71,kerala_village,False,False,Kedavur,Thamarassery,Kozhikode,627406,627406,100.0,dist+tal,47.526
+627410,KERALA,Kozhikkode,Thamarassery,Kodancheri,Kodancheri,72,kerala_village,False,False,Kodencheri,Thamarassery,Kozhikode,627410,627410,90.0,dist+tal,26.084
+627411,KERALA,Kozhikkode,Thamarassery,Nellippoyil,Nellippoyil,73,kerala_village,False,False,Nellipoyil,Thamarassery,Kozhikode,627411,627411,100.0,dist+tal,33.718
+627407,KERALA,Kozhikkode,Thamarassery,Puthuppadi,Puthuppadi,74,kerala_village,False,False,Puthuppadi,Thamarassery,Kozhikode,627407,627407,100.0,dist+tal,39.615
+627413,KERALA,Kozhikkode,Thamarassery,Thiruvambadi,Thiruvambadi,75,kerala_village,False,False,Thiruvambadi,Thamarassery,Kozhikode,627413,627413,100.0,dist+tal,88.308
+627345,KERALA,Kozhikkode,Vadakara,Kavilumpara,Kavilumpara,76,kerala_village,False,False,Kavilumpara,Vatakara,Kozhikode,627345,627345,100.0,dist+tal,83.679
+627344,KERALA,Kozhikkode,Vadakara,Thinur,Thinur,77,kerala_village,False,False,Thinoor,Vatakara,Kozhikode,627344,627344,100.0,dist+tal,30.458
+627471,KERALA,Malappuram,Nilambur,Akampadam,Akampadam,78,kerala_village,False,False,Akampadam,Nilambur,Malappuram,627471,627471,100.0,dist+tal,92.926
+627476,KERALA,Malappuram,Nilambur,Amarambalam,Amarambalam,79,kerala_village,False,False,Amarambalam,Nilambur,Malappuram,627476,627476,100.0,dist+tal,78.192
+627482,KERALA,Malappuram,Nilambur,Chokkad,Chokkad,80,kerala_village,False,False,Chokkad,Nilambur,Malappuram,627482,627482,100.0,dist+tal,61.95
+627473,KERALA,Malappuram,Nilambur,Chungathara,Chungathara,81,kerala_village,False,False,Chungathara,Nilambur,Malappuram,627473,627473,100.0,dist+tal,77.624
+627483,KERALA,Malappuram,Nilambur,Kalikavu,Kalikavu,82,kerala_village,False,False,Kalikavu,Nilambur,Malappuram,627483,627483,100.0,dist+tal,33.436
+627477,KERALA,Malappuram,Nilambur,Karulayi,Karulayi,83,kerala_village,False,False,Karulai,Nilambur,Malappuram,627477,627477,93.3,dist+tal,295.797
+627487,KERALA,Malappuram,Nilambur,Karuvarakundu,Karuvarakundu,84,kerala_village,False,False,Karuvarakundu,Nilambur,Malappuram,627487,627487,100.0,dist+tal,41.149
+627486,KERALA,Malappuram,Nilambur,Kerala Estate,Kerala Estate,85,kerala_village,False,False,Kerala Estate,Nilambur,Malappuram,627486,627486,100.0,dist+tal,35.161
+627472,KERALA,Malappuram,Nilambur,Kurimbalangode,Kurimbalangode,86,kerala_village,False,False,Kurumbilangode,Nilambur,Malappuram,627472,627472,85.7,dist+tal,162.079
+627475,KERALA,Malappuram,Nilambur,Vazhikadavu,Vazhikadavu,88,kerala_village,False,False,Vazhikkadavu,Nilambur,Malappuram,627475,627475,100.0,dist+tal,135.417
+627712,KERALA,Palakkad,Alathoor,Kizhakkancheri-I,Kizhakkancheri-I,89,kerala_village,False,False,Kizhakkencheri I,Alathur,Palakkad,627712,627712,93.3,dist+tal,48.925
+627611,KERALA,Palakkad,Attappadi,Agali,Agali,90,kerala_village,False,False,Agali,Tribal Taluk Office Attappadi,Palakkad,627611,627611,100.0,dist+tal,79.012
+627614,KERALA,Palakkad,Attappadi,Kallamala,Kallamala,91,kerala_village,False,False,Kallamala,Tribal Taluk Office Attappadi,Palakkad,627614,627614,100.0,dist+tal,64.75
+627612,KERALA,Palakkad,Attappadi,Kottathara,Kottathara,92,kerala_village,False,False,Kottathara,Tribal Taluk Office Attappadi,Palakkad,627612,627612,100.0,dist+tal,75.912
+627609,KERALA,Palakkad,Attappadi,Padavayal,Padavayal,93,kerala_village,False,False,Padavayal,Tribal Taluk Office Attappadi,Palakkad,627609,627609,100.0,dist+tal,293.961
+627610,KERALA,Palakkad,Attappadi,Pudur,Pudur,94,kerala_village,False,False,Pudur,Tribal Taluk Office Attappadi,Palakkad,627610,627610,100.0,dist+tal,98.697
+627613,KERALA,Palakkad,Attappadi,Sholayoor,Sholayoor,95,kerala_village,False,False,Sholayur,Tribal Taluk Office Attappadi,Palakkad,627613,627613,100.0,dist+tal,57.191
+627680,KERALA,Palakkad,Chittur,Muthalamada-I,Muthalamada-I,96,kerala_village,False,False,Muthalamada I,Chittur,Palakkad,627680,627680,100.0,dist+tal,226.728
+627681,KERALA,Palakkad,Chittur,Muthalamada-II,Muthalamada-II,97,kerala_village,False,False,Muthalamada II,Chittur,Palakkad,627681,627681,100.0,dist+tal,25.153
+627676,KERALA,Palakkad,Chittur,Nelliyampathy,Nelliyampathy,98,kerala_village,False,False,Nelliyampathy,Chittur,Palakkad,627676,627676,100.0,dist+tal,397.044
+627615,KERALA,Palakkad,Mannarkad,Palakkayam,Palakkayam,99,kerala_village,False,False,Palakkayam,Mannarkad,Palakkad,627615,627615,100.0,dist+tal,121.22
+627638,KERALA,Palakkad,Palakkad,Malampuzha-I,Malampuzha-I,100,kerala_village,False,False,Malampuzha I,Palakkad,Palakkad,627638,627638,100.0,dist+tal,94.814
+627647,KERALA,Palakkad,Palakkad,Pudusseri East,Pudusseri East,101,kerala_village,False,False,Pudussery East,Palakkad,Palakkad,627647,627647,92.3,dist+tal,100.449
+627637,KERALA,Palakkad,Palakkad,Puthuppariyaram-I,Puthuppariyaram-I,102,kerala_village,False,False,Puthuppariyaram II,Palakkad,Palakkad,627637,627637,100.0,dist+tal,70.272
+628339,KERALA,Pathanamthitta,Konni,Aruvappulam,Aruvappulam,103,kerala_village,False,False,Aruvappulam,Konni,Pathanamthitta,628339,628339,100.0,dist+tal,437.547
+628321,KERALA,Pathanamthitta,Konni,Chittar,Chittar*,104,kerala_bifurcated_village,True,False,Chittar,Konni,Pathanamthitta,628321,628321,100.0,dist+tal,670.34
+628341,KERALA,Pathanamthitta,Konni,Thannithodu,Thannithodu,106,kerala_village,False,False,Thannithode,Konni,Pathanamthitta,628341,628341,100.0,dist+tal,142.947
+628312,KERALA,Pathanamthitta,Ranni,Kollamula,Kollamula,107,kerala_village,False,False,Kollamula,Ranni,Pathanamthitta,628312,628312,100.0,dist+tal,65.066
+628313,KERALA,Pathanamthitta,Ranni,Perunad,Perunad,108,kerala_village,False,False,Perunad,Ranni,Pathanamthitta,628313,628313,100.0,dist+tal,194.797
+628320,KERALA,Pathanamthitta,Ranni,Vadasserikkara,Vadasserikkara,109,kerala_village,False,False,Vadasserikkara,Ranni,Pathanamthitta,628320,628320,100.0,dist+tal,45.62
+628524,KERALA,Thiruvananthapuram,Kattakada,Amboori,Amboori,110,kerala_village,False,False,Amboori,Kattakkada,Thiruvananthapuram,628524,628524,100.0,dist+tal,30.339
+628522,KERALA,Thiruvananthapuram,Kattakada,Kallikkad,Kallikkad,111,kerala_village,False,False,Kallikkad,Kattakkada,Thiruvananthapuram,628522,628522,100.0,dist+tal,15.443
+628495,KERALA,Thiruvananthapuram,Kattakada,Manoorkkara,Manoorkkara,112,kerala_village,False,False,Mannoorkara,Kattakkada,Thiruvananthapuram,628495,628495,100.0,dist+tal,93.907
+628523,KERALA,Thiruvananthapuram,Kattakada,Vazhichal,Vazhichal,113,kerala_village,False,False,Vazhichal,Kattakkada,Thiruvananthapuram,628523,628523,100.0,dist+tal,109.582
+628483,KERALA,Thiruvananthapuram,Nedumangad,Peringammala,Peringammala,114,kerala_village,False,False,Peringamala,Nedumangad,Thiruvananthapuram,628483,628483,100.0,dist+tal,125.144
+628484,KERALA,Thiruvananthapuram,Nedumangad,Thennur,Thennur,115,kerala_village,False,False,Thennoor,Nedumangad,Thiruvananthapuram,628484,628484,100.0,dist+tal,115.11
+628494,KERALA,Thiruvananthapuram,Nedumangad,Vithura,Vithura,116,kerala_village,False,False,Vithura,Nedumangad,Thiruvananthapuram,628494,628494,100.0,dist+tal,119.885
+627903,KERALA,Thrissur,Chalakkudy,Pariyaram,Pariyaram,118,kerala_village,False,False,Pariyaram,Chalakkudy,Thrissur,627903,627903,100.0,dist+tal,706.211
+627298,KERALA,Wayanad,Mananthavady,Periya,Periya,119,kerala_village,False,False,Periya,Mananthavady,Wayanad,627298,627298,100.0,dist+tal,63.932
+627293,KERALA,Wayanad,Mananthavady,Thirunelli,Thirunelli,120,kerala_village,False,False,Thirunelly,Mananthavady,Wayanad,627293,627293,94.1,dist+tal,150.646
+627299,KERALA,Wayanad,Mananthavady,Thondernad,Thondernad,121,kerala_village,False,False,Thondernad,Mananthavady,Wayanad,627299,627299,100.0,dist+tal,96.822
+627294,KERALA,Wayanad,Mananthavady,Thrissilery,Thrissilery,122,kerala_village,False,False,Thrissilery,Mananthavady,Wayanad,627294,627294,100.0,dist+tal,55.417
+627313,KERALA,Wayanad,Sulthanbathery,Kidanganad,Kidanganad,123,kerala_village,False,False,Kidanganad,Sulthanbathery,Wayanad,627313,627313,100.0,dist+tal,175.791
+627319,KERALA,Wayanad,Sulthanbathery,Noolpuzha,Noolpuzha,124,kerala_village,False,False,Noolpuzha,Sulthanbathery,Wayanad,627319,627319,100.0,dist+tal,125.321
+627333,KERALA,Wayanad,Vythiri,Achooranam,Achooranam,125,kerala_village,False,False,Achooranam,Vythiri,Wayanad,627333,627333,100.0,dist+tal,20.954
+627336,KERALA,Wayanad,Vythiri,Chundel,Chundel,126,kerala_village,False,False,Chundale,Vythiri,Wayanad,627336,627336,85.7,dist+tal,16.516
+627337,KERALA,Wayanad,Vythiri,Kottappadi,Kottappadi,127,kerala_village,False,False,Kottappadi Part,Vythiri,Wayanad,627337,627337,100.0,dist+tal,56.697
+627335,KERALA,Wayanad,Vythiri,Kunnathidavaka,Kunnathidavaka,128,kerala_village,False,False,Kunnathidavaka,Vythiri,Wayanad,627335,627335,100.0,dist+tal,31.52
+627334,KERALA,Wayanad,Vythiri,Pozhuthana,Pozhuthana,129,kerala_village,False,False,Pozhuthana,Vythiri,Wayanad,627334,627334,100.0,dist+tal,48.221
+627332,KERALA,Wayanad,Vythiri,Thariyod,Thariyod,130,kerala_village,False,False,Thariyode,Vythiri,Wayanad,627332,627332,100.0,dist+tal,56.924
+627340,KERALA,Wayanad,Vythiri,Vellarimala,Vellarimala,131,kerala_village,False,False,Vellarimala,Vythiri,Wayanad,627340,627340,100.0,dist+tal,56.718

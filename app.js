@@ -31,8 +31,9 @@ const CAT_HELP = {
   kerala_bifurcated_village: 'Kerala row also marked * in the gazette.'
 };
 const $ = s => document.querySelector(s);
-const fmt = n => n == null ? '—' : n.toLocaleString('en-IN',
-  { maximumFractionDigits: n < 100 ? 2 : 0 });
+const fmt = n => typeof n === 'number' && isFinite(n)
+  ? n.toLocaleString('en-IN', { maximumFractionDigits: n < 100 ? 2 : 0 })
+  : esc(n);
 
 const state = { rows: [], byCode: new Map(), summary: null, filtered: [], cats: new Set() };
 const busy = (on, msg) => { const l = $('#loading'); l.hidden = !on; if (msg) l.textContent = msg; };
@@ -73,10 +74,10 @@ map.addControl(new maplibregl.AttributionControl({ compact: true }));
     state.summary = summary;
     attrs.forEach(a => a.rows.forEach(r => {
       state.rows.push(r);
-      if (r.censuscode) state.byCode.set(String(r.censuscode), r);
+      if (r.vid) state.byCode.set(String(r.vid), r);
     }));
     buildFilters(); buildCats(); buildDownloads(); loadMissing(); applyFilter();
-    $('#ver').textContent = `${summary.version} · ${fmt(summary.matched)} villages`;
+    $('#ver').textContent = `${fmt(summary.matched)} villages · ${fmt(summary.gazette_rows)} gazette rows`;
     busy(false);
   } catch (e) {
     busy(true, 'Could not load village records. Check the console.');
@@ -94,13 +95,13 @@ map.on('load', async () => {
     topos.forEach(t => {
       const o = t.objects[Object.keys(t.objects)[0]];
       topojson.feature(t, o).features.forEach(f => {
-        if (f.properties.censuscode) f.id = String(f.properties.censuscode);
+        if (f.properties.vid) f.id = String(f.properties.vid);
         feats.push(f);
       });
     });
     map.addSource('villages', {
       type: 'geojson', data: { type: 'FeatureCollection', features: feats },
-      promoteId: 'censuscode'
+      promoteId: 'vid'
     });
     map.addLayer({
       id: 'v-fill', type: 'fill', source: 'villages',
@@ -133,7 +134,7 @@ map.on('load', async () => {
 });
 
 /* ---------------- interaction ---------------- */
-map.on('click', 'v-fill', e => openVillage(e.features[0].properties.censuscode));
+map.on('click', 'v-fill', e => openVillage(e.features[0].properties.vid));
 map.on('mouseenter', 'v-fill', () => map.getCanvas().style.cursor = 'pointer');
 map.on('mouseleave', 'v-fill', () => map.getCanvas().style.cursor = '');
 
@@ -145,8 +146,11 @@ function highlight(code) {
   if (selId !== null) map.setFeatureState({ source: 'villages', id: selId }, { sel: true });
 }
 
+const VID = /^[A-Za-z0-9_-]{1,32}$/;      // ids are census codes or gz-XX-NNNN
+
 async function openVillage(code) {
   code = String(code);
+  if (!VID.test(code)) { console.warn('ignoring malformed village id', code); return; }
   const row = state.byCode.get(code);
   highlight(code);
   const d = $('#detail');
@@ -154,23 +158,24 @@ async function openVillage(code) {
   d.innerHTML = `<button class="close" aria-label="Close">&times;</button><p>Loading…</p>`;
   d.querySelector('.close').onclick = () => { d.hidden = true; highlight(null); };
   let f = null;
-  try { f = await fetch(`api/v1/villages/${code}.json`).then(r => r.ok ? r.json() : null); }
+  try { f = await fetch('api/v1/villages/' + encodeURIComponent(code) + '.json')
+              .then(r => r.ok ? r.json() : null); }
   catch (e) { /* fall back to the attributes we already have */ }
   const p = (f && f.properties) || row;
-  if (!p) { d.innerHTML = `<button class="close">&times;</button><p>No record for ${code}.</p>`;
+  if (!p) { d.innerHTML = `<button class="close">&times;</button><p>No record for ${esc(code)}.</p>`;
             d.querySelector('.close').onclick = () => { d.hidden = true; highlight(null); }; return; }
 
   const flags = [];
   if (p.bifurcated) flags.push('The gazette marks this village with <b>*</b>: only <b>part</b> of it lies inside the ESA. This polygon is the whole village and therefore <b>over-states</b> the ESA area.');
   if (String(p.gz_state) === 'KERALA') flags.push('Kerala defines its ESA as village <b>portions</b>. Use the official Kerala KML layer for the true boundary.');
   if (p.scope === 'state') flags.push('Matched at state-wide scope — the district and taluka in the gazette did not resolve, so this pairing is less certain.');
-  if (p.score != null && p.score < 90) flags.push(`Name similarity was ${p.score}, below the 90 mark — worth checking against the gazette.`);
+  if (p.score != null && p.score < 90) flags.push(`Name similarity was ${esc(p.score)}, below the 90 mark — worth checking against the gazette.`);
 
   d.innerHTML = `
     <button class="close" aria-label="Close">&times;</button>
     <h3>${esc(p.gz_village)}</h3>
     <div class="sub">${esc(p.gz_taluka)}, ${esc(p.gz_district)}, ${esc(p.gz_state)}</div>
-    <span class="badge" style="background:${COLOR[p.esa_category] || '#777'}">${CAT_LABEL[p.esa_category] || p.esa_category}</span>
+    <span class="badge" style="background:${COLOR[p.esa_category] || '#777'}">${CAT_LABEL[p.esa_category] || esc(p.esa_category)}</span>
     <dl class="kv">
       <dt>Area</dt><dd>${fmt(p.area_km2)} km²</dd>
       <dt>Gazette S.No.</dt><dd>${esc(p.gz_sno)}</dd>
@@ -182,7 +187,7 @@ async function openVillage(code) {
       <dt>Match score</dt><dd>${esc(p.score)} (${esc(p.scope)})</dd>
     </dl>
     ${flags.map(t => `<div class="flag">${t}</div>`).join('')}
-    <a class="btn" href="api/v1/villages/${code}.json" download>Download this village (GeoJSON)</a>`;
+    <a class="btn" href="api/v1/villages/${encodeURIComponent(code)}.json" download>Download this village (GeoJSON)</a>`;
   d.querySelector('.close').onclick = () => { d.hidden = true; highlight(null); };
 
   if (f && f.geometry && state.mapReady) {
@@ -192,8 +197,8 @@ async function openVillage(code) {
     map.fitBounds(b, { padding: 70, maxZoom: 13, duration: 700 });
   }
 }
-const esc = v => v == null || v === '' ? '—' :
-  String(v).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const ENT = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '`': '&#96;' };
+const esc = v => v == null || v === '' ? '—' : String(v).replace(/[&<>"'`]/g, c => ENT[c]);
 
 /* ---------------- filters ---------------- */
 function buildFilters() {
@@ -233,10 +238,10 @@ function applyFilter() {
   if (state.cats.size) rows = rows.filter(r => state.cats.has(r.esa_category));
   state.filtered = rows;
 
-  const codes = rows.map(r => String(r.censuscode)).filter(c => c && c !== 'null');
+  const codes = rows.map(r => String(r.vid)).filter(c => c && c !== 'null' && c !== 'undefined');
   const narrowed = rows.length !== state.rows.length;
   const filter = narrowed
-    ? ['in', ['get', 'censuscode'], ['literal', codes]]
+    ? ['in', ['get', 'vid'], ['literal', codes]]
     : null;
   ['v-fill', 'v-line'].forEach(l => map.getLayer(l) && map.setFilter(l, filter));
 
@@ -252,7 +257,7 @@ function fitTo(codes) {
   const walk = c => Array.isArray(c[0]) ? c.forEach(walk) : b.extend(c);
   let n = 0;
   for (const f of src._data.features) {
-    if (!set.has(String(f.properties.censuscode))) continue;
+    if (!set.has(String(f.properties.vid))) continue;
     walk(f.geometry.coordinates); if (++n > 400) break;
   }
   if (n) map.fitBounds(b, { padding: 50, maxZoom: 12, duration: 700 });
@@ -262,7 +267,7 @@ function renderResults(rows) {
   const box = $('#results');
   if (rows.length === state.rows.length) { box.innerHTML = ''; return; }
   box.innerHTML = rows.slice(0, 250).map(r =>
-    `<div class="hit" tabindex="0" role="button" data-c="${esc(r.censuscode)}">
+    `<div class="hit" tabindex="0" role="button" data-c="${esc(r.vid)}">
        <b>${esc(r.gz_village)}</b>
        <small>${esc(r.gz_taluka)}, ${esc(r.gz_district)} · ${fmt(r.area_km2)} km²</small></div>`
   ).join('') + (rows.length > 250

@@ -1,121 +1,121 @@
-gz_state,gz_district,gz_taluka,gz_village,gz_village_raw,gz_sno,esa_category,bifurcated,notified_forest,cen_village,cen_subdistrict,cen_district,censuscode,lgd_villagecode,score,scope,area_km2
-TAMIL NADU,Coimbatore,Coimbatore North,Anaikatti (North),Anaikatti (North),1,whole_village,False,False,Anaikatti South,Coimbatore North,Coimbatore,644441,644441,100.0,dist+tal,19.025
-TAMIL NADU,Coimbatore,Coimbatore North,Anaikatti (South),Anaikatti (South),2,whole_village,False,False,Anaikatti North,Coimbatore North,Coimbatore,644440,644440,100.0,dist+tal,6.361
-TAMIL NADU,Coimbatore,Coimbatore North,Thadagam R.F.,Thadagam R.F.,3,notified_forest,False,True,Thadagam R F,Coimbatore North,Coimbatore,644439,644439,100.0,dist+tal,125.504
-TAMIL NADU,Coimbatore,Coimbatore North,Veerapandi,Veerapandi,4,whole_village,False,False,Veerapandi Tp,Coimbatore North,Coimbatore,803970,260291,100.0,dist+tal,12.494
-TAMIL NADU,Coimbatore,Coimbatore South,Boluvampatti (Block I),Boluvampatti (Block I),5,whole_village,False,False,Boluvampatti Block I,Perur,Coimbatore,644466,644466,100.0,dist,31.839
-TAMIL NADU,Coimbatore,Coimbatore South,Booluvampatti (Block II),Booluvampatti (Block II),6,whole_village,False,False,Booluvampatti Block II,Perur,Coimbatore,644467,644467,100.0,dist,106.052
-TAMIL NADU,Coimbatore,Mettupalayam,Anaikatti North R.F.,Anaikatti North R.F.,7,notified_forest,False,True,Anaikatti North R F,Mettupalayam,Coimbatore,644369,644369,100.0,dist+tal,18.814
-TAMIL NADU,Coimbatore,Mettupalayam,Hulical Drug R.F.,Hulical Drug R.F.,8,notified_forest,False,True,Hulical Drug R F,Mettupalayam,Coimbatore,644361,644361,100.0,dist+tal,13.173
-TAMIL NADU,Coimbatore,Mettupalayam,Jaganarai Slopes R.F.,Jaganarai Slopes R.F.,9,notified_forest,False,True,Jaganarai Slopes R F,Mettupalayam,Coimbatore,644357,644357,100.0,dist+tal,21.34
-TAMIL NADU,Coimbatore,Mettupalayam,Kallar R.F.,Kallar R.F.,10,notified_forest,False,True,Kallar R F,Mettupalayam,Coimbatore,644360,644360,100.0,dist+tal,5.88
-TAMIL NADU,Coimbatore,Mettupalayam,Kandiyur R.F.,Kandiyur R.F.,11,notified_forest,False,True,Kandiyur R F,Mettupalayam,Coimbatore,644363,644363,100.0,dist+tal,19.908
-TAMIL NADU,Coimbatore,Mettupalayam,Melur Slope R.F.,Melur Slope R.F.,12,notified_forest,False,True,Melur Slope R F,Mettupalayam,Coimbatore,644366,644366,100.0,dist+tal,20.032
-TAMIL NADU,Coimbatore,Mettupalayam,Nellithurai and Sundapatti R.F.,Nellithurai and Sundapatti R.F.,13,notified_forest,False,True,Nellithurai And Sundapatti R F,Mettupalayam,Coimbatore,644365,644365,100.0,dist+tal,15.66
-TAMIL NADU,Coimbatore,Mettupalayam,Nilgiri Eastern Slope R.F.,Nilgiri Eastern Slope R.F.,14,notified_forest,False,True,Nilgiri Eastern Slope R F,Mettupalayam,Coimbatore,644367,644367,100.0,dist+tal,56.798
-TAMIL NADU,Coimbatore,Mettupalayam,Odanthurai R.F.,Odanthurai R.F.,15,notified_forest,False,True,Odanthurai R F,Mettupalayam,Coimbatore,644358,644358,100.0,dist+tal,28.734
-TAMIL NADU,Coimbatore,Mettupalayam,Pillur Slope R.F.,Pillur Slope R.F.,16,notified_forest,False,True,Pillur Slope R F,Mettupalayam,Coimbatore,644364,644364,100.0,dist+tal,15.101
-TAMIL NADU,Coimbatore,Udumalaipettai,Amaravathi R.F.,Amaravathi R.F.,17,notified_forest,False,True,Amaravathi R F,Udumalaipettai,Tiruppur,644875,644875,100.0,state,163.504
-TAMIL NADU,Coimbatore,Udumalaipettai,Amravathi R.F./Anamalai R.F.,Amravathi R.F./Anamalai R.F.,18,notified_forest,False,True,Anaimalai Tp,Anaimalai,Coimbatore,804006,252678,94.1,dist,16.793
-TAMIL NADU,Coimbatore,Udumalaipettai,Anamalai R.F.,Anamalai R.F.,20,notified_forest,False,True,Anamalai R F,Udumalaipettai,Tiruppur,644876,644876,100.0,state,240.897
-TAMIL NADU,Coimbatore,Udumalaipettai,Kudiraiar & Kukkal R.F.,Kudiraiar & Kukkal R.F.,22,notified_forest,False,True,Kudiraiar and Kukkal R F,Udumalaipettai,Tiruppur,644877,644877,100.0,state,50.179
-TAMIL NADU,Coimbatore,Udumalaipettai,Manjampatti R.F.,Manjampatti R.F.,23,notified_forest,False,True,Manjampatti,Madurai North,Madurai,640569,640569,100.0,state,4.729
-TAMIL NADU,Coimbatore,Valparai,Valparai (TP),Valparai (TP),30,whole_village,False,False,Valparai M,Valparai,Coimbatore,804010,252689,100.0,dist+tal,705.169
-TAMIL NADU,Dindigul,Dindigul,Adalur,Adalur,31,whole_village,False,False,Adalur,Dindigulwest,Dindigul,635366,635366,100.0,dist,14.366
-TAMIL NADU,Dindigul,Dindigul,Erukkalmalai R.F.,Erukkalmalai R.F.,32,notified_forest,False,True,Erukkalmalai R F,Natham,Dindigul,635408,0,100.0,dist,4.341
-TAMIL NADU,Dindigul,Dindigul,Kannivadi (TP),Kannivadi (TP),33,whole_village,False,False,Kannivadi Tp,Dharapuram,Tiruppur,804015,252705,100.0,state,37.859
-TAMIL NADU,Dindigul,Dindigul,Kannivadi (TP),Kannivadi (TP),34,whole_village,False,False,Kannivadi Tp,Dindigulwest,Dindigul,803590,252589,100.0,dist,103.018
-TAMIL NADU,Dindigul,Dindigul,Sirumalai,Sirumalai,35,whole_village,False,False,Sirumalai R F,Dindiguleast,Dindigul,635407,635407,100.0,dist+tal,53.961
-TAMIL NADU,Dindigul,Kodaikanal,Adukkam,Adukkam,36,whole_village,False,False,Adukkam,Kodaikanal,Dindigul,635445,635445,100.0,dist+tal,111.725
-TAMIL NADU,Dindigul,Kodaikanal,Kamanur,Kamanur,37,whole_village,False,False,Kamanur,Kodaikanal,Dindigul,635446,635446,100.0,dist+tal,13.844
-TAMIL NADU,Dindigul,Kodaikanal,Kilakkuchettipatti,Kilakkuchettipatti,38,whole_village,False,False,Kilakkuchettipatti,Kodaikanal,Dindigul,635447,635447,100.0,dist+tal,26.931
-TAMIL NADU,Dindigul,Kodaikanal,Kookkal,Kookkal,39,whole_village,False,False,Kookkal,Kodaikanal,Dindigul,635434,635434,100.0,dist+tal,104.192
-TAMIL NADU,Dindigul,Kodaikanal,Pachalur,Pachalur,40,whole_village,False,False,Pachalur,Kodaikanal,Dindigul,635437,635437,100.0,dist+tal,57.994
-TAMIL NADU,Dindigul,Kodaikanal,Periyur,Periyur,41,whole_village,False,False,Periyur,Kodaikanal,Dindigul,635438,635438,100.0,dist+tal,16.514
-TAMIL NADU,Dindigul,Kodaikanal,Thandigudi,Thandigudi,42,whole_village,False,False,Thandigudi,Kodaikanal,Dindigul,635439,635439,100.0,dist+tal,27.415
-TAMIL NADU,Dindigul,Kodaikanal,Vadagounchi,Vadagounchi,43,whole_village,False,False,Vadagounchi,Kodaikanal,Dindigul,635436,635436,100.0,dist+tal,96.272
-TAMIL NADU,Dindigul,Kodaikanal,Vellagavi,Vellagavi,44,whole_village,False,False,Vellagavi,Kodaikanal,Dindigul,635444,635444,100.0,dist+tal,92.605
-TAMIL NADU,Dindigul,Oddanchatram,Vadagadu,Vadagadu,45,whole_village,False,False,Vadagadu,Oddanchatram,Dindigul,635231,635231,100.0,dist+tal,67.719
-TAMIL NADU,Kanyakumari,Agastheeswaram,Thekkumalai R.F. (West And East),Thekkumalai R.F. (West And East),46,whole_village,False,False,Thekkumalai RF West And East,Agastheeswaram,Kanniyakumari,643185,643185,100.0,dist+tal,7.521
-TAMIL NADU,Kanyakumari,Kalkulam,Surulacode,Surulacode,47,whole_village,False,False,Surulacode,Thiruvattar,Kanniyakumari,643124,643124,100.0,dist,16.067
-TAMIL NADU,Kanyakumari,Kalkulam,Veerapuli Extn. (Old Kulasekarapuram),Veerapuli Extn. (Old Kulasekarapuram),48,whole_village,False,False,Veerapuli Extn Old Kulasekarapuram,Thiruvattar,Kanniyakumari,643137,643137,100.0,dist,6.543
-TAMIL NADU,Kanyakumari,Kalkulam,Veerapuli R.F.,Veerapuli R.F.,49,notified_forest,False,True,Veerapuli R F,Thiruvattar,Kanniyakumari,643136,643136,100.0,dist,245.902
-TAMIL NADU,Kanyakumari,Kalkulam,Velimalai Forest,Velimalai Forest,50,whole_village,False,False,Velimalai Forest,Kalkulam,Kanniyakumari,643138,643138,100.0,dist+tal,1.561
-TAMIL NADU,Kanyakumari,Thovala,Aralvaimozhi (TP),Aralvaimozhi (TP),51,whole_village,False,False,Aralvaimozhi Tp,Thovala,Kanniyakumari,803923,253076,100.0,dist+tal,21.305
-TAMIL NADU,Kanyakumari,Thovala,Asambu R.F.,Asambu R.F.,53,notified_forest,False,True,Asambu R F,Thovala,Kanniyakumari,643157,643157,100.0,dist+tal,62.86
-TAMIL NADU,Kanyakumari,Thovala,Azhagiapandiapuram (TP),Azhagiapandiapuram (TP),54,whole_village,False,False,Azhagiapandipuram,Thovala,Kanniyakumari,643147,643147,97.1,dist+tal,2.805
-TAMIL NADU,Kanyakumari,Thovala,Azhagiapandiapuram (TP),Azhagiapandiapuram (TP),55,whole_village,False,False,Azhagiapandipuram Tp,Thovala,Kanniyakumari,803921,253073,97.4,dist+tal,10.5
-TAMIL NADU,Kanyakumari,Thovala,Chiramadam,Chiramadam,56,whole_village,False,False,Chiramadam,Thovala,Kanniyakumari,643150,643150,100.0,dist+tal,12.689
-TAMIL NADU,Kanyakumari,Thovala,Poigaimalai R.F.,Poigaimalai R.F.,57,notified_forest,False,True,Poigaimalai R F,Thovala,Kanniyakumari,643159,643159,100.0,dist+tal,20.743
-TAMIL NADU,Kanyakumari,Thovala,Thadagamalai R.F.,Thadagamalai R.F.,59,notified_forest,False,True,Thadagamalai R F,Thovala,Kanniyakumari,643160,643160,100.0,dist+tal,36.019
-TAMIL NADU,Kanyakumari,Thovala,Thekkumalai East,Thekkumalai East,60,whole_village,False,False,Thekkumalai East,Thovala,Kanniyakumari,643163,643163,100.0,dist+tal,4.932
-TAMIL NADU,Kanyakumari,Thovala,Thekkumalai West,Thekkumalai West,61,whole_village,False,False,Thekkumalai West,Thovala,Kanniyakumari,643162,643162,100.0,dist+tal,10.626
-TAMIL NADU,Kanyakumari,Thovala,Thovala,Thovala,62,whole_village,False,False,Thovala,Thovala,Kanniyakumari,643155,643155,100.0,dist+tal,8.537
-TAMIL NADU,Kanyakumari,Thovala,Veerapuli R.F.,Veerapuli R.F.,63,notified_forest,False,True,Veerapuli R F,Thovala,Kanniyakumari,643156,643156,100.0,dist+tal,42.56
-TAMIL NADU,Kanyakumari,Thovala,Velimalai R.F.,Velimalai R.F.,64,notified_forest,False,True,Velimalai R F,Thovala,Kanniyakumari,643161,643161,100.0,dist+tal,11.038
-TAMIL NADU,Kanyakumari,Vilavancode,Kilamalai R.F.,Kilamalai R.F.,65,notified_forest,False,True,Kilamalai R F,Vilavancode,Kanniyakumari,643100,643100,100.0,dist+tal,86.002
-TAMIL NADU,The Nilgiris,Coonoor,Burliyar,Burliyar,66,whole_village,False,False,Burliyar,Coonoor,The Nilgiris,635112,635112,100.0,dist+tal,16.913
-TAMIL NADU,The Nilgiris,Coonoor,Coonoor,Coonoor,67,whole_village,False,False,Coonoor M,Coonoor,The Nilgiris,803570,252605,100.0,dist+tal,14.741
-TAMIL NADU,The Nilgiris,Gudalur,Gudalur (TP),Gudalur (TP),68,whole_village,False,False,Gudalur M,Gudalur,The Nilgiris,803560,252920,100.0,dist+tal,48.381
-TAMIL NADU,The Nilgiris,Gudalur,Mudumalai,Mudumalai,69,whole_village,False,False,Mudumalai,Gudalur,The Nilgiris,635085,635085,100.0,dist+tal,192.416
-TAMIL NADU,The Nilgiris,Gudalur,Nellakotta,Nellakotta,70,whole_village,False,False,Nellakotta,Gudalur,The Nilgiris,635084,635084,100.0,dist+tal,44.326
-TAMIL NADU,The Nilgiris,Gudalur,O' Valley (TP),O' Valley (TP),71,whole_village,False,False,O Valley Tp,Gudalur,The Nilgiris,803561,252597,100.0,dist+tal,104.483
-TAMIL NADU,The Nilgiris,Gudalur,Srimadurai,Srimadurai,72,whole_village,False,False,Srimadurai,Gudalur,The Nilgiris,635086,635086,100.0,dist+tal,11.189
-TAMIL NADU,The Nilgiris,Kotagiri,Aracode,Aracode,73,whole_village,False,False,Aracode,Kotagiri,The Nilgiris,635103,635103,100.0,dist+tal,6.933
-TAMIL NADU,The Nilgiris,Kotagiri,Jackanarai,Jackanarai,74,whole_village,False,False,Jackanarai,Kotagiri,The Nilgiris,635110,635110,100.0,dist+tal,20.427
-TAMIL NADU,The Nilgiris,Kotagiri,Kadinamala,Kadinamala,75,whole_village,False,False,Kadinamala,Kotagiri,The Nilgiris,635105,635105,100.0,dist+tal,6.331
-TAMIL NADU,The Nilgiris,Kotagiri,Kengarai,Kengarai,76,whole_village,False,False,Kengarai,Kotagiri,The Nilgiris,635106,635106,100.0,dist+tal,29.757
-TAMIL NADU,The Nilgiris,Kotagiri,Konakarai,Konakarai,77,whole_village,False,False,Konakarai,Kotagiri,The Nilgiris,635107,635107,100.0,dist+tal,37.35
-TAMIL NADU,The Nilgiris,Kotagiri,Nandipuram,Nandipuram,78,whole_village,False,False,Nandipuram,Kotagiri,The Nilgiris,635102,635102,100.0,dist+tal,4.625
-TAMIL NADU,The Nilgiris,Kundah,Kilkunda (TP),Kilkunda (TP),81,whole_village,False,False,Kilkunda Tp,Kundah,The Nilgiris,803573,252610,100.0,dist+tal,24.418
-TAMIL NADU,The Nilgiris,Kundah,Kinnakkorai,Kinnakkorai,82,whole_village,False,False,Kinnakkorai,Kundah,The Nilgiris,635121,635121,100.0,dist+tal,19.839
-TAMIL NADU,The Nilgiris,Kundah,Melkundah,Melkundah,83,whole_village,False,False,Melkundah,Kundah,The Nilgiris,635120,635120,100.0,dist+tal,33.121
-TAMIL NADU,The Nilgiris,Kundah,Mulligoor,Mulligoor,84,whole_village,False,False,Mulligoor,Kundah,The Nilgiris,635118,635118,100.0,dist+tal,171.102
-TAMIL NADU,The Nilgiris,Panthalur,Nelliyalam (TP),Nelliyalam (TP),85,whole_village,False,False,Nelliyalam,Panthalur,The Nilgiris,635082,635082,100.0,dist+tal,43.284
-TAMIL NADU,The Nilgiris,Udhagamandalam,Ebbanad,Ebbanad,86,whole_village,False,False,Ebbanad,Udhagamandalam,The Nilgiris,635089,635089,100.0,dist+tal,75.471
-TAMIL NADU,The Nilgiris,Udhagamandalam,Kukkal,Kukkal,87,whole_village,False,False,Kukkal,Udhagamandalam,The Nilgiris,635090,635090,100.0,dist+tal,63.29
-TAMIL NADU,The Nilgiris,Udhagamandalam,Masinagudi,Masinagudi,88,whole_village,False,False,Masinagudi,Udhagamandalam,The Nilgiris,635087,635087,100.0,dist+tal,134.059
-TAMIL NADU,The Nilgiris,Udhagamandalam,Naduvattam (TP),Naduvattam (TP),89,whole_village,False,False,Naduvattam Tp,Udhagamandalam,The Nilgiris,803563,252599,100.0,dist+tal,106.149
-TAMIL NADU,The Nilgiris,Udhagamandalam,Sholur (TP),Sholur (TP),90,whole_village,False,False,Sholur Tp,Udhagamandalam,The Nilgiris,803562,252598,100.0,dist+tal,92.63
-TAMIL NADU,Theni,Andipatti,Megamalai,Megamalai,91,whole_village,False,False,Megamalai,Andipatti,Theni,641167,641167,100.0,dist+tal,327.026
-TAMIL NADU,Theni,Bodinayakanur,Ahamalai,Ahamalai,92,whole_village,False,False,Ahamalai,Bodinayakanur,Theni,641074,641074,100.0,dist+tal,136.998
-TAMIL NADU,Theni,Bodinayakanur,Bodi Hill North,Bodi Hill North,93,whole_village,False,False,Bodi Hill North,Bodinayakanur,Theni,641073,641073,100.0,dist+tal,66.489
-TAMIL NADU,Theni,Bodinayakanur,Kottagudi,Kottagudi,94,whole_village,False,False,Kottagudi,Bodinayakanur,Theni,641072,641072,100.0,dist+tal,65.014
-TAMIL NADU,Theni,Uthamapalayam,Erasakkanayackanu r Hills,Erasakkanayackanu r Hills,95,whole_village,False,False,Erasakkanayackanur Hills,Uthamapalayam,Theni,641133,641133,100.0,dist+tal,35.442
-TAMIL NADU,Theni,Uthamapalayam,Highways (TP),Highways (TP),96,whole_village,False,False,Highways Tp,Uthamapalayam,Theni,803785,252921,100.0,dist+tal,37.52
-TAMIL NADU,Theni,Uthamapalayam,Koothanatchiyar R.F.,Koothanatchiyar R.F.,97,notified_forest,False,True,Koothanatchiyar RF,Uthamapalayam,Theni,641138,641138,100.0,dist+tal,5.217
-TAMIL NADU,Theni,Uthamapalayam,Melagudalur R.F.,Melagudalur R.F.,98,notified_forest,False,True,Melagudalur RF,Uthamapalayam,Theni,641144,641144,100.0,dist+tal,5.587
-TAMIL NADU,Theni,Uthamapalayam,Pandarathurai R.F.,Pandarathurai R.F.,99,notified_forest,False,True,Pandarathurai RF,Uthamapalayam,Theni,641142,641142,100.0,dist+tal,4.919
-TAMIL NADU,Theni,Uthamapalayam,Suruli R.F.,Suruli R.F.,100,notified_forest,False,True,Suruli RF,Uthamapalayam,Theni,641141,641141,100.0,dist+tal,20.83
-TAMIL NADU,Theni,Uthamapalayam,Vannathiparai R.F.,Vannathiparai R.F.,101,notified_forest,False,True,Vannathiparai RF,Uthamapalayam,Theni,641145,641145,100.0,dist+tal,71.921
-TAMIL NADU,Tirunelveli,Ambasamudram,Dharmapuramatam,Dharmapuramatam,102,whole_village,False,False,Dharmapuramatam,Tenkasi,Tenkasi,642939,642939,100.0,state,6.148
-TAMIL NADU,Tirunelveli,Ambasamudram,Papanasam R.F.,Papanasam R.F.,103,notified_forest,False,True,Papanasam R F,Ambasamudram,Tirunelveli,642986,642986,100.0,dist+tal,365.359
-TAMIL NADU,Tirunelveli,Ambasamudram,Papanasam R.F./Manimutharu (TP),Papanasam R.F./Manimutharu (TP),104,whole_village,False,False,Manimutharu Tp,Ambasamudram,Tirunelveli,803868,253023,100.0,dist+tal,12.496
-TAMIL NADU,Tirunelveli,Ambasamudram,Singampatti Zamindar Forest,Singampatti Zamindar Forest,105,whole_village,False,False,Singampatti Zamindar Forest,Ambasamudram,Tirunelveli,642988,642988,100.0,dist+tal,243.792
-TAMIL NADU,Tirunelveli,Ambasamudram,Therku Viravanallur R.F.,Therku Viravanallur R.F.,106,notified_forest,False,True,Therku Viravanallur,Cheranmahadevi,Tirunelveli,642973,642973,100.0,dist,25.102
-TAMIL NADU,Tirunelveli,Nanguneri,Kalakadu (R.F),Kalakadu (R.F),107,notified_forest,False,True,Kalakad Tp,Nanguneri,Tirunelveli,803873,253025,100.0,dist+tal,28.366
-TAMIL NADU,Tirunelveli,Nanguneri,Vadagarai,Vadagarai,108,whole_village,False,False,Vadagarai,Nanguneri,Tirunelveli,643014,643014,100.0,dist+tal,9.578
-TAMIL NADU,Tirunelveli,Shenkottai,Achampudur (TP),Achampudur (TP),111,whole_village,False,False,Achampudur Tp,Kadayanallur,Tenkasi,803851,253002,100.0,state,16.107
-TAMIL NADU,Tirunelveli,Shenkottai,Puliyarai R.F (Part),Puliyarai R.F (Part),112,whole_village,False,False,Puliyarai,Shenkottai,Tenkasi,642780,642780,100.0,state,12.348
-TAMIL NADU,Tirunelveli,Shenkottai,Puliyarai R.F.(Part),Puliyarai R.F.(Part),113,whole_village,False,False,Puliyarai R F Part,Shenkottai,Tenkasi,642787,642787,100.0,state,21.335
-TAMIL NADU,Tirunelveli,Sivagiri,Sivagiri Reserve Forest,Sivagiri Reserve Forest,114,whole_village,False,False,Sivagiri Tp,Sivagiri,Tenkasi,803836,252987,100.0,state,20.523
-TAMIL NADU,Tirunelveli,Tenkasi,Courtallam Slopes R.F.,Courtallam Slopes R.F.,115,notified_forest,False,True,Courtallam Slopes R F,Tenkasi,Tenkasi,642775,642775,100.0,state,46.204
-TAMIL NADU,Tirunelveli,Tenkasi,Kadayanallur Upper Slopes/Kambaneri Pudukudi,Kadayanallur Upper Slopes/Kambaneri Pudukudi,117,whole_village,False,False,Kadayanallur Upper Slopes,Kadayanallur,Tenkasi,642774,642774,100.0,state,38.389
-TAMIL NADU,Tirunelveli,Tenkasi,Krishnapuram R.F.,Krishnapuram R.F.,118,notified_forest,False,True,Krishnapuram,Palayamkottai,Tirunelveli,642907,642907,100.0,dist,9.304
-TAMIL NADU,Tirunelveli,Tenkasi,Vairavankulam R.F.,Vairavankulam R.F.,119,notified_forest,False,True,Vairavankulam R F,Kadayanallur,Tenkasi,642773,642773,100.0,state,16.471
-TAMIL NADU,Virudhunagar,Rajapalayam,Kollankondan R.F.,Kollankondan R.F.,120,notified_forest,False,True,Kollankondan,Rajapalayam,Virudhunagar,641183,641183,100.0,dist+tal,3.322
-TAMIL NADU,Virudhunagar,Rajapalayam,Kothankulam R.F.,Kothankulam R.F.,121,notified_forest,False,True,Kothankulam,Rajapalayam,Virudhunagar,641173,641173,100.0,dist+tal,6.611
-TAMIL NADU,Virudhunagar,Rajapalayam,Sappaniparambu (R.F),Sappaniparambu (R.F),122,notified_forest,False,True,Sappaniparambu R F,Rajapalayam,Virudhunagar,641204,641204,100.0,dist+tal,1.614
-TAMIL NADU,Virudhunagar,Rajapalayam,Settur R.F.,Settur R.F.,123,notified_forest,False,True,Seithur Tp,Rajapalayam,Virudhunagar,803788,252924,83.3,dist+tal,22.162
-TAMIL NADU,Virudhunagar,Rajapalayam,Settur R.F.,Settur R.F.,124,notified_forest,False,True,Settur RF,Rajapalayam,Virudhunagar,641207,641207,100.0,dist+tal,73.01
-TAMIL NADU,Virudhunagar,Srivilliputhur,Khansabpuram (Unnipath R.F.),Khansabpuram (Unnipath R.F.),125,notified_forest,False,True,Khansabpuram Unnipath R F,Srivilliputhur,Virudhunagar,641259,641259,100.0,dist+tal,2.743
-TAMIL NADU,Virudhunagar,Srivilliputhur,Khansabpuram (Khansapuram R.F.),Khansabpuram (Khansapuram R.F.),126,notified_forest,False,True,Khansabpuram Khansapuram R F,Srivilliputhur,Virudhunagar,641260,641260,100.0,dist+tal,1.534
-TAMIL NADU,Virudhunagar,Srivilliputhur,Pillaiyarnatham R.F.,Pillaiyarnatham R.F.,127,notified_forest,False,True,Pillaiyarnatham,Srivilliputhur,Virudhunagar,641236,641236,100.0,dist+tal,8.109
-TAMIL NADU,Virudhunagar,Srivilliputhur,Pudupatti R.F,Pudupatti R.F,128,notified_forest,False,True,Pudupatti R F,Srivilliputhur,Virudhunagar,641262,641262,100.0,dist+tal,9.915
-TAMIL NADU,Virudhunagar,Srivilliputhur,Srivilliputtur R.F.,Srivilliputtur R.F.,129,notified_forest,False,True,Srivilliputtur,Srivilliputhur,Virudhunagar,641246,641246,100.0,dist+tal,2.206
-TAMIL NADU,Virudhunagar,Srivilliputhur,Srivilliputtur R.F.,Srivilliputtur R.F.,130,notified_forest,False,True,Srivilliputtur R F,Srivilliputhur,Virudhunagar,641263,641263,100.0,dist+tal,153.059
-TAMIL NADU,Virudhunagar,Srivilliputhur,Sundarapandiyam (R.F),Sundarapandiyam (R.F),131,notified_forest,False,True,Sundarapandiyam R F,Srivilliputhur,Virudhunagar,641261,641261,100.0,dist+tal,10.328
-TAMIL NADU,Virudhunagar,Srivilliputhur,Valaikkulam R.F.,Valaikkulam R.F.,132,notified_forest,False,True,Valaikkulam R F,Srivilliputhur,Virudhunagar,641266,641266,100.0,dist+tal,5.015
-TAMIL NADU,Virudhunagar,Srivilliputhur,Valaikkulam R.F.,Valaikkulam R.F.,133,notified_forest,False,True,Valaikulam RF,Srivilliputhur,Virudhunagar,641257,641257,100.0,dist+tal,13.268
-TAMIL NADU,Virudhunagar,Srivilliputhur,Venkateswarapuram R.F.,Venkateswarapuram R.F.,134,notified_forest,False,True,Venkateswarapuram R F,Srivilliputhur,Virudhunagar,641264,641264,100.0,dist+tal,4.726
-TAMIL NADU,Virudhunagar,Srivilliputhur,Venkateswarapuram R.F.,Venkateswarapuram R.F.,135,notified_forest,False,True,Venkateswarapuram,Srivilliputhur,Virudhunagar,641237,641237,100.0,dist+tal,19.474
+vid,gz_state,gz_district,gz_taluka,gz_village,gz_village_raw,gz_sno,esa_category,bifurcated,notified_forest,cen_village,cen_subdistrict,cen_district,censuscode,lgd_villagecode,score,scope,area_km2
+644441,TAMIL NADU,Coimbatore,Coimbatore North,Anaikatti (North),Anaikatti (North),1,whole_village,False,False,Anaikatti South,Coimbatore North,Coimbatore,644441,644441,100.0,dist+tal,19.025
+644440,TAMIL NADU,Coimbatore,Coimbatore North,Anaikatti (South),Anaikatti (South),2,whole_village,False,False,Anaikatti North,Coimbatore North,Coimbatore,644440,644440,100.0,dist+tal,6.361
+644439,TAMIL NADU,Coimbatore,Coimbatore North,Thadagam R.F.,Thadagam R.F.,3,notified_forest,False,True,Thadagam R F,Coimbatore North,Coimbatore,644439,644439,100.0,dist+tal,125.504
+803970,TAMIL NADU,Coimbatore,Coimbatore North,Veerapandi,Veerapandi,4,whole_village,False,False,Veerapandi Tp,Coimbatore North,Coimbatore,803970,260291,100.0,dist+tal,12.494
+644466,TAMIL NADU,Coimbatore,Coimbatore South,Boluvampatti (Block I),Boluvampatti (Block I),5,whole_village,False,False,Boluvampatti Block I,Perur,Coimbatore,644466,644466,100.0,dist,31.839
+644467,TAMIL NADU,Coimbatore,Coimbatore South,Booluvampatti (Block II),Booluvampatti (Block II),6,whole_village,False,False,Booluvampatti Block II,Perur,Coimbatore,644467,644467,100.0,dist,106.052
+644369,TAMIL NADU,Coimbatore,Mettupalayam,Anaikatti North R.F.,Anaikatti North R.F.,7,notified_forest,False,True,Anaikatti North R F,Mettupalayam,Coimbatore,644369,644369,100.0,dist+tal,18.814
+644361,TAMIL NADU,Coimbatore,Mettupalayam,Hulical Drug R.F.,Hulical Drug R.F.,8,notified_forest,False,True,Hulical Drug R F,Mettupalayam,Coimbatore,644361,644361,100.0,dist+tal,13.173
+644357,TAMIL NADU,Coimbatore,Mettupalayam,Jaganarai Slopes R.F.,Jaganarai Slopes R.F.,9,notified_forest,False,True,Jaganarai Slopes R F,Mettupalayam,Coimbatore,644357,644357,100.0,dist+tal,21.34
+644360,TAMIL NADU,Coimbatore,Mettupalayam,Kallar R.F.,Kallar R.F.,10,notified_forest,False,True,Kallar R F,Mettupalayam,Coimbatore,644360,644360,100.0,dist+tal,5.88
+644363,TAMIL NADU,Coimbatore,Mettupalayam,Kandiyur R.F.,Kandiyur R.F.,11,notified_forest,False,True,Kandiyur R F,Mettupalayam,Coimbatore,644363,644363,100.0,dist+tal,19.908
+644366,TAMIL NADU,Coimbatore,Mettupalayam,Melur Slope R.F.,Melur Slope R.F.,12,notified_forest,False,True,Melur Slope R F,Mettupalayam,Coimbatore,644366,644366,100.0,dist+tal,20.032
+644365,TAMIL NADU,Coimbatore,Mettupalayam,Nellithurai and Sundapatti R.F.,Nellithurai and Sundapatti R.F.,13,notified_forest,False,True,Nellithurai And Sundapatti R F,Mettupalayam,Coimbatore,644365,644365,100.0,dist+tal,15.66
+644367,TAMIL NADU,Coimbatore,Mettupalayam,Nilgiri Eastern Slope R.F.,Nilgiri Eastern Slope R.F.,14,notified_forest,False,True,Nilgiri Eastern Slope R F,Mettupalayam,Coimbatore,644367,644367,100.0,dist+tal,56.798
+644358,TAMIL NADU,Coimbatore,Mettupalayam,Odanthurai R.F.,Odanthurai R.F.,15,notified_forest,False,True,Odanthurai R F,Mettupalayam,Coimbatore,644358,644358,100.0,dist+tal,28.734
+644364,TAMIL NADU,Coimbatore,Mettupalayam,Pillur Slope R.F.,Pillur Slope R.F.,16,notified_forest,False,True,Pillur Slope R F,Mettupalayam,Coimbatore,644364,644364,100.0,dist+tal,15.101
+644875,TAMIL NADU,Coimbatore,Udumalaipettai,Amaravathi R.F.,Amaravathi R.F.,17,notified_forest,False,True,Amaravathi R F,Udumalaipettai,Tiruppur,644875,644875,100.0,state,163.504
+804006,TAMIL NADU,Coimbatore,Udumalaipettai,Amravathi R.F./Anamalai R.F.,Amravathi R.F./Anamalai R.F.,18,notified_forest,False,True,Anaimalai Tp,Anaimalai,Coimbatore,804006,252678,94.1,dist,16.793
+644876,TAMIL NADU,Coimbatore,Udumalaipettai,Anamalai R.F.,Anamalai R.F.,20,notified_forest,False,True,Anamalai R F,Udumalaipettai,Tiruppur,644876,644876,100.0,state,240.897
+644877,TAMIL NADU,Coimbatore,Udumalaipettai,Kudiraiar & Kukkal R.F.,Kudiraiar & Kukkal R.F.,22,notified_forest,False,True,Kudiraiar and Kukkal R F,Udumalaipettai,Tiruppur,644877,644877,100.0,state,50.179
+640569,TAMIL NADU,Coimbatore,Udumalaipettai,Manjampatti R.F.,Manjampatti R.F.,23,notified_forest,False,True,Manjampatti,Madurai North,Madurai,640569,640569,100.0,state,4.729
+804010,TAMIL NADU,Coimbatore,Valparai,Valparai (TP),Valparai (TP),30,whole_village,False,False,Valparai M,Valparai,Coimbatore,804010,252689,100.0,dist+tal,705.169
+635366,TAMIL NADU,Dindigul,Dindigul,Adalur,Adalur,31,whole_village,False,False,Adalur,Dindigulwest,Dindigul,635366,635366,100.0,dist,14.366
+635408,TAMIL NADU,Dindigul,Dindigul,Erukkalmalai R.F.,Erukkalmalai R.F.,32,notified_forest,False,True,Erukkalmalai R F,Natham,Dindigul,635408,0,100.0,dist,4.341
+804015,TAMIL NADU,Dindigul,Dindigul,Kannivadi (TP),Kannivadi (TP),33,whole_village,False,False,Kannivadi Tp,Dharapuram,Tiruppur,804015,252705,100.0,state,37.859
+803590,TAMIL NADU,Dindigul,Dindigul,Kannivadi (TP),Kannivadi (TP),34,whole_village,False,False,Kannivadi Tp,Dindigulwest,Dindigul,803590,252589,100.0,dist,103.018
+635407,TAMIL NADU,Dindigul,Dindigul,Sirumalai,Sirumalai,35,whole_village,False,False,Sirumalai R F,Dindiguleast,Dindigul,635407,635407,100.0,dist+tal,53.961
+635445,TAMIL NADU,Dindigul,Kodaikanal,Adukkam,Adukkam,36,whole_village,False,False,Adukkam,Kodaikanal,Dindigul,635445,635445,100.0,dist+tal,111.725
+635446,TAMIL NADU,Dindigul,Kodaikanal,Kamanur,Kamanur,37,whole_village,False,False,Kamanur,Kodaikanal,Dindigul,635446,635446,100.0,dist+tal,13.844
+635447,TAMIL NADU,Dindigul,Kodaikanal,Kilakkuchettipatti,Kilakkuchettipatti,38,whole_village,False,False,Kilakkuchettipatti,Kodaikanal,Dindigul,635447,635447,100.0,dist+tal,26.931
+635434,TAMIL NADU,Dindigul,Kodaikanal,Kookkal,Kookkal,39,whole_village,False,False,Kookkal,Kodaikanal,Dindigul,635434,635434,100.0,dist+tal,104.192
+635437,TAMIL NADU,Dindigul,Kodaikanal,Pachalur,Pachalur,40,whole_village,False,False,Pachalur,Kodaikanal,Dindigul,635437,635437,100.0,dist+tal,57.994
+635438,TAMIL NADU,Dindigul,Kodaikanal,Periyur,Periyur,41,whole_village,False,False,Periyur,Kodaikanal,Dindigul,635438,635438,100.0,dist+tal,16.514
+635439,TAMIL NADU,Dindigul,Kodaikanal,Thandigudi,Thandigudi,42,whole_village,False,False,Thandigudi,Kodaikanal,Dindigul,635439,635439,100.0,dist+tal,27.415
+635436,TAMIL NADU,Dindigul,Kodaikanal,Vadagounchi,Vadagounchi,43,whole_village,False,False,Vadagounchi,Kodaikanal,Dindigul,635436,635436,100.0,dist+tal,96.272
+635444,TAMIL NADU,Dindigul,Kodaikanal,Vellagavi,Vellagavi,44,whole_village,False,False,Vellagavi,Kodaikanal,Dindigul,635444,635444,100.0,dist+tal,92.605
+635231,TAMIL NADU,Dindigul,Oddanchatram,Vadagadu,Vadagadu,45,whole_village,False,False,Vadagadu,Oddanchatram,Dindigul,635231,635231,100.0,dist+tal,67.719
+643185,TAMIL NADU,Kanyakumari,Agastheeswaram,Thekkumalai R.F. (West And East),Thekkumalai R.F. (West And East),46,whole_village,False,False,Thekkumalai RF West And East,Agastheeswaram,Kanniyakumari,643185,643185,100.0,dist+tal,7.521
+643124,TAMIL NADU,Kanyakumari,Kalkulam,Surulacode,Surulacode,47,whole_village,False,False,Surulacode,Thiruvattar,Kanniyakumari,643124,643124,100.0,dist,16.067
+643137,TAMIL NADU,Kanyakumari,Kalkulam,Veerapuli Extn. (Old Kulasekarapuram),Veerapuli Extn. (Old Kulasekarapuram),48,whole_village,False,False,Veerapuli Extn Old Kulasekarapuram,Thiruvattar,Kanniyakumari,643137,643137,100.0,dist,6.543
+643136,TAMIL NADU,Kanyakumari,Kalkulam,Veerapuli R.F.,Veerapuli R.F.,49,notified_forest,False,True,Veerapuli R F,Thiruvattar,Kanniyakumari,643136,643136,100.0,dist,245.902
+643138,TAMIL NADU,Kanyakumari,Kalkulam,Velimalai Forest,Velimalai Forest,50,whole_village,False,False,Velimalai Forest,Kalkulam,Kanniyakumari,643138,643138,100.0,dist+tal,1.561
+803923,TAMIL NADU,Kanyakumari,Thovala,Aralvaimozhi (TP),Aralvaimozhi (TP),51,whole_village,False,False,Aralvaimozhi Tp,Thovala,Kanniyakumari,803923,253076,100.0,dist+tal,21.305
+643157,TAMIL NADU,Kanyakumari,Thovala,Asambu R.F.,Asambu R.F.,53,notified_forest,False,True,Asambu R F,Thovala,Kanniyakumari,643157,643157,100.0,dist+tal,62.86
+643147,TAMIL NADU,Kanyakumari,Thovala,Azhagiapandiapuram (TP),Azhagiapandiapuram (TP),54,whole_village,False,False,Azhagiapandipuram,Thovala,Kanniyakumari,643147,643147,97.1,dist+tal,2.805
+803921,TAMIL NADU,Kanyakumari,Thovala,Azhagiapandiapuram (TP),Azhagiapandiapuram (TP),55,whole_village,False,False,Azhagiapandipuram Tp,Thovala,Kanniyakumari,803921,253073,97.4,dist+tal,10.5
+643150,TAMIL NADU,Kanyakumari,Thovala,Chiramadam,Chiramadam,56,whole_village,False,False,Chiramadam,Thovala,Kanniyakumari,643150,643150,100.0,dist+tal,12.689
+643159,TAMIL NADU,Kanyakumari,Thovala,Poigaimalai R.F.,Poigaimalai R.F.,57,notified_forest,False,True,Poigaimalai R F,Thovala,Kanniyakumari,643159,643159,100.0,dist+tal,20.743
+643160,TAMIL NADU,Kanyakumari,Thovala,Thadagamalai R.F.,Thadagamalai R.F.,59,notified_forest,False,True,Thadagamalai R F,Thovala,Kanniyakumari,643160,643160,100.0,dist+tal,36.019
+643163,TAMIL NADU,Kanyakumari,Thovala,Thekkumalai East,Thekkumalai East,60,whole_village,False,False,Thekkumalai East,Thovala,Kanniyakumari,643163,643163,100.0,dist+tal,4.932
+643162,TAMIL NADU,Kanyakumari,Thovala,Thekkumalai West,Thekkumalai West,61,whole_village,False,False,Thekkumalai West,Thovala,Kanniyakumari,643162,643162,100.0,dist+tal,10.626
+643155,TAMIL NADU,Kanyakumari,Thovala,Thovala,Thovala,62,whole_village,False,False,Thovala,Thovala,Kanniyakumari,643155,643155,100.0,dist+tal,8.537
+643156,TAMIL NADU,Kanyakumari,Thovala,Veerapuli R.F.,Veerapuli R.F.,63,notified_forest,False,True,Veerapuli R F,Thovala,Kanniyakumari,643156,643156,100.0,dist+tal,42.56
+643161,TAMIL NADU,Kanyakumari,Thovala,Velimalai R.F.,Velimalai R.F.,64,notified_forest,False,True,Velimalai R F,Thovala,Kanniyakumari,643161,643161,100.0,dist+tal,11.038
+643100,TAMIL NADU,Kanyakumari,Vilavancode,Kilamalai R.F.,Kilamalai R.F.,65,notified_forest,False,True,Kilamalai R F,Vilavancode,Kanniyakumari,643100,643100,100.0,dist+tal,86.002
+635112,TAMIL NADU,The Nilgiris,Coonoor,Burliyar,Burliyar,66,whole_village,False,False,Burliyar,Coonoor,The Nilgiris,635112,635112,100.0,dist+tal,16.913
+803570,TAMIL NADU,The Nilgiris,Coonoor,Coonoor,Coonoor,67,whole_village,False,False,Coonoor M,Coonoor,The Nilgiris,803570,252605,100.0,dist+tal,14.741
+803560,TAMIL NADU,The Nilgiris,Gudalur,Gudalur (TP),Gudalur (TP),68,whole_village,False,False,Gudalur M,Gudalur,The Nilgiris,803560,252920,100.0,dist+tal,48.381
+635085,TAMIL NADU,The Nilgiris,Gudalur,Mudumalai,Mudumalai,69,whole_village,False,False,Mudumalai,Gudalur,The Nilgiris,635085,635085,100.0,dist+tal,192.416
+635084,TAMIL NADU,The Nilgiris,Gudalur,Nellakotta,Nellakotta,70,whole_village,False,False,Nellakotta,Gudalur,The Nilgiris,635084,635084,100.0,dist+tal,44.326
+803561,TAMIL NADU,The Nilgiris,Gudalur,O' Valley (TP),O' Valley (TP),71,whole_village,False,False,O Valley Tp,Gudalur,The Nilgiris,803561,252597,100.0,dist+tal,104.483
+635086,TAMIL NADU,The Nilgiris,Gudalur,Srimadurai,Srimadurai,72,whole_village,False,False,Srimadurai,Gudalur,The Nilgiris,635086,635086,100.0,dist+tal,11.189
+635103,TAMIL NADU,The Nilgiris,Kotagiri,Aracode,Aracode,73,whole_village,False,False,Aracode,Kotagiri,The Nilgiris,635103,635103,100.0,dist+tal,6.933
+635110,TAMIL NADU,The Nilgiris,Kotagiri,Jackanarai,Jackanarai,74,whole_village,False,False,Jackanarai,Kotagiri,The Nilgiris,635110,635110,100.0,dist+tal,20.427
+635105,TAMIL NADU,The Nilgiris,Kotagiri,Kadinamala,Kadinamala,75,whole_village,False,False,Kadinamala,Kotagiri,The Nilgiris,635105,635105,100.0,dist+tal,6.331
+635106,TAMIL NADU,The Nilgiris,Kotagiri,Kengarai,Kengarai,76,whole_village,False,False,Kengarai,Kotagiri,The Nilgiris,635106,635106,100.0,dist+tal,29.757
+635107,TAMIL NADU,The Nilgiris,Kotagiri,Konakarai,Konakarai,77,whole_village,False,False,Konakarai,Kotagiri,The Nilgiris,635107,635107,100.0,dist+tal,37.35
+635102,TAMIL NADU,The Nilgiris,Kotagiri,Nandipuram,Nandipuram,78,whole_village,False,False,Nandipuram,Kotagiri,The Nilgiris,635102,635102,100.0,dist+tal,4.625
+803573,TAMIL NADU,The Nilgiris,Kundah,Kilkunda (TP),Kilkunda (TP),81,whole_village,False,False,Kilkunda Tp,Kundah,The Nilgiris,803573,252610,100.0,dist+tal,24.418
+635121,TAMIL NADU,The Nilgiris,Kundah,Kinnakkorai,Kinnakkorai,82,whole_village,False,False,Kinnakkorai,Kundah,The Nilgiris,635121,635121,100.0,dist+tal,19.839
+635120,TAMIL NADU,The Nilgiris,Kundah,Melkundah,Melkundah,83,whole_village,False,False,Melkundah,Kundah,The Nilgiris,635120,635120,100.0,dist+tal,33.121
+635118,TAMIL NADU,The Nilgiris,Kundah,Mulligoor,Mulligoor,84,whole_village,False,False,Mulligoor,Kundah,The Nilgiris,635118,635118,100.0,dist+tal,171.102
+635082,TAMIL NADU,The Nilgiris,Panthalur,Nelliyalam (TP),Nelliyalam (TP),85,whole_village,False,False,Nelliyalam,Panthalur,The Nilgiris,635082,635082,100.0,dist+tal,43.284
+635089,TAMIL NADU,The Nilgiris,Udhagamandalam,Ebbanad,Ebbanad,86,whole_village,False,False,Ebbanad,Udhagamandalam,The Nilgiris,635089,635089,100.0,dist+tal,75.471
+635090,TAMIL NADU,The Nilgiris,Udhagamandalam,Kukkal,Kukkal,87,whole_village,False,False,Kukkal,Udhagamandalam,The Nilgiris,635090,635090,100.0,dist+tal,63.29
+635087,TAMIL NADU,The Nilgiris,Udhagamandalam,Masinagudi,Masinagudi,88,whole_village,False,False,Masinagudi,Udhagamandalam,The Nilgiris,635087,635087,100.0,dist+tal,134.059
+803563,TAMIL NADU,The Nilgiris,Udhagamandalam,Naduvattam (TP),Naduvattam (TP),89,whole_village,False,False,Naduvattam Tp,Udhagamandalam,The Nilgiris,803563,252599,100.0,dist+tal,106.149
+803562,TAMIL NADU,The Nilgiris,Udhagamandalam,Sholur (TP),Sholur (TP),90,whole_village,False,False,Sholur Tp,Udhagamandalam,The Nilgiris,803562,252598,100.0,dist+tal,92.63
+641167,TAMIL NADU,Theni,Andipatti,Megamalai,Megamalai,91,whole_village,False,False,Megamalai,Andipatti,Theni,641167,641167,100.0,dist+tal,327.026
+641074,TAMIL NADU,Theni,Bodinayakanur,Ahamalai,Ahamalai,92,whole_village,False,False,Ahamalai,Bodinayakanur,Theni,641074,641074,100.0,dist+tal,136.998
+641073,TAMIL NADU,Theni,Bodinayakanur,Bodi Hill North,Bodi Hill North,93,whole_village,False,False,Bodi Hill North,Bodinayakanur,Theni,641073,641073,100.0,dist+tal,66.489
+641072,TAMIL NADU,Theni,Bodinayakanur,Kottagudi,Kottagudi,94,whole_village,False,False,Kottagudi,Bodinayakanur,Theni,641072,641072,100.0,dist+tal,65.014
+641133,TAMIL NADU,Theni,Uthamapalayam,Erasakkanayackanu r Hills,Erasakkanayackanu r Hills,95,whole_village,False,False,Erasakkanayackanur Hills,Uthamapalayam,Theni,641133,641133,100.0,dist+tal,35.442
+803785,TAMIL NADU,Theni,Uthamapalayam,Highways (TP),Highways (TP),96,whole_village,False,False,Highways Tp,Uthamapalayam,Theni,803785,252921,100.0,dist+tal,37.52
+641138,TAMIL NADU,Theni,Uthamapalayam,Koothanatchiyar R.F.,Koothanatchiyar R.F.,97,notified_forest,False,True,Koothanatchiyar RF,Uthamapalayam,Theni,641138,641138,100.0,dist+tal,5.217
+641144,TAMIL NADU,Theni,Uthamapalayam,Melagudalur R.F.,Melagudalur R.F.,98,notified_forest,False,True,Melagudalur RF,Uthamapalayam,Theni,641144,641144,100.0,dist+tal,5.587
+641142,TAMIL NADU,Theni,Uthamapalayam,Pandarathurai R.F.,Pandarathurai R.F.,99,notified_forest,False,True,Pandarathurai RF,Uthamapalayam,Theni,641142,641142,100.0,dist+tal,4.919
+641141,TAMIL NADU,Theni,Uthamapalayam,Suruli R.F.,Suruli R.F.,100,notified_forest,False,True,Suruli RF,Uthamapalayam,Theni,641141,641141,100.0,dist+tal,20.83
+641145,TAMIL NADU,Theni,Uthamapalayam,Vannathiparai R.F.,Vannathiparai R.F.,101,notified_forest,False,True,Vannathiparai RF,Uthamapalayam,Theni,641145,641145,100.0,dist+tal,71.921
+642939,TAMIL NADU,Tirunelveli,Ambasamudram,Dharmapuramatam,Dharmapuramatam,102,whole_village,False,False,Dharmapuramatam,Tenkasi,Tenkasi,642939,642939,100.0,state,6.148
+642986,TAMIL NADU,Tirunelveli,Ambasamudram,Papanasam R.F.,Papanasam R.F.,103,notified_forest,False,True,Papanasam R F,Ambasamudram,Tirunelveli,642986,642986,100.0,dist+tal,365.359
+803868,TAMIL NADU,Tirunelveli,Ambasamudram,Papanasam R.F./Manimutharu (TP),Papanasam R.F./Manimutharu (TP),104,whole_village,False,False,Manimutharu Tp,Ambasamudram,Tirunelveli,803868,253023,100.0,dist+tal,12.496
+642988,TAMIL NADU,Tirunelveli,Ambasamudram,Singampatti Zamindar Forest,Singampatti Zamindar Forest,105,whole_village,False,False,Singampatti Zamindar Forest,Ambasamudram,Tirunelveli,642988,642988,100.0,dist+tal,243.792
+642973,TAMIL NADU,Tirunelveli,Ambasamudram,Therku Viravanallur R.F.,Therku Viravanallur R.F.,106,notified_forest,False,True,Therku Viravanallur,Cheranmahadevi,Tirunelveli,642973,642973,100.0,dist,25.102
+803873,TAMIL NADU,Tirunelveli,Nanguneri,Kalakadu (R.F),Kalakadu (R.F),107,notified_forest,False,True,Kalakad Tp,Nanguneri,Tirunelveli,803873,253025,100.0,dist+tal,28.366
+643014,TAMIL NADU,Tirunelveli,Nanguneri,Vadagarai,Vadagarai,108,whole_village,False,False,Vadagarai,Nanguneri,Tirunelveli,643014,643014,100.0,dist+tal,9.578
+803851,TAMIL NADU,Tirunelveli,Shenkottai,Achampudur (TP),Achampudur (TP),111,whole_village,False,False,Achampudur Tp,Kadayanallur,Tenkasi,803851,253002,100.0,state,16.107
+642780,TAMIL NADU,Tirunelveli,Shenkottai,Puliyarai R.F (Part),Puliyarai R.F (Part),112,whole_village,False,False,Puliyarai,Shenkottai,Tenkasi,642780,642780,100.0,state,12.348
+642787,TAMIL NADU,Tirunelveli,Shenkottai,Puliyarai R.F.(Part),Puliyarai R.F.(Part),113,whole_village,False,False,Puliyarai R F Part,Shenkottai,Tenkasi,642787,642787,100.0,state,21.335
+803836,TAMIL NADU,Tirunelveli,Sivagiri,Sivagiri Reserve Forest,Sivagiri Reserve Forest,114,whole_village,False,False,Sivagiri Tp,Sivagiri,Tenkasi,803836,252987,100.0,state,20.523
+642775,TAMIL NADU,Tirunelveli,Tenkasi,Courtallam Slopes R.F.,Courtallam Slopes R.F.,115,notified_forest,False,True,Courtallam Slopes R F,Tenkasi,Tenkasi,642775,642775,100.0,state,46.204
+642774,TAMIL NADU,Tirunelveli,Tenkasi,Kadayanallur Upper Slopes/Kambaneri Pudukudi,Kadayanallur Upper Slopes/Kambaneri Pudukudi,117,whole_village,False,False,Kadayanallur Upper Slopes,Kadayanallur,Tenkasi,642774,642774,100.0,state,38.389
+642907,TAMIL NADU,Tirunelveli,Tenkasi,Krishnapuram R.F.,Krishnapuram R.F.,118,notified_forest,False,True,Krishnapuram,Palayamkottai,Tirunelveli,642907,642907,100.0,dist,9.304
+642773,TAMIL NADU,Tirunelveli,Tenkasi,Vairavankulam R.F.,Vairavankulam R.F.,119,notified_forest,False,True,Vairavankulam R F,Kadayanallur,Tenkasi,642773,642773,100.0,state,16.471
+641183,TAMIL NADU,Virudhunagar,Rajapalayam,Kollankondan R.F.,Kollankondan R.F.,120,notified_forest,False,True,Kollankondan,Rajapalayam,Virudhunagar,641183,641183,100.0,dist+tal,3.322
+641173,TAMIL NADU,Virudhunagar,Rajapalayam,Kothankulam R.F.,Kothankulam R.F.,121,notified_forest,False,True,Kothankulam,Rajapalayam,Virudhunagar,641173,641173,100.0,dist+tal,6.611
+641204,TAMIL NADU,Virudhunagar,Rajapalayam,Sappaniparambu (R.F),Sappaniparambu (R.F),122,notified_forest,False,True,Sappaniparambu R F,Rajapalayam,Virudhunagar,641204,641204,100.0,dist+tal,1.614
+803788,TAMIL NADU,Virudhunagar,Rajapalayam,Settur R.F.,Settur R.F.,123,notified_forest,False,True,Seithur Tp,Rajapalayam,Virudhunagar,803788,252924,83.3,dist+tal,22.162
+641207,TAMIL NADU,Virudhunagar,Rajapalayam,Settur R.F.,Settur R.F.,124,notified_forest,False,True,Settur RF,Rajapalayam,Virudhunagar,641207,641207,100.0,dist+tal,73.01
+641259,TAMIL NADU,Virudhunagar,Srivilliputhur,Khansabpuram (Unnipath R.F.),Khansabpuram (Unnipath R.F.),125,notified_forest,False,True,Khansabpuram Unnipath R F,Srivilliputhur,Virudhunagar,641259,641259,100.0,dist+tal,2.743
+641260,TAMIL NADU,Virudhunagar,Srivilliputhur,Khansabpuram (Khansapuram R.F.),Khansabpuram (Khansapuram R.F.),126,notified_forest,False,True,Khansabpuram Khansapuram R F,Srivilliputhur,Virudhunagar,641260,641260,100.0,dist+tal,1.534
+641236,TAMIL NADU,Virudhunagar,Srivilliputhur,Pillaiyarnatham R.F.,Pillaiyarnatham R.F.,127,notified_forest,False,True,Pillaiyarnatham,Srivilliputhur,Virudhunagar,641236,641236,100.0,dist+tal,8.109
+641262,TAMIL NADU,Virudhunagar,Srivilliputhur,Pudupatti R.F,Pudupatti R.F,128,notified_forest,False,True,Pudupatti R F,Srivilliputhur,Virudhunagar,641262,641262,100.0,dist+tal,9.915
+641246,TAMIL NADU,Virudhunagar,Srivilliputhur,Srivilliputtur R.F.,Srivilliputtur R.F.,129,notified_forest,False,True,Srivilliputtur,Srivilliputhur,Virudhunagar,641246,641246,100.0,dist+tal,2.206
+641263,TAMIL NADU,Virudhunagar,Srivilliputhur,Srivilliputtur R.F.,Srivilliputtur R.F.,130,notified_forest,False,True,Srivilliputtur R F,Srivilliputhur,Virudhunagar,641263,641263,100.0,dist+tal,153.059
+641261,TAMIL NADU,Virudhunagar,Srivilliputhur,Sundarapandiyam (R.F),Sundarapandiyam (R.F),131,notified_forest,False,True,Sundarapandiyam R F,Srivilliputhur,Virudhunagar,641261,641261,100.0,dist+tal,10.328
+641266,TAMIL NADU,Virudhunagar,Srivilliputhur,Valaikkulam R.F.,Valaikkulam R.F.,132,notified_forest,False,True,Valaikkulam R F,Srivilliputhur,Virudhunagar,641266,641266,100.0,dist+tal,5.015
+641257,TAMIL NADU,Virudhunagar,Srivilliputhur,Valaikkulam R.F.,Valaikkulam R.F.,133,notified_forest,False,True,Valaikulam RF,Srivilliputhur,Virudhunagar,641257,641257,100.0,dist+tal,13.268
+641264,TAMIL NADU,Virudhunagar,Srivilliputhur,Venkateswarapuram R.F.,Venkateswarapuram R.F.,134,notified_forest,False,True,Venkateswarapuram R F,Srivilliputhur,Virudhunagar,641264,641264,100.0,dist+tal,4.726
+641237,TAMIL NADU,Virudhunagar,Srivilliputhur,Venkateswarapuram R.F.,Venkateswarapuram R.F.,135,notified_forest,False,True,Venkateswarapuram,Srivilliputhur,Virudhunagar,641237,641237,100.0,dist+tal,19.474
