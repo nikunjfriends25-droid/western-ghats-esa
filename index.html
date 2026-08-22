@@ -61,6 +61,7 @@
     <aside class="rail">
       <div class="tabs" role="tablist">
         <button class="tab" role="tab" aria-selected="true" data-tab="explore">Explore</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="analysis">Analysis</button>
         <button class="tab" role="tab" aria-selected="false" data-tab="missing">Not mapped</button>
         <button class="tab" role="tab" aria-selected="false" data-tab="get">Download</button>
       </div>
@@ -88,6 +89,55 @@
         </div>
 
         <div class="block">
+          <h3>Colour the map by</h3>
+          <label class="field"><span class="sr-only">Map metric</span>
+            <select id="f-metric">
+              <option value="">Category (default)</option>
+              <optgroup label="People">
+                <option value="population">Population</option>
+                <option value="pop_density">Population density (per km²)</option>
+                <option value="st_pct">Scheduled Tribe share (%)</option>
+                <option value="land_dependent_pct">Land-dependent workers (%)</option>
+              </optgroup>
+              <optgroup label="Land cover">
+                <option value="natural_forest_pct">Natural forest (%)</option>
+                <option value="plantation_pct">Plantation (%)</option>
+                <option value="agri_pct">Agriculture (%)</option>
+                <option value="wl_degraded_forest_pct">Degraded forest (%)</option>
+              </optgroup>
+              <optgroup label="Protection &amp; tenure">
+                <option value="protected_pct">Protected area / ESZ (%)</option>
+                <option value="connectivity_pct">Corridor / tiger reserve (%)</option>
+                <option value="rfa_pct">Recorded Forest Area (%)</option>
+                <option value="outside_rfa_pct">Outside Recorded Forest (%)</option>
+              </optgroup>
+              <optgroup label="Composite">
+                <option value="conservation_score">Conservation value</option>
+                <option value="conflict_score">Human pressure</option>
+              </optgroup>
+            </select></label>
+          <div id="legend"></div>
+        </div>
+
+        <div class="block">
+          <h3>Overlay layers</h3>
+          <div class="chips" id="overlays">
+            <button class="chip" data-ov="protected_areas" aria-pressed="false">
+              <i class="sw" style="background:#1b7f5a"></i>Protected areas</button>
+            <button class="chip" data-ov="esz" aria-pressed="false">
+              <i class="sw" style="background:#7b5ea7"></i>Parivesh ESZ</button>
+            <button class="chip" data-ov="corridors" aria-pressed="false">
+              <i class="sw" style="background:#d98324"></i>Wildlife corridors</button>
+            <button class="chip" data-ov="tiger_reserves" aria-pressed="false">
+              <i class="sw" style="background:#b8433a"></i>Tiger reserves</button>
+            <button class="chip" data-ov="recorded_forest" aria-pressed="false">
+              <i class="sw" style="background:#2f6d3a"></i>Recorded Forest Area</button>
+          </div>
+          <p class="hint">Protected areas are OpenStreetMap-derived, not official WII
+            boundaries. Recorded Forest Area is ~20&nbsp;MB and loads on demand.</p>
+        </div>
+
+        <div class="block">
           <h3>Selection</h3>
           <div class="metrics" id="metrics"></div>
         </div>
@@ -105,6 +155,21 @@
             whole-village polygons — so the blue outline should sit within the purple, and the
             purple extends beyond it. The reverse figure is 66.7%, because a whole village is
             larger than the portion of it that was notified.</p>
+        </div>
+      </section>
+
+      <section class="pane" data-pane="analysis">
+        <p class="note">Derived indicators, built by joining the reconstruction to census,
+          land-cover, protection and hydrology layers. Every figure carries the caveats below —
+          read them before quoting any number.</p>
+        <div id="an-summary"></div>
+        <div id="an-priority"></div>
+        <div id="an-states"></div>
+        <div class="block">
+          <h3>Limitations</h3>
+          <ul id="an-limits" class="lim"></ul>
+          <a class="btn" href="downloads/WG_ESA_2024_analysis.csv" download>Analysis table — CSV</a>
+          <a class="btn" href="about.html#analysis">How these were computed</a>
         </div>
       </section>
 
@@ -163,5 +228,6 @@
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" integrity="sha384-SYKAG6cglRMN0RVvhNeBY0r3FYKNOJtznwA0v7B5Vp9tr31xAHsZC0DqkQ/pZDmj" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js" integrity="sha384-Ukv1p/xTma6P4/2bY5KzWBw+ydSpXmhCMtyciIQVDJ1RmOxtCYNMF1uXT9T63H67" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="app.js"></script>
+<script src="analysis.js"></script>
 </body>
 </html>

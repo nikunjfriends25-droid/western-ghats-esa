@@ -238,3 +238,27 @@ dl.kv dd{margin:0;word-break:break-word;font-variant-numeric:tabular-nums}
   #detail{left:14px;right:14px;width:auto;max-height:58%}
   .dlrow{grid-template-columns:repeat(2,1fr)}
 }
+
+/* ---------- analysis ---------- */
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ramp{display:flex;height:10px;border-radius:3px;overflow:hidden;margin:.5rem 0 .2rem}
+.ramp i{flex:1}
+.ramp-lab{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);
+  font-variant-numeric:tabular-nums}
+.statline{display:flex;align-items:baseline;gap:.5rem;padding:.3rem 0;
+  border-bottom:1px solid var(--line);font-size:.83rem}
+.statline:last-of-type{border-bottom:0}
+.statline span{flex:1}
+.statline b{font-variant-numeric:tabular-nums}
+.statline small{color:var(--muted);font-size:.74rem;min-width:6.5em;text-align:right}
+table.mini{width:100%;border-collapse:collapse;font-size:.79rem;
+  font-variant-numeric:tabular-nums}
+table.mini th{text-align:left;font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;
+  color:var(--muted);font-weight:600;padding:.25rem .3rem}
+table.mini td{padding:.3rem;border-top:1px solid var(--line)}
+table.mini td:not(:first-child),table.mini th:not(:first-child){text-align:right}
+ul.lim{margin:0 0 .7rem;padding-left:1.05rem}
+ul.lim li{font-size:.78rem;color:var(--muted);margin:.35rem 0;line-height:1.45}
+#detail .an{margin-top:.7rem;padding-top:.6rem;border-top:1px solid var(--line)}
+#detail .an h4{font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--muted);margin:.5rem 0 .3rem}

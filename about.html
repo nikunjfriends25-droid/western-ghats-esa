@@ -285,6 +285,68 @@
   <code>bifurcated</code> field is the quickest way to filter out every partial-extent polygon
   in one step.</p>
 
+  <h2 id="analysis">The analysis layer</h2>
+  <p>The reconstruction above is a transcription of a legal document. Everything in this
+  section is <strong>derived</strong> — the ESA polygons joined to census, land-cover,
+  protection and hydrology datasets. It is a different kind of claim, and it carries the
+  errors of every layer it touches, so it is kept separate and its limits are listed in full.</p>
+
+  <h3>What was joined</h3>
+  <table>
+    <tr><th>Layer</th><th>Source</th><th>Used for</th></tr>
+    <tr><td>Primary Census Abstract 2011</td><td>Census of India</td><td>Population, households, ST/SC, literacy, worker composition</td></tr>
+    <tr><td>Protected areas</td><td>OpenStreetMap via EJAtlas</td><td>National parks and wildlife sanctuaries</td></tr>
+    <tr><td>Eco-Sensitive Zones</td><td>Parivesh / Bharatmaps</td><td>The statutory ESZs already notified around individual parks</td></tr>
+    <tr><td>Wildlife corridors, tiger reserves</td><td>Parivesh / Bharatmaps</td><td>Connectivity</td></tr>
+    <tr><td>Recorded Forest Area</td><td>Bharatmaps</td><td>Land already under forest administration</td></tr>
+    <tr><td>LULC 250K 2017-18, Wasteland Atlas 2015-16</td><td>NRSC / ISRO</td><td>Land cover, degradation</td></tr>
+    <tr><td>River basins and watersheds</td><td>India-WRIS</td><td>Hydrological setting</td></tr>
+    <tr><td>National highways</td><td>GatiShakti / MoRTH</td><td>Infrastructure pressure</td></tr>
+  </table>
+  <p>Census figures join on the 2011 village code, matching <strong>4,297 of 4,331</strong>
+  villages. Areas are measured in EPSG:7755. Where a source layer contains overlapping
+  polygons, its geometry is unioned before measurement — summing per-feature intersections
+  double-counted, in one case reporting 154% of a village as recorded forest.</p>
+
+  <h3>The composite scores</h3>
+  <p>Two scores, each the mean of percentile-ranked components, published with their inputs so
+  the weighting can be disputed and recomputed:</p>
+  <ul>
+    <li><strong>Conservation value</strong> — natural forest %, corridor/tiger reserve %,
+      recorded forest %</li>
+    <li><strong>Human pressure</strong> — population density, built-up %, highway density,
+      land-dependent workers %</li>
+  </ul>
+  <p>An earlier version put population density on both axes (inverted on one) and set recorded
+  forest against its own arithmetic complement, which forced 86% of villages onto a single
+  diagonal — the quadrants were an artefact of the formula rather than a finding. Land cover
+  turned out to be compositional too: natural forest and agriculture correlate −0.80 because
+  the classes sum to 100%, so using both was one variable counted twice with opposite signs.
+  Pressure now measures people and infrastructure only. The two scores correlate
+  <strong>−0.48</strong>: related, as you would expect, but not mirror images.</p>
+
+  <div class="callout warn">
+    <p><strong>Read these before quoting any derived number.</strong></p>
+    <p><strong>Whole-village inflation runs through everything.</strong> Bifurcated and all
+    Kerala villages are whole-village polygons standing in for partial extents. Population is
+    therefore an <em>upper bound</em> — and 39% of the population total comes from Kerala,
+    where extent is over-stated by roughly 30%. Conversely every percentage-of-area figure is
+    an <em>under</em>-estimate, because the denominator is inflated while the numerators are real.</p>
+    <p><strong>Land outside Recorded Forest Area is not private land.</strong> It also holds
+    revenue and common land, water bodies, PSU and defence land, and parks notified on
+    non-forest land — plus gaps in the forest layer itself. 346 villages record no forest area
+    despite being more than half forest; those are layer gaps, not tenure findings.</p>
+    <p><strong>Land cover is unreliable for small villages.</strong> NRSC LULC is mapped at
+    1:250,000 with 112–168 m registration error. For a village under about 25 km² that band is
+    comparable to its whole area. Only 416 of 4,331 villages clear that bar, though they hold
+    52% of the area; the rest are flagged as indicative.</p>
+    <p><strong>Protected areas are OpenStreetMap-derived</strong>, not the official WII
+    boundaries, so the 28% protected figure carries unquantified error.</p>
+    <p><strong>"Mining" means derelict land, not active leases.</strong> The Wasteland Atlas
+    class is abandoned industrial and mining land as of 2015-16. The 15 km² it finds across the
+    whole ESA is far too little to represent active extraction, and it is excluded from scoring.</p>
+  </div>
+
   <h2 id="sources">Sources &amp; licence</h2>
   <p>Gazette text: MoEFCC draft notification
   <a href="https://moef.gov.in/storage/tender/1723024218.pdf">S.O.&nbsp;3060(E), 31&nbsp;July&nbsp;2024</a> (PDF, 4.9&nbsp;MB).

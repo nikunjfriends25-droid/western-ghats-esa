@@ -187,6 +187,7 @@ async function openVillage(code) {
       <dt>Match score</dt><dd>${esc(p.score)} (${esc(p.scope)})</dd>
     </dl>
     ${flags.map(t => `<div class="flag">${t}</div>`).join('')}
+    ${renderCard(f && f.analysis)}
     <a class="btn" href="api/v1/villages/${encodeURIComponent(code)}.json" download>Download this village (GeoJSON)</a>`;
   d.querySelector('.close').onclick = () => { d.hidden = true; highlight(null); };
 
@@ -198,6 +199,59 @@ async function openVillage(code) {
   }
 }
 const ENT = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '`': '&#96;' };
+/* Village report card -- analysis 8. Rendered from the per-village API's
+   `analysis` block; every figure is per whole village, so it inherits the
+   bifurcated / Kerala over-statement caveat shown above it. */
+function renderCard(a) {
+  if (!a) return '';
+  const row = (k, v, s) => v == null || v === '' ? '' :
+    `<dt>${esc(k)}</dt><dd>${typeof v === 'number' ? fmt(v) : esc(v)}${s ? ' ' + s : ''}</dd>`;
+  const sec = (title, body) => body.trim()
+    ? `<h4>${esc(title)}</h4><dl class="kv">${body}</dl>` : '';
+
+  const people = sec('People', [
+    row('Population', a.population), row('Households', a.households),
+    row('Scheduled Tribe', a.pop_st, a.st_pct != null ? `(${a.st_pct}%)` : ''),
+    row('Literacy', a.literacy_pct, '%'),
+    row('Land-dependent workers', a.land_dependent_pct, '%'),
+    row('Density', a.pop_density, '/km²')].join(''));
+
+  const land = sec('Land cover', [
+    row('Natural forest', a.natural_forest_pct, '%'),
+    row('Plantation', a.plantation_pct, '%'),
+    row('Agriculture', a.agri_pct, '%'),
+    row('Degraded forest', a.wl_degraded_forest_pct, '%'),
+    row('Built-up', a.lulc_builtup_pct, '%')].join(''));
+
+  const prot = sec('Protection & tenure', [
+    row('Protected / ESZ', a.protected_pct, '%'),
+    row('Corridor / tiger reserve', a.connectivity_pct, '%'),
+    row('Recorded Forest Area', a.rfa_pct, '%'),
+    row('Outside Recorded Forest', a.outside_rfa_pct, '%'),
+    row('Parks / sanctuaries', a.pa_names), row('ESZ', a.esz_names),
+    row('Tiger reserve', a.tiger_names)].join(''));
+
+  const admin = sec('Administration & setting', [
+    row('Forest division', a.fsi_division), row('Forest range', a.fsi_range),
+    row('Basin', a.basin), row('Sub-basin', a.subbasin),
+    row('National highway', a.nh_km, 'km'), row('Highways', a.nh_names)].join(''));
+
+  const scores = (a.conservation_score != null || a.conflict_score != null) ? `
+    <h4>Composite</h4><dl class="kv">
+      ${row('Conservation value', a.conservation_score, '/100')}
+      ${row('Human pressure', a.conflict_score, '/100')}
+      ${row('Band', a.priority)}
+    </dl>` : '';
+
+  const notes = [];
+  if (a.lulc_reliable === false) notes.push('Village is under 25 km², so land-cover shares are indicative only — the satellite mapping is 1:250,000.');
+  if (a.rfa_gap_suspect) notes.push('No Recorded Forest Area recorded here despite high forest cover — likely a gap in the forest layer, not private land.');
+  if (a.uninhabited) notes.push('Recorded as uninhabited in the 2011 Census.');
+
+  return `<div class="an">${people}${land}${prot}${admin}${scores}
+    ${notes.map(t => `<div class="flag">${t}</div>`).join('')}</div>`;
+}
+
 const esc = v => v == null || v === '' ? '—' : String(v).replace(/[&<>"'`]/g, c => ENT[c]);
 
 /* ---------------- filters ---------------- */

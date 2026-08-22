@@ -79,6 +79,10 @@
         <td>The 401 Annexure&nbsp;B boundary points with state and gazette page</td></tr>
     <tr><td><code>api/v1/unmatched.json</code></td>
         <td>Gazette rows with no polygon, each with a reason</td></tr>
+    <tr><td><code>api/v1/analysis-summary.json</code></td>
+        <td>Derived totals, per-state rows, priority bands, and the limitations list</td></tr>
+    <tr><td><code>api/v1/analysis/{CODE}.json</code></td>
+        <td>Every village in a state with its derived indicators</td></tr>
   </table>
 
   <h3>Bulk geometry</h3>
@@ -181,6 +185,11 @@ print(ka.area_km2.sum(), "km2 across", len(ka), "villages")</code></pre>
     <tr><td><code>score</code></td><td>Name similarity, 0–100</td></tr>
     <tr><td><code>scope</code></td><td>How wide the search had to go: <code>dist+tal</code>, <code>dist</code>, <code>state</code></td></tr>
     <tr><td><code>area_km2</code></td><td>Polygon area, computed in EPSG:7755</td></tr>
+    <tr><td><code>analysis</code></td>
+        <td>Present on each village endpoint: population and census composition, land cover,
+            protection and tenure overlaps, forest and hydrological setting, and the two
+            composite scores. See <a href="about.html#analysis">the analysis layer</a> —
+            these are derived figures with real limitations, not transcribed ones.</td></tr>
   </table>
 
   <div class="callout warn">
