@@ -381,3 +381,48 @@ ul.lim li{font-size:.78rem;color:var(--muted);margin:.35rem 0;line-height:1.45}
 .chip-none[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--surface)}
 .chip-none[aria-pressed=true] .sw-none{background:var(--surface)!important}
 .sw-none{background:transparent;border:1.5px solid var(--muted);box-shadow:none}
+
+/* ---------- PDF export button ---------- */
+.ins-title{display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem}
+.btn-pdf{flex:0 0 auto;border:1px solid var(--line-2);background:var(--surface-2);
+  color:var(--ink-2);border-radius:7px;padding:.25rem .5rem;font-size:.7rem;font-weight:700;
+  letter-spacing:.04em;cursor:pointer}
+.btn-pdf:hover{border-color:var(--accent);color:var(--accent)}
+.btn-pdf-card{width:100%;text-align:center;margin-top:.6rem;cursor:pointer;
+  background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.btn-pdf-card:hover{filter:brightness(1.06);color:var(--accent-ink)}
+
+/* ---------- print report ---------- */
+#report{display:none}
+@media screen{ body.printing #report{display:none} }
+@media print{
+  .shell,.topbar,.footer,.docwrap,.doc{display:none!important}
+  #report{display:block!important;padding:0;margin:0;color:#000;background:#fff}
+  @page{size:A4;margin:14mm}
+  html,body{background:#fff!important;height:auto!important}
+  .r-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12mm;
+    border-bottom:1.5pt solid #2f6d3a;padding-bottom:4mm;margin-bottom:5mm}
+  .r-head h1{font-size:18pt;margin:0 0 1mm;color:#12150f}
+  .r-sub{margin:0;font-size:10.5pt;color:#4a5247}
+  .r-brand{text-align:right;font-size:8pt;color:#4a5247;line-height:1.5}
+  .r-brand strong{display:block;font-size:9.5pt;color:#2f6d3a}
+  .r-brand span{display:block}
+  .r-map{margin:0 0 5mm;break-inside:avoid}
+  .r-map img{width:100%;max-height:105mm;object-fit:contain;border:0.5pt solid #dbe1d6}
+  .r-map figcaption{font-size:7.5pt;color:#6b7280;margin-top:1mm}
+  .r-nomap{font-size:9pt;color:#b8433a;margin:0 0 5mm}
+  .r-sec{break-inside:avoid;margin-bottom:5mm}
+  .r-sec h2{font-size:10pt;text-transform:uppercase;letter-spacing:.06em;color:#2f6d3a;
+    margin:4mm 0 1.5mm;border-bottom:.5pt solid #dbe1d6;padding-bottom:1mm}
+  table.r-tab{width:100%;border-collapse:collapse;font-size:9pt}
+  table.r-tab th{text-align:left;font-weight:500;color:#4a5247;padding:1.1mm 0;
+    width:52%;vertical-align:top}
+  table.r-tab td{text-align:right;font-weight:650;padding:1.1mm 0;
+    font-variant-numeric:tabular-nums;vertical-align:top}
+  table.r-tab tr{border-bottom:.3pt solid #eef1ec}
+  .r-u{font-weight:400;color:#6b7280;font-size:8pt}
+  .r-note{font-size:8pt;color:#6b7280;margin:1.5mm 0 0}
+  .r-foot{border-top:.8pt solid #dbe1d6;margin-top:6mm;padding-top:3mm;
+    font-size:7.5pt;color:#4a5247;line-height:1.5;break-inside:avoid}
+  .r-foot p{margin:0 0 2mm}
+}

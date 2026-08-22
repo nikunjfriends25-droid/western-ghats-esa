@@ -55,7 +55,10 @@ const map = new maplibregl.Map({
     },
     layers: [{ id: 'base', type: 'raster', source: 'base' }]
   },
-  center: [75.4, 14.2], zoom: 5.1, maxZoom: 16, minZoom: 3.5
+  center: [75.4, 14.2], zoom: 5.1, maxZoom: 16, minZoom: 3.5,
+  // without this the WebGL buffer is cleared after each frame and
+  // getCanvas().toDataURL() returns a blank image, so the PDF export gets no map
+  preserveDrawingBuffer: true
 });
 map.addControl(new maplibregl.NavigationControl({ visualizePitch: false }), 'top-left');
 map.addControl(new maplibregl.ScaleControl({ maxWidth: 120, unit: 'metric' }));
@@ -215,8 +218,13 @@ async function openVillage(code) {
     </dl>
     ${flags.map(t => `<div class="flag">${t}</div>`).join('')}
     ${renderCard(f && f.analysis)}
+    <button class="btn btn-pdf-card" id="pdf-village">Export this village as PDF</button>
     <a class="btn" href="api/v1/villages/${encodeURIComponent(code)}.json" download>Download this village (GeoJSON)</a>`;
   d.querySelector('.close').onclick = () => { d.hidden = true; highlight(null); };
+  const pdfBtn = d.querySelector('#pdf-village');
+  if (pdfBtn && window.exportVillagePdf) {
+    pdfBtn.onclick = () => window.exportVillagePdf(p, f && f.analysis);
+  }
 
   if (f && f.geometry && state.mapReady) {
     const b = new maplibregl.LngLatBounds();

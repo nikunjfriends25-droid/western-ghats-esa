@@ -201,8 +201,11 @@
 
     <aside class="insights" id="insights">
       <header class="ins-head">
-        <h2>Selection</h2>
-        <p id="ins-scope">All six states</p>
+        <div class="ins-title">
+          <div><h2>Selection</h2><p id="ins-scope">All six states</p></div>
+          <button id="pdf-selection" class="btn-pdf" title="Export this selection as a PDF">
+            PDF</button>
+        </div>
       </header>
       <div id="ins-body"></div>
       <details class="ins-lim">
@@ -225,9 +228,14 @@
   </footer>
 
 </div>
+
+<!-- built on demand, shown only when printing -->
+<div id="report" aria-hidden="true"></div>
+
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" integrity="sha384-SYKAG6cglRMN0RVvhNeBY0r3FYKNOJtznwA0v7B5Vp9tr31xAHsZC0DqkQ/pZDmj" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js" integrity="sha384-Ukv1p/xTma6P4/2bY5KzWBw+ydSpXmhCMtyciIQVDJ1RmOxtCYNMF1uXT9T63H67" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="app.js"></script>
 <script src="analysis.js"></script>
+<script src="report.js"></script>
 </body>
 </html>
