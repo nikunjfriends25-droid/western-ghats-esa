@@ -141,6 +141,7 @@ map.on('load', async () => {
 
     state.mapReady = true;
     applyFilter();                 // re-apply now that the layers exist
+    setVillageVisibility();
   } catch (e) {
     console.error('map layers:', e);
   }
@@ -456,21 +457,47 @@ function buildCats() {
   $('#cats').innerHTML = order.filter(c => counts[c]).map(c =>
     `<button class="chip" data-cat="${c}" aria-pressed="false" title="${CAT_HELP[c] || ''}">
        <i class="sw" style="background:${COLOR[c]}"></i>${CAT_SHORT[c]}
-       <span class="n">${fmt(counts[c])}</span></button>`).join('');
-  $('#cats').querySelectorAll('.chip').forEach(b => b.onclick = () => {
+       <span class="n">${fmt(counts[c])}</span></button>`).join('') +
+    `<button class="chip chip-none" id="cat-none" aria-pressed="false"
+       title="Hide the village polygons so the overlays and basemap are unobstructed">
+       <i class="sw sw-none"></i>None</button>`;
+
+  $('#cats').querySelectorAll('.chip[data-cat]').forEach(b => b.onclick = () => {
+    state.hideVillages = false;              // picking a category brings them back
     const c = b.dataset.cat;
     if (state.cats.has(c)) state.cats.delete(c); else state.cats.add(c);
-    syncCats(); applyFilter();
+    syncCats(); applyFilter(); setVillageVisibility();
   });
+
+  // "None" hides the village layer outright, so the overlays and the choropleth can
+  // be read without 4,331 polygons on top. A visibility switch, not a filter.
+  $('#cat-none').onclick = () => {
+    state.hideVillages = !state.hideVillages;
+    if (state.hideVillages) state.cats.clear();
+    syncCats(); applyFilter(); setVillageVisibility();
+  };
   syncCats();
 }
+
+function setVillageVisibility() {
+  if (!state.mapReady) return;
+  const v = state.hideVillages ? 'none' : 'visible';
+  ['v-fill', 'v-line'].forEach(l => map.getLayer(l) &&
+    map.setLayoutProperty(l, 'visibility', v));
+}
+
 function syncCats() {
   const none = state.cats.size === 0;
-  $('#cats').querySelectorAll('.chip').forEach(b =>
-    b.setAttribute('aria-pressed', String(none || state.cats.has(b.dataset.cat))));
-  $('#cat-hint').textContent = none
-    ? 'All categories shown. Click one to isolate it.'
-    : `Showing ${[...state.cats].map(c => CAT_SHORT[c]).join(', ')} only. Click again to clear.`;
+  $('#cats').querySelectorAll('.chip[data-cat]').forEach(b =>
+    b.setAttribute('aria-pressed',
+      String(!state.hideVillages && (none || state.cats.has(b.dataset.cat)))));
+  const nb = $('#cat-none');
+  if (nb) nb.setAttribute('aria-pressed', String(!!state.hideVillages));
+  $('#cat-hint').textContent = state.hideVillages
+    ? 'Villages hidden. Click None again, or any category, to bring them back.'
+    : none
+      ? 'All categories shown. Click one to isolate it, or None to hide the villages.'
+      : `Showing ${[...state.cats].map(c => CAT_SHORT[c]).join(', ')} only. Click again to clear.`;
 }
 
 /* ---------------- layers ---------------- */

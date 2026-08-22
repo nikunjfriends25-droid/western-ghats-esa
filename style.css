@@ -378,3 +378,6 @@ ul.lim li{font-size:.78rem;color:var(--muted);margin:.35rem 0;line-height:1.45}
 .vband b{display:block;font-size:.86rem;text-transform:capitalize;color:var(--b);margin-bottom:.1rem}
 .vband span{font-size:.68rem;color:var(--muted);line-height:1.4}
 .vnote{font-size:.65rem;color:var(--muted);line-height:1.45;margin:.35rem 0 0}
+.chip-none[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.chip-none[aria-pressed=true] .sw-none{background:var(--surface)!important}
+.sw-none{background:transparent;border:1.5px solid var(--muted);box-shadow:none}

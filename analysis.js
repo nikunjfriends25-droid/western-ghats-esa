@@ -89,16 +89,6 @@ const OV = {
   tiger_reserves: { color: '#b8433a', label: 'newname' },
   recorded_forest: { color: '#2f6d3a', label: null },
 };
-/* The ESA villages layer is itself toggleable, so the overlays and the choropleth
-   can be examined on their own. */
-const vToggle = q('#l-villages');
-if (vToggle) vToggle.onclick = () => {
-  const on = vToggle.getAttribute('aria-pressed') !== 'true';
-  vToggle.setAttribute('aria-pressed', String(on));
-  ['v-fill', 'v-line'].forEach(l => map.getLayer && map.getLayer(l) &&
-    map.setLayoutProperty(l, 'visibility', on ? 'visible' : 'none'));
-};
-
 document.querySelectorAll('#overlays .chip[data-ov]').forEach(b => {
   b.onclick = async () => {
     const id = b.dataset.ov, on = b.getAttribute('aria-pressed') !== 'true';
