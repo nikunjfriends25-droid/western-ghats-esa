@@ -105,26 +105,39 @@ map.on('load', async () => {
     });
     // Symbology has to work at both ends of the zoom range. Zoomed out, 4,331 tiny
     // polygons each with a hairline outline turn into dark speckle that swamps the
-    // fill and makes the choropleth unreadable; zoomed in, the outline is what
-    // separates one village from the next. So opacity rises as you zoom out and the
-    // outline fades away entirely below z7.
+    // fill; zoomed in, the outline is what separates one village from the next. So
+    // opacity rises as you zoom out and the outline fades away entirely below z7.
+    //
+    // NOTE the shape of these expressions: ["zoom"] may ONLY be the input to a
+    // top-level step/interpolate. Nesting the interpolate inside a ["case"] for the
+    // selected-feature state is invalid, MapLibre rejects the whole paint property,
+    // and the layer renders without it -- which is exactly how the fill disappeared.
+    // So zoom is outermost and the selection case sits inside each stop output.
+    const sel = ['boolean', ['feature-state', 'sel'], false];
     map.addLayer({
       id: 'v-fill', type: 'fill', source: 'villages',
       paint: {
         'fill-color': ['match', ['get', 'esa_category'],
           ...Object.entries(COLOR).flat(), '#777'],
-        'fill-opacity': ['case', ['boolean', ['feature-state', 'sel'], false], 0.9,
-          ['interpolate', ['linear'], ['zoom'], 4, 0.92, 7, 0.85, 10, 0.62, 13, 0.5]]
+        'fill-opacity': ['interpolate', ['linear'], ['zoom'],
+          4, ['case', sel, 0.9, 0.92],
+          7, ['case', sel, 0.9, 0.85],
+          10, ['case', sel, 0.9, 0.62],
+          13, ['case', sel, 0.9, 0.5]]
       }
     });
     map.addLayer({
       id: 'v-line', type: 'line', source: 'villages',
       paint: {
-        'line-color': ['case', ['boolean', ['feature-state', 'sel'], false], '#111', '#3c4a3c'],
-        'line-width': ['case', ['boolean', ['feature-state', 'sel'], false], 2.4,
-          ['interpolate', ['linear'], ['zoom'], 7, 0.2, 10, 0.5, 14, 1]],
-        'line-opacity': ['case', ['boolean', ['feature-state', 'sel'], false], 1,
-          ['interpolate', ['linear'], ['zoom'], 6, 0, 8, 0.45, 12, 0.8]]
+        'line-color': ['case', sel, '#111', '#3c4a3c'],
+        'line-width': ['interpolate', ['linear'], ['zoom'],
+          7, ['case', sel, 2.4, 0.2],
+          10, ['case', sel, 2.4, 0.5],
+          14, ['case', sel, 2.4, 1]],
+        'line-opacity': ['interpolate', ['linear'], ['zoom'],
+          6, ['case', sel, 1, 0],
+          8, ['case', sel, 1, 0.45],
+          12, ['case', sel, 1, 0.8]]
       }
     });
 
