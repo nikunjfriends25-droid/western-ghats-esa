@@ -103,19 +103,28 @@ map.on('load', async () => {
       type: 'geojson', data: { type: 'FeatureCollection', features: feats },
       promoteId: 'vid'
     });
+    // Symbology has to work at both ends of the zoom range. Zoomed out, 4,331 tiny
+    // polygons each with a hairline outline turn into dark speckle that swamps the
+    // fill and makes the choropleth unreadable; zoomed in, the outline is what
+    // separates one village from the next. So opacity rises as you zoom out and the
+    // outline fades away entirely below z7.
     map.addLayer({
       id: 'v-fill', type: 'fill', source: 'villages',
       paint: {
         'fill-color': ['match', ['get', 'esa_category'],
           ...Object.entries(COLOR).flat(), '#777'],
-        'fill-opacity': ['case', ['boolean', ['feature-state', 'sel'], false], 0.85, 0.42]
+        'fill-opacity': ['case', ['boolean', ['feature-state', 'sel'], false], 0.9,
+          ['interpolate', ['linear'], ['zoom'], 4, 0.92, 7, 0.85, 10, 0.62, 13, 0.5]]
       }
     });
     map.addLayer({
       id: 'v-line', type: 'line', source: 'villages',
       paint: {
         'line-color': ['case', ['boolean', ['feature-state', 'sel'], false], '#111', '#3c4a3c'],
-        'line-width': ['case', ['boolean', ['feature-state', 'sel'], false], 2.4, 0.35]
+        'line-width': ['case', ['boolean', ['feature-state', 'sel'], false], 2.4,
+          ['interpolate', ['linear'], ['zoom'], 7, 0.2, 10, 0.5, 14, 1]],
+        'line-opacity': ['case', ['boolean', ['feature-state', 'sel'], false], 1,
+          ['interpolate', ['linear'], ['zoom'], 6, 0, 8, 0.45, 12, 0.8]]
       }
     });
 
@@ -123,7 +132,11 @@ map.on('load', async () => {
     map.addSource('states', { type: 'geojson', data: outlines });
     map.addLayer({
       id: 's-line', type: 'line', source: 'states',
-      paint: { 'line-color': '#243024', 'line-width': 1.4, 'line-opacity': 0.75 }
+      paint: {
+        'line-color': '#243024',
+        'line-width': ['interpolate', ['linear'], ['zoom'], 4, 0.9, 7, 1.3, 11, 1.8],
+        'line-opacity': ['interpolate', ['linear'], ['zoom'], 4, 0.85, 9, 0.6, 12, 0.35]
+      }
     });
 
     state.mapReady = true;
