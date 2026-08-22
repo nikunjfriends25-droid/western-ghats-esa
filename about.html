@@ -128,10 +128,26 @@
   accuracy, so the reconstructed edge is effectively the edge the gazette describes.</p>
 
   <h3>2 · Against Kerala's own published ESA</h3>
-  <p>Kerala released its ESA as KML. <strong>98.1%</strong> of that official area falls inside
-  these polygons; 67 of its 98 polygons are more than 99% covered and 86 are more than 95%
-  covered. Reverse coverage is only 66.7% — which is expected, not a failure, because Kerala's
-  ESA is defined as village <em>portions</em> while this atlas holds whole villages.</p>
+  <p>Kerala released its ESA as KML — an independent government source for the same ground.
+  The direction of this test matters, so stated precisely:</p>
+  <ul>
+    <li><strong>98.1% of the official Kerala area falls inside these village polygons.</strong>
+      Only 170 km² of it lands outside — and that residue is spread across 833 fragments of
+      which 820 are smaller than 1 km², i.e. sliver mismatches along shared edges rather than
+      any missing region. 67 of its 98 polygons are more than 99% covered, 86 are more than
+      95% covered.</li>
+    <li><strong>66.7% of these village polygons fall inside the official area.</strong> The
+      other third is the part of each village that was <em>not</em> notified.</li>
+  </ul>
+  <p>Both numbers are correct and they measure opposite things. The first says the official ESA
+  is almost entirely contained by this reconstruction — which is the test that matters. The
+  second is low by design, because Kerala notified <em>portions</em> of villages while this
+  atlas holds whole villages; a whole village is necessarily bigger than the slice of it that
+  was listed.</p>
+  <p>On the map this looks counter-intuitive at first. Switch on the Kerala official layer and
+  the blue outline sits <em>inside</em> the purple village polygons, with purple spilling
+  beyond it — that spill is the 33%, not a mismatch. If the blue appeared to extend past the
+  purple, that would be the failure. It does not.</p>
 
   <h3>3 · Against the notified areas</h3>
   <p>Annexure&nbsp;A states an area per state, giving a third check that is independent of both
@@ -210,14 +226,64 @@
   </div>
 
   <h2 id="cats">What the categories mean</h2>
-  <table>
-    <tr><th>Category</th><th>Count</th><th>Meaning</th></tr>
-    <tr><td>Whole village</td><td>4,131</td><td>The entire revenue village lies in the ESA</td></tr>
-    <tr><td>Kerala village</td><td>122</td><td>Kerala row; the state defines its ESA portion-wise</td></tr>
-    <tr><td>Notified forest</td><td>51</td><td>Reserve Forests and forest blocks rather than revenue villages</td></tr>
-    <tr><td>Bifurcated</td><td>26</td><td>Gazette marks <code>*</code> — part only; polygon over-states</td></tr>
-    <tr><td>Kerala, bifurcated</td><td>1</td><td>Both of the above</td></tr>
-  </table>
+  <p>Every village in the atlas carries one of five categories. They are not levels of legal
+  protection — as above, the ESA is single and undivided, and every village shown is subject to
+  the same restrictions. What the category tells you is <strong>how that polygon was arrived
+  at, and how much to trust its extent</strong>. Two of the five are warnings.</p>
+
+  <h3>Whole village — 4,131 villages, 40,850 km²</h3>
+  <p>The ordinary case, and about 73% of the mapped area. The gazette names the village without
+  qualification, so the entire revenue village falls inside the ESA and the polygon is simply
+  that village's census boundary. Nothing is being inferred beyond the name match itself, so
+  the extent is as good as the census boundary is.</p>
+
+  <h3>Bifurcated — 26 villages, 111 km² <em>(treat as an over-estimate)</em></h3>
+  <p>The gazette marks some village names with an asterisk. That marker means only <strong>part
+  </strong> of the village lies inside the ESA — the boundary cuts through it.</p>
+  <p>The notification does not publish where that cut falls. No annexure, no coordinates, no
+  sub-village list. So the honest options were to drop these villages entirely or to draw them
+  whole and label them clearly. This atlas draws them whole, which means
+  <strong>every one of these polygons is larger than the ESA actually is.</strong> The map
+  flags it when you open one.</p>
+  <p>The scale is small — these 26 cover 111 km², well under 1% of the mapped area — so the
+  effect on any regional total is minor. For a specific village it is not minor at all. Only
+  the State Governments' physical-verification maps can resolve the true extents.</p>
+  <p>All 26 are in Goa (9) and Maharashtra (17). The gazette marks 54 villages this way in
+  total; the remaining 27 are mostly small Raigad hamlets that have no census village polygon
+  at all, and appear under <a href="index.html">Not mapped</a> instead.</p>
+
+  <h3>Kerala village — 122 villages, 12,360 km² <em>(use the official layer)</em></h3>
+  <p>Every Kerala row carries this category, because Kerala is a special case. The State defines
+  its ESA <strong>portion-wise</strong>: not "this village is in", but "this part of this village
+  is in". The gazette lists the village names; Kerala publishes the actual portions separately
+  as KML.</p>
+  <p>So these 122 polygons are whole villages standing in for what is really a set of partial
+  ones. That is the entire reason Kerala's area ratio is 1.30 rather than 1.00 — it is not a
+  matching error, it is the difference between two definitions.</p>
+  <p>Kerala's official layer is included in the atlas. Switch on <em>Kerala official ESA</em>
+  under Reference layers to see the real boundary sitting inside these village polygons, and
+  treat that layer as authoritative for Kerala.</p>
+
+  <h3>Notified forest — 51 areas, 2,263 km²</h3>
+  <p>Not revenue villages at all. These are Reserve Forests and forest blocks that the gazette
+  lists in the same table as villages — entries like <em>Thadagam R.F.</em>,
+  <em>Anaikatti North R.F.</em> and <em>Jaganarai Slopes R.F.</em> They are identified by the
+  <code>R.F.</code> suffix the notification uses.</p>
+  <p>All 51 are in Tamil Nadu, which lists forest blocks far more than the other five states do.
+  They are mappable here because the census boundary dataset carries Reserve Forests as features
+  in their own right. They range from 1.5 km² to 365 km², so a few of them are large.</p>
+
+  <h3>Kerala, bifurcated — 1 village, 670 km²</h3>
+  <p>A single village, Chittar, that is both a Kerala row and asterisk-marked in the gazette —
+  so both caveats apply at once. It is worth its own category because it is large: at 670 km²
+  it is by far the biggest polygon carrying a partial-extent warning, and it alone accounts for
+  most of the 781 km² of asterisk-marked area in the dataset.</p>
+
+  <p>In the data files these appear in the <code>esa_category</code> field as
+  <code>whole_village</code>, <code>bifurcated_village</code>, <code>kerala_village</code>,
+  <code>notified_forest</code> and <code>kerala_bifurcated_village</code>. The separate boolean
+  <code>bifurcated</code> field is the quickest way to filter out every partial-extent polygon
+  in one step.</p>
 
   <h2 id="sources">Sources &amp; licence</h2>
   <p>Gazette text: MoEFCC draft notification

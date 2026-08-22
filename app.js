@@ -370,10 +370,13 @@ $('#l-kerala').onclick = async () => {
     busy(true, 'Loading Kerala official ESA…');
     try {
       map.addSource('kl', { type: 'geojson', data: await fetch('data/kerala_official.geojson').then(r => r.json()) });
+      // Drawn outline-dominant and on top: a solid fill would paint over the
+      // village polygons and make the official layer look larger than them,
+      // when in fact 98.1% of it sits inside.
       map.addLayer({ id: 'kl-fill', type: 'fill', source: 'kl',
-        paint: { 'fill-color': '#0277bd', 'fill-opacity': 0.32 } }, 'v-line');
+        paint: { 'fill-color': '#0277bd', 'fill-opacity': 0.12 } });
       map.addLayer({ id: 'kl-line', type: 'line', source: 'kl',
-        paint: { 'line-color': '#01579b', 'line-width': 1.4 } });
+        paint: { 'line-color': '#01579b', 'line-width': 1.6 } });
     } catch (err) { console.error(err); }
     busy(false);
   } else {
