@@ -320,3 +320,13 @@ ul.lim li{font-size:.78rem;color:var(--muted);margin:.35rem 0;line-height:1.45}
 .band b{font-size:.85rem;text-transform:capitalize}
 .band-why{grid-column:2;font-size:.7rem;color:var(--muted);line-height:1.35}
 .g-note{font-size:.68rem;color:var(--muted);line-height:1.4;margin:.3rem 0 0}
+
+/* ---------- citations ---------- */
+.doc p.cite{max-width:74ch;padding:.6rem .8rem;background:var(--surface);
+  border-left:3px solid var(--line-2);border-radius:0 var(--r) var(--r) 0;
+  font-size:.88rem;line-height:1.55;margin:.5rem 0 1rem}
+.doc details.bib{max-width:74ch;margin:0 0 1.2rem}
+.doc details.bib summary{cursor:pointer;font-size:.8rem;color:var(--muted);font-weight:600;
+  padding:.2rem 0}
+.doc details.bib summary:hover{color:var(--ink)}
+.doc details.bib pre{margin-top:.5rem}
