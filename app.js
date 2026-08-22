@@ -236,12 +236,31 @@ function renderCard(a) {
     row('Basin', a.basin), row('Sub-basin', a.subbasin),
     row('National highway', a.nh_km, 'km'), row('Highways', a.nh_names)].join(''));
 
+  const gauge = (label, v, hint) => v == null ? '' :
+    `<div class="gauge">
+       <div class="g-top"><span>${esc(label)}</span><b>${v.toFixed(0)}<small>/100</small></b></div>
+       <div class="g-track"><i style="width:${Math.max(0, Math.min(100, v))}%"></i></div>
+       <div class="g-hint">${esc(hint)}</div>
+     </div>`;
+  const BAND = {
+    protect: ['#2f6d3a', 'High ecological value, low human pressure — the cheapest protection to deliver.'],
+    negotiate: ['#d98324', 'High value and high pressure — protection here needs local agreement.'],
+    'contested low-value': ['#b8433a', 'Low measured value but high pressure — the hardest case to justify.'],
+    mixed: ['#6b7280', 'Middling on both axes.'],
+    unclassified: ['#9aa29b', 'Too few indicators available to score.'],
+  };
+  const b = BAND[a.priority] || BAND.unclassified;
   const scores = (a.conservation_score != null || a.conflict_score != null) ? `
-    <h4>Composite</h4><dl class="kv">
-      ${row('Conservation value', a.conservation_score, '/100')}
-      ${row('Human pressure', a.conflict_score, '/100')}
-      ${row('Band', a.priority)}
-    </dl>` : '';
+    <h4>Composite assessment</h4>
+    <div class="scores">
+      ${gauge('Conservation value', a.conservation_score, 'Forest, connectivity, recorded forest')}
+      ${gauge('Human pressure', a.conflict_score, 'People, built-up, highways, land dependence')}
+      ${a.priority ? `<div class="band" style="--b:${b[0]}">
+          <span class="band-dot"></span><b>${esc(a.priority)}</b>
+          <span class="band-why">${esc(b[1])}</span></div>` : ''}
+      <p class="g-note">Both are percentile ranks against the other 4,330 ESA villages, not
+        absolute measures. A score of 80 means higher than 80% of them.</p>
+    </div>` : '';
 
   const notes = [];
   if (a.lulc_reliable === false) notes.push('Village is under 25 km², so land-cover shares are indicative only — the satellite mapping is 1:250,000.');
@@ -300,6 +319,13 @@ function applyFilter() {
   ['v-fill', 'v-line'].forEach(l => map.getLayer(l) && map.setFilter(l, filter));
 
   renderResults(rows); renderStats(rows, st);
+  // the right-hand insights panel recomputes from the same filtered set
+  if (window.onSelectionChange) {
+    const scope = tl ? tl + ', ' + di : di ? di + ' district'
+      : st ? (st === 'TAMIL NADU' ? 'Tamil Nadu' : st[0] + st.slice(1).toLowerCase())
+      : 'All six states';
+    window.onSelectionChange(rows, scope + (q ? ' · "' + q + '"' : ''));
+  }
   if (narrowed && rows.length) fitTo(codes);
 }
 

@@ -286,78 +286,210 @@
   in one step.</p>
 
   <h2 id="analysis">The analysis layer</h2>
-  <p>The reconstruction above is a transcription of a legal document. Everything in this
+  <p class="lede">Everything above is a transcription of a legal document. Everything in this
   section is <strong>derived</strong> — the ESA polygons joined to census, land-cover,
-  protection and hydrology datasets. It is a different kind of claim, and it carries the
-  errors of every layer it touches, so it is kept separate and its limits are listed in full.</p>
+  protection and hydrology data. It is a weaker kind of claim, it inherits the errors of every
+  layer it touches, and it is kept separate for that reason.</p>
 
-  <h3>What was joined</h3>
-  <table>
-    <tr><th>Layer</th><th>Source</th><th>Used for</th></tr>
-    <tr><td>Primary Census Abstract 2011</td><td>Census of India</td><td>Population, households, ST/SC, literacy, worker composition</td></tr>
-    <tr><td>Protected areas</td><td>OpenStreetMap via EJAtlas</td><td>National parks and wildlife sanctuaries</td></tr>
-    <tr><td>Eco-Sensitive Zones</td><td>Parivesh / Bharatmaps</td><td>The statutory ESZs already notified around individual parks</td></tr>
-    <tr><td>Wildlife corridors, tiger reserves</td><td>Parivesh / Bharatmaps</td><td>Connectivity</td></tr>
-    <tr><td>Recorded Forest Area</td><td>Bharatmaps</td><td>Land already under forest administration</td></tr>
-    <tr><td>LULC 250K 2017-18, Wasteland Atlas 2015-16</td><td>NRSC / ISRO</td><td>Land cover, degradation</td></tr>
-    <tr><td>River basins and watersheds</td><td>India-WRIS</td><td>Hydrological setting</td></tr>
-    <tr><td>National highways</td><td>GatiShakti / MoRTH</td><td>Infrastructure pressure</td></tr>
-  </table>
-  <p>Census figures join on the 2011 village code, matching <strong>4,297 of 4,331</strong>
-  villages. Areas are measured in EPSG:7755. Where a source layer contains overlapping
-  polygons, its geometry is unioned before measurement — summing per-feature intersections
-  double-counted, in one case reporting 154% of a village as recorded forest.</p>
+  <h3>How each figure is computed</h3>
+
+  <h4>Geometry and units</h4>
+  <p>Every area is measured in <strong>EPSG:7755</strong> (India-wide equal-area), never in
+  degrees. Overlays are polygon intersections against the village boundary, reported both in
+  km² and as a share of that village.</p>
+  <p>One trap dominated this stage. Several source layers contain <strong>self-overlapping
+  polygons</strong> — Recorded Forest Area reached 154% of a single village, wildlife corridors
+  173%. Summing per-feature intersections double-counts wherever a layer overlaps itself. Each
+  layer is therefore <strong>unioned into one geometry before measurement</strong>, and any
+  result still exceeding the village area is logged as a fault rather than quietly clipped.</p>
+  <p>The same logic applies across layers: "protected" is the <em>union</em> of national parks,
+  sanctuaries and Parivesh ESZs, not the larger of the two. Taking the maximum understated
+  protection by about 2,000&nbsp;km², because ESZs sit largely <em>outside</em> park boundaries.</p>
+
+  <h4>Population and census indicators</h4>
+  <p>Joined on the 2011 Census village code that the reconstruction already carries —
+  <strong>4,297 of 4,331 villages match</strong>. This is an exact key join, with no fuzzy
+  matching at this stage.</p>
+  <p>A few villages straddle a sub-district boundary, and the Census reports each part as a
+  separate row under the same code. Those parts are <strong>summed</strong>, not de-duplicated:
+  dropping one would silently halve that village's population. Seventeen such cases exist
+  nationally, all in West Bengal, so none affect this dataset — but the pipeline handles them
+  correctly regardless.</p>
+  <p>Derived rates: Scheduled Tribe share and literacy are shares of village population;
+  land-dependent workers is (cultivators + agricultural labourers) ÷ total workers; density is
+  population ÷ village area.</p>
+
+  <h4>Land cover</h4>
+  <p>Categorical zonal statistics over two NRSC rasters at 56&nbsp;m, counted in the rasters'
+  own Lambert Conformal Conic projection so no pixels are resampled. Each class becomes a
+  percentage of the village.</p>
+  <p>The Wasteland Atlas is a <strong>sparse</strong> raster — it holds data only where
+  wasteland exists. Its class counts therefore had to be expressed against village area taken
+  from the land-cover raster, which was verified to cover the villages exactly (ratio 1.000).
+  Left uncorrected, "degraded forest" would have read as a share of wasteland rather than of the
+  village, inflating it roughly fivefold.</p>
+  <p>Where percentages are aggregated across villages — in the selection panel, or a state
+  total — they are <strong>area-weighted</strong>. A plain average would let a 0.5&nbsp;km²
+  village count as much as a 300&nbsp;km² one.</p>
+
+  <h4>Highways</h4>
+  <p>Length of the national highway network falling inside each village, in kilometres. Where it
+  feeds a score it is converted to density (km per km²), since raw length simply favours large
+  villages.</p>
+
+  <h4>Land outside Recorded Forest Area</h4>
+  <p>Village area minus the area under Recorded Forest Area. This is deliberately <em>not</em>
+  called private land — see the caveats below.</p>
 
   <h3>The composite scores</h3>
-  <p>Two scores, each the mean of percentile-ranked components, published with their inputs so
-  the weighting can be disputed and recomputed:</p>
-  <ul>
-    <li><strong>Conservation value</strong> — natural forest %, corridor/tiger reserve %,
-      recorded forest %</li>
-    <li><strong>Human pressure</strong> — population density, built-up %, highway density,
-      land-dependent workers %</li>
-  </ul>
-  <p>An earlier version put population density on both axes (inverted on one) and set recorded
-  forest against its own arithmetic complement, which forced 86% of villages onto a single
-  diagonal — the quadrants were an artefact of the formula rather than a finding. Land cover
-  turned out to be compositional too: natural forest and agriculture correlate −0.80 because
-  the classes sum to 100%, so using both was one variable counted twice with opposite signs.
-  Pressure now measures people and infrastructure only. The two scores correlate
-  <strong>−0.48</strong>: related, as you would expect, but not mirror images.</p>
+  <p>Two scores, each the mean of percentile-ranked components. Percentile ranking makes them
+  <strong>relative to this set of villages</strong> rather than absolute: a score of 80 means
+  "higher than 80% of ESA villages", not "80% of some ideal".</p>
+  <table>
+    <tr><th>Conservation value</th><th>Human pressure</th></tr>
+    <tr><td>Natural forest %</td><td>Population density</td></tr>
+    <tr><td>Corridor / tiger reserve %</td><td>Built-up %</td></tr>
+    <tr><td>Recorded Forest Area %</td><td>Highway density (km/km²)</td></tr>
+    <tr><td>—</td><td>Land-dependent workers %</td></tr>
+  </table>
+  <p>Missing values are <strong>not imputed</strong>. A village is scored on whatever components
+  it has, the count is published as <code>conservation_n</code> and <code>conflict_n</code>, and
+  anything with fewer than two components is left unscored. Bands are terciles, not a midpoint
+  cut — a 50/50 split would fall exactly where villages are densest.</p>
 
-  <div class="callout warn">
-    <p><strong>Read these before quoting any derived number.</strong></p>
-    <p><strong>Whole-village inflation runs through everything.</strong> Bifurcated and all
-    Kerala villages are whole-village polygons standing in for partial extents. Population is
-    therefore an <em>upper bound</em> — and 39% of the population total comes from Kerala,
-    where extent is over-stated by roughly 30%. Conversely every percentage-of-area figure is
-    an <em>under</em>-estimate, because the denominator is inflated while the numerators are real.</p>
-    <p><strong>Land outside Recorded Forest Area is not private land.</strong> It also holds
-    revenue and common land, water bodies, PSU and defence land, and parks notified on
-    non-forest land — plus gaps in the forest layer itself. 346 villages record no forest area
-    despite being more than half forest; those are layer gaps, not tenure findings.</p>
-    <p><strong>Land cover is unreliable for small villages.</strong> NRSC LULC is mapped at
-    1:250,000 with 112–168 m registration error. For a village under about 25 km² that band is
-    comparable to its whole area. Only 416 of 4,331 villages clear that bar, though they hold
-    52% of the area; the rest are flagged as indicative.</p>
-    <p><strong>Protected areas are OpenStreetMap-derived</strong>, not the official WII
-    boundaries, so the 28% protected figure carries unquantified error.</p>
-    <p><strong>"Mining" means derelict land, not active leases.</strong> The Wasteland Atlas
-    class is abandoned industrial and mining land as of 2015-16. The 15 km² it finds across the
-    whole ESA is far too little to represent active extraction, and it is excluded from scoring.</p>
+  <div class="callout">
+    <p><strong>Both scores were rebuilt after an audit, and it is worth saying why.</strong></p>
+    <p>The first version put population density on <em>both</em> axes — inverted on one — and
+    set Recorded Forest Area against its own arithmetic complement. Two of four and two of five
+    components were exact mirrors, which forced <strong>86% of villages onto a single
+    diagonal</strong>. The quadrants were an artefact of the formula, not a finding about the
+    Western Ghats.</p>
+    <p>Removing those mirrors still left a correlation of −0.601. The remaining cause was
+    subtler: land-cover classes sum to 100%, so natural forest and agriculture correlate −0.80
+    almost by construction. Using forest on one axis and agriculture on the other was one
+    compositional variable counted twice with opposite signs. Pressure now measures people and
+    infrastructure only, and the two scores correlate <strong>−0.48</strong> — related, as real
+    conservation value and real pressure should be, but no longer one axis wearing two hats.</p>
+    <p>Plantation share is still published and can be mapped. It is simply not scored.</p>
   </div>
 
-  <h2 id="sources">Sources &amp; licence</h2>
-  <p>Gazette text: MoEFCC draft notification
-  <a href="https://moef.gov.in/storage/tender/1723024218.pdf">S.O.&nbsp;3060(E), 31&nbsp;July&nbsp;2024</a> (PDF, 4.9&nbsp;MB).
-  Village boundaries and census codes: all-India village boundary dataset.
-  Kerala ESA KML: Government of Kerala. Basemap:
-  © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors,
-  tiles by <a href="https://carto.com/attributions">CARTO</a>.</p>
-  <p>This reconstruction is released under
-  <a href="https://creativecommons.org/licenses/by/4.0/">CC&nbsp;BY&nbsp;4.0</a>. The underlying
-  government data remains under its own terms. Compiled and maintained by
-  <strong>Nikunj Jambu</strong>.</p>
+  <h3>Where the analysis is weakest</h3>
+  <div class="callout warn">
+    <p><strong>Whole-village inflation runs through every derived number.</strong> Bifurcated
+    and all Kerala villages are whole-village polygons standing in for partial extents.
+    Population is therefore an <em>upper bound</em> — and 39% of the population total is Kerala,
+    where extent is over-stated by roughly 30%. Every percentage-<em>of-area</em> figure moves
+    the other way: 28% protected and 60% recorded forest are <em>under</em>-estimates, because
+    the denominator is inflated while the numerators are real.</p>
+
+    <p><strong>Land outside Recorded Forest Area is not private land.</strong> It also holds
+    revenue and common land, water bodies, PSU and defence land, and parks notified on
+    non-forest land — plus any gap in the forest layer itself. <strong>346 villages record no
+    forest area despite being more than half forest</strong>; those are layer gaps, not tenure
+    findings, and carry an <code>rfa_gap_suspect</code> flag in the data. Do not quote this as a
+    private-ownership figure without a cadastral source.</p>
+
+    <p><strong>Land cover is unreliable for small villages.</strong> NRSC land cover is mapped at
+    1:250,000 from AWiFS imagery, with registration accuracy of one pixel in plains and two to
+    three in hills — roughly 112–168&nbsp;m. For a village under about 25&nbsp;km² that
+    uncertainty band is comparable to its entire area. Only <strong>416 of 4,331 villages</strong>
+    clear that threshold, though they hold 52% of the area. The rest carry
+    <code>lulc_reliable = false</code> and are marked indicative in the interface.</p>
+
+    <p><strong>Protected areas are OpenStreetMap-derived</strong>, obtained via EJAtlas, not the
+    official Wildlife Institute of India boundaries. The 28% figure carries unquantified error
+    and should be quoted with that attribution.</p>
+
+    <p><strong>"Mining" means derelict land, not active leases.</strong> The Wasteland Atlas
+    class is abandoned industrial and mining land as of 2015-16. It finds 15&nbsp;km² across the
+    entire ESA — far too little to represent active extraction in the Goa–Sindhudurg belt, which
+    is itself evidence the metric does not measure what its name suggests. It is excluded from
+    scoring. Active leases would need Indian Bureau of Mines or state DGM data.</p>
+
+    <p><strong>Watershed is a location, not a contribution.</strong> Each village is labelled
+    with the basin, sub-basin and watershed it mostly falls in. Nothing computes discharge,
+    upstream area or headwater position, so no claim is made about how much water the ESA yields.</p>
+
+    <p><strong>Two raster epochs.</strong> Wasteland is 2015-16, land cover 2017-18. Both are
+    56&nbsp;m in the same projection so the pixel arithmetic is sound, but a wasteland share is
+    expressed against a denominator two years later.</p>
+  </div>
+
+  <h2 id="sources">Sources, credits &amp; licence</h2>
+
+  <h3>The notification</h3>
+  <p>MoEFCC draft notification
+  <a href="https://moef.gov.in/storage/tender/1723024218.pdf">S.O.&nbsp;3060(E), 31&nbsp;July&nbsp;2024</a>
+  (PDF, 4.9&nbsp;MB). Everything in the reconstruction derives from this document.</p>
+
+  <h3>Base geometry</h3>
+  <table>
+    <tr><th>Layer</th><th>Source</th><th>Used for</th></tr>
+    <tr><td>All-India village boundaries</td><td>Census of India / Survey of India lineage,
+      661,194 features</td><td>The polygon for every gazette-named village, plus 2011 Census
+      and LGD codes</td></tr>
+    <tr><td>Kerala ESA (KML)</td><td>Government of Kerala</td>
+      <td>Independent verification; authoritative for Kerala</td></tr>
+  </table>
+
+  <h3>Analysis layers</h3>
+  <table>
+    <tr><th>Layer</th><th>Publisher</th><th>Obtained via</th><th>Used for</th></tr>
+    <tr><td>Primary Census Abstract 2011</td><td>Office of the Registrar General &amp; Census
+      Commissioner, India</td><td>Direct</td><td>Population, households, SC/ST, literacy,
+      worker composition</td></tr>
+    <tr><td>Protected areas (national parks, sanctuaries)</td><td>OpenStreetMap contributors</td>
+      <td>EJAtlas geoserver</td><td>Existing statutory protection</td></tr>
+    <tr><td>Eco-Sensitive Zones</td><td>Parivesh / Bharatmaps, MoEFCC</td>
+      <td><a href="https://github.com/yashveeeeeeer/india-geodata">india-geodata</a></td>
+      <td>ESZs already notified around individual parks</td></tr>
+    <tr><td>Wildlife corridors &amp; tiger reserves</td><td>Parivesh / Bharatmaps, MoEFCC</td>
+      <td>india-geodata</td><td>Connectivity</td></tr>
+    <tr><td>Recorded Forest Area</td><td>Bharatmaps</td><td>india-geodata</td>
+      <td>Land already under forest administration</td></tr>
+    <tr><td>Forest circles, divisions &amp; ranges</td><td>Forest Survey of India</td>
+      <td>india-geodata</td><td>Forest administrative setting</td></tr>
+    <tr><td>LULC 250K, 2017-18</td><td>National Remote Sensing Centre / ISRO</td><td>Bhuvan</td>
+      <td>Land-cover composition, 19 classes</td></tr>
+    <tr><td>Wasteland Atlas, 2015-16</td><td>National Remote Sensing Centre / ISRO</td>
+      <td>Bhuvan</td><td>Degraded forest, derelict mining and industrial land</td></tr>
+    <tr><td>River basins, sub-basins &amp; watersheds</td><td>India-WRIS, Ministry of Jal Shakti</td>
+      <td>india-geodata</td><td>Hydrological setting</td></tr>
+    <tr><td>National highways</td><td>Ministry of Road Transport &amp; Highways, via
+      PM GatiShakti</td><td>india-geodata</td><td>Infrastructure pressure</td></tr>
+    <tr><td>Basemap</td><td>OpenStreetMap contributors, tiles by CARTO</td><td>Direct</td>
+      <td>Geographic context</td></tr>
+  </table>
+
+  <h3>Citing the data collection</h3>
+  <p>Several analysis layers were obtained through <strong>India Geodata</strong>, a
+  consolidated repository of India's openly-licensed geospatial data, released under
+  CC&nbsp;BY&nbsp;4.0. Its requested citation:</p>
+  <pre><code>@misc{india_geodata,
+  title     = {India Geodata: Unified Geospatial Data Repository},
+  year      = {2026},
+  publisher = {GitHub},
+  url       = {https://github.com/yashveeeeeeer/india-geodata}
+}</code></pre>
+  <p>That repository in turn aggregates work by
+  <a href="https://github.com/ramSeraph/indian_admin_boundaries">ramSeraph</a> (CC0-1.0) and the
+  <a href="https://github.com/datameet/maps">DataMeet India community</a> (CC&nbsp;BY&nbsp;4.0),
+  among others; see its
+  <a href="https://github.com/yashveeeeeeer/india-geodata/blob/main/CITATION.cff">CITATION.cff</a>
+  for the full reference list.</p>
+
+  <h3>Licence</h3>
+  <p>This reconstruction and its derived indicators are released under
+  <a href="https://creativecommons.org/licenses/by/4.0/">CC&nbsp;BY&nbsp;4.0</a> — attribute
+  <em>Western Ghats ESA Atlas, Nikunj Jambu</em> and link back.</p>
+  <p><strong>Each underlying dataset retains its own terms.</strong> Government of India data is
+  subject to the terms of its publishing ministry; OpenStreetMap-derived layers are ODbL and
+  require attribution to OpenStreetMap contributors; NRSC/Bhuvan products are subject to ISRO's
+  data policy. If you redistribute any individual layer rather than this reconstruction, check
+  the original licence rather than relying on the licence of this page.</p>
+  <p>For official political maps of India, Survey of India maps are the authoritative reference.
+  Compiled and maintained by <strong>Nikunj Jambu</strong>.</p>
+
 </main>
 </div>
 

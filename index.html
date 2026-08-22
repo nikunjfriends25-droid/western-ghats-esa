@@ -61,7 +61,6 @@
     <aside class="rail">
       <div class="tabs" role="tablist">
         <button class="tab" role="tab" aria-selected="true" data-tab="explore">Explore</button>
-        <button class="tab" role="tab" aria-selected="false" data-tab="analysis">Analysis</button>
         <button class="tab" role="tab" aria-selected="false" data-tab="missing">Not mapped</button>
         <button class="tab" role="tab" aria-selected="false" data-tab="get">Download</button>
       </div>
@@ -158,21 +157,6 @@
         </div>
       </section>
 
-      <section class="pane" data-pane="analysis">
-        <p class="note">Derived indicators, built by joining the reconstruction to census,
-          land-cover, protection and hydrology layers. Every figure carries the caveats below —
-          read them before quoting any number.</p>
-        <div id="an-summary"></div>
-        <div id="an-priority"></div>
-        <div id="an-states"></div>
-        <div class="block">
-          <h3>Limitations</h3>
-          <ul id="an-limits" class="lim"></ul>
-          <a class="btn" href="downloads/WG_ESA_2024_analysis.csv" download>Analysis table — CSV</a>
-          <a class="btn" href="about.html#analysis">How these were computed</a>
-        </div>
-      </section>
-
       <section class="pane" data-pane="missing">
         <p class="note">Gazette rows with no polygon here. Mostly structural — entries naming
           two features at once, rows repeated for different survey blocks, or hamlets below
@@ -212,6 +196,20 @@
       <div id="detail" hidden></div>
       <div id="loading" hidden>Loading…</div>
     </div>
+
+    <aside class="insights" id="insights">
+      <header class="ins-head">
+        <h2>Selection</h2>
+        <p id="ins-scope">All six states</p>
+      </header>
+      <div id="ins-body"></div>
+      <details class="ins-lim">
+        <summary>How to read these numbers</summary>
+        <ul id="an-limits" class="lim"></ul>
+        <a class="btn" href="about.html#analysis">Method &amp; caveats</a>
+        <a class="btn" href="downloads/WG_ESA_2024_analysis.csv" download>Analysis table — CSV</a>
+      </details>
+    </aside>
   </div>
 
   <footer class="footer">

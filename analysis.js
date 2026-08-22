@@ -1,6 +1,6 @@
-/* Analysis layer: choropleth, overlay layers, and the Analysis pane.
-   Loaded after app.js and shares its top-level bindings (map, state, $, esc, fmt, COLOR,
-   busy) via the global lexical environment. */
+/* Analysis layer: live selection panel, choropleth, and overlay layers.
+   Loaded after app.js and shares its top-level bindings (map, state, $, esc, fmt,
+   COLOR, busy) through the global lexical environment. */
 'use strict';
 
 const METRIC = {
@@ -20,7 +20,9 @@ const METRIC = {
   conflict_score: ['Human pressure', '0–100'],
 };
 const RAMP = ['#eef3e8', '#cfe0c3', '#a8c99a', '#7cb073', '#4f924f', '#2f6d3a'];
+const q = s => document.querySelector(s);
 
+/* ---------------- choropleth ---------------- */
 function metricValues(key) {
   const src = map.getSource && map.getSource('villages');
   if (!src || !src._data) return [];
@@ -31,40 +33,34 @@ function metricValues(key) {
 function quantileBreaks(vals, n) {
   const v = vals.slice().sort((a, b) => a - b);
   if (v.length < n) return null;
-  const q = [];
-  for (let i = 1; i < n; i++) q.push(v[Math.floor(i / n * v.length)]);
-  return [...new Set(q)];
+  const out = [];
+  for (let i = 1; i < n; i++) out.push(v[Math.floor(i / n * v.length)]);
+  return [...new Set(out)];
 }
 
 function applyMetric() {
-  const sel = document.querySelector('#f-metric');
+  const sel = q('#f-metric');
   if (!sel || !state.mapReady || !map.getLayer('v-fill')) return;
-  const k = sel.value;
-  const legend = document.querySelector('#legend');
+  const k = sel.value, legend = q('#legend');
   if (!k) {
     map.setPaintProperty('v-fill', 'fill-color',
       ['match', ['get', 'esa_category'], ...Object.entries(COLOR).flat(), '#777']);
-    legend.innerHTML = '';
-    return;
+    legend.innerHTML = ''; return;
   }
   const breaks = quantileBreaks(metricValues(k), RAMP.length);
   if (!breaks || breaks.length < 2) {
-    legend.innerHTML = '<p class="hint">Not enough data to shade this metric.</p>';
-    return;
+    legend.innerHTML = '<p class="hint">Not enough data to shade this metric.</p>'; return;
   }
-  // -1 sentinel keeps "no data" visually distinct from a genuine zero
   const step = ['step', ['coalesce', ['get', k], -1], RAMP[0]];
   breaks.forEach((b, i) => step.push(b, RAMP[Math.min(i + 1, RAMP.length - 1)]));
   map.setPaintProperty('v-fill', 'fill-color',
     ['case', ['==', ['coalesce', ['get', k], -1], -1], '#d0d0d0', step]);
-
   const [label, unit] = METRIC[k] || [k, ''];
   legend.innerHTML =
     '<div class="ramp">' + RAMP.map(c => '<i style="background:' + c + '"></i>').join('') + '</div>' +
     '<div class="ramp-lab"><span>' + fmt(breaks[0]) + '</span><span>' +
     fmt(breaks[breaks.length - 1]) + '</span></div>' +
-    '<p class="hint">' + esc(label) + ' (' + esc(unit) + ') — quantile breaks. ' +
-    'Grey means no data.</p>';
+    '<p class="hint">' + esc(label) + ' (' + esc(unit) + ') — quantile breaks. Grey = no data.</p>';
 }
 
 /* ---------------- overlay layers ---------------- */
@@ -75,34 +71,24 @@ const OV = {
   tiger_reserves: { color: '#b8433a', label: 'newname' },
   recorded_forest: { color: '#2f6d3a', label: null },
 };
-
 document.querySelectorAll('#overlays .chip').forEach(b => {
   b.onclick = async () => {
-    const id = b.dataset.ov;
-    const on = b.getAttribute('aria-pressed') !== 'true';
+    const id = b.dataset.ov, on = b.getAttribute('aria-pressed') !== 'true';
     b.setAttribute('aria-pressed', String(on));
     if (!state.mapReady) return;
     const src = 'ov-' + id;
     if (on && !map.getSource(src)) {
       busy(true, 'Loading ' + id.replace(/_/g, ' ') + '…');
       try {
-        const data = await fetch('data/overlays/' + id + '.geojson').then(r => r.json());
-        map.addSource(src, { type: 'geojson', data: data });
-        map.addLayer({
-          id: src + '-f', type: 'fill', source: src,
-          paint: { 'fill-color': OV[id].color, 'fill-opacity': 0.14 }
-        });
-        map.addLayer({
-          id: src + '-l', type: 'line', source: src,
-          paint: { 'line-color': OV[id].color, 'line-width': 1.3 }
-        });
-        const lab = OV[id].label;
-        if (lab) {
-          map.on('click', src + '-f', ev => {
-            new maplibregl.Popup().setLngLat(ev.lngLat)
-              .setHTML('<b>' + esc(ev.features[0].properties[lab]) + '</b>').addTo(map);
-          });
-        }
+        map.addSource(src, { type: 'geojson',
+          data: await fetch('data/overlays/' + id + '.geojson').then(r => r.json()) });
+        map.addLayer({ id: src + '-f', type: 'fill', source: src,
+          paint: { 'fill-color': OV[id].color, 'fill-opacity': 0.14 } });
+        map.addLayer({ id: src + '-l', type: 'line', source: src,
+          paint: { 'line-color': OV[id].color, 'line-width': 1.3 } });
+        if (OV[id].label) map.on('click', src + '-f', ev => new maplibregl.Popup()
+          .setLngLat(ev.lngLat)
+          .setHTML('<b>' + esc(ev.features[0].properties[OV[id].label]) + '</b>').addTo(map));
       } catch (e) { console.error('overlay ' + id, e); }
       busy(false);
     } else {
@@ -112,67 +98,165 @@ document.querySelectorAll('#overlays .chip').forEach(b => {
   };
 });
 
-/* ---------------- Analysis pane ---------------- */
-const pct = (a, b) => (b ? (100 * a / b).toFixed(0) : '0');
+/* ---------------- live selection panel ---------------- */
+let SLIM = null;
 
-function renderAnalysis(a) {
-  const t = a.totals;
-  document.querySelector('#an-summary').innerHTML =
-    '<div class="metrics">' +
-    tile('People in ESA villages', fmt(t.population)) +
-    tile('Households', fmt(t.households)) +
-    tile('Scheduled Tribe', fmt(t.pop_st), pct(t.pop_st, t.population) + '%') +
-    tile('Uninhabited villages', fmt(t.uninhabited_villages)) +
-    wide('Already protected — park, sanctuary or ESZ', fmt(t.protected_km2),
-         'km² · ' + pct(t.protected_km2, t.area_km2) + '% of the ESA',
-         pct(t.protected_km2, t.area_km2)) +
-    wide('Inside Recorded Forest Area', fmt(t.rfa_km2),
-         'km² · ' + pct(t.rfa_km2, t.area_km2) + '%', pct(t.rfa_km2, t.area_km2),
-         'The other ' + fmt(t.outside_rfa_km2) + ' km² is <b>not</b> necessarily private — it ' +
-         'includes revenue land, water bodies and gaps in the forest layer.') +
-    tile('Corridor / tiger reserve', fmt(t.connectivity_km2), 'km²') +
-    tile('Degraded forest', fmt(t.degraded_forest_km2), 'km²') +
-    tile('National highway', fmt(t.nh_km), 'km') +
-    tile('Derelict mining land', fmt(t.derelict_mining_km2), 'km²') +
-    '</div>';
+const sum = (rows, k) => rows.reduce((a, r) => a + (typeof r[k] === 'number' ? r[k] : 0), 0);
 
-  document.querySelector('#an-priority').innerHTML =
-    '<div class="block"><h3>Priority bands</h3>' +
-    a.priority.map(p => '<div class="statline"><span>' + esc(p.band) + '</span><b>' +
-      fmt(p.villages) + '</b><small>' + fmt(p.area_km2) + ' km²</small></div>').join('') +
-    '<p class="hint">Terciles of conservation value against human pressure. The two scores ' +
-    'correlate −0.48 — related, but not mirror images of each other.</p></div>';
-
-  document.querySelector('#an-states').innerHTML =
-    '<div class="block"><h3>By state</h3><table class="mini">' +
-    '<tr><th>State</th><th>People</th><th>Forest</th><th>Protected</th><th>Outside RFA</th></tr>' +
-    a.states.map(s => '<tr><td>' + esc(title(s.state)) + '</td><td>' + fmt(s.population) +
-      '</td><td>' + (s.natural_forest_pct || 0).toFixed(0) + '%</td><td>' +
-      pct(s.protected_km2, s.area_km2) + '%</td><td>' +
-      pct(s.outside_rfa_km2, s.area_km2) + '%</td></tr>').join('') +
-    '</table></div>';
-
-  document.querySelector('#an-limits').innerHTML =
-    a.limitations.map(l => '<li>' + esc(l) + '</li>').join('');
+/** Area-weighted mean — a plain average would let a 0.5 km2 village count as much
+ *  as a 300 km2 one, which badly distorts land-cover shares. */
+function wmean(rows, k) {
+  let n = 0, d = 0;
+  for (const r of rows) {
+    if (typeof r[k] === 'number' && isFinite(r[k]) && typeof r.area_km2 === 'number') {
+      n += r[k] * r.area_km2; d += r.area_km2;
+    }
+  }
+  return d ? n / d : null;
 }
 
-const title = s => s === 'TAMIL NADU' ? 'Tamil Nadu' : s[0] + s.slice(1).toLowerCase();
-const tile = (k, v, s) => '<div class="metric"><div class="k">' + esc(k) + '</div><div class="v">' +
-  v + (s ? '<small>' + s + '</small>' : '') + '</div></div>';
-const wide = (k, v, s, bar, hint) => '<div class="metric wide"><div class="k">' + esc(k) +
-  '</div><div class="v">' + v + '<small>' + s + '</small></div>' +
-  '<div class="bar"><i style="width:' + bar + '%"></i></div>' +
-  (hint ? '<p class="hint">' + hint + '</p>' : '') + '</div>';
+/* A card: label, big number, explicit unit, optional sub-line and meter.
+   Units are never implied -- "15,759" alone is meaningless, "15,759 km2" is not. */
+function card(label, num, unit, opts) {
+  if (num == null) return '';
+  const o = opts || {};
+  return '<div class="card' + (o.wide ? ' w' : '') + (o.accent ? ' accent' : '') + '">' +
+    '<span class="lab">' +
+      (o.swatch ? '<i class="swatch" style="background:' + o.swatch + '"></i>' : '') +
+      esc(label) + '</span>' +
+    '<div class="val"><span class="num">' + num + '</span>' +
+      (unit ? '<span class="unit">' + unit + '</span>' : '') + '</div>' +
+    (o.sub ? '<div class="sub">' + o.sub + '</div>' : '') +
+    (o.meter != null ? '<div class="meter"><i style="width:' +
+      Math.max(0, Math.min(100, o.meter)) + '%"></i></div>' : '') +
+    '</div>';
+}
+
+/** An area that is part of a whole: km2, the share, and a meter. */
+function areaCard(label, part, whole, swatch) {
+  if (!whole) return '';
+  const p = 100 * part / whole;
+  return card(label, fmt(part), 'km\u00b2', {
+    wide: true, meter: p, swatch: swatch,
+    sub: p.toFixed(1) + '% of the ' + fmt(whole) + ' km\u00b2 selected'
+  });
+}
+
+const num1 = v => (v == null ? null : v.toFixed(1));
+
+function renderInsights(rows, scopeLabel) {
+  q('#ins-scope').textContent = scopeLabel;
+  const body = q('#ins-body');
+  if (!rows || !rows.length) {
+    body.innerHTML = '<p class="ins-empty">No villages match the current filter.</p>';
+    return;
+  }
+  if (!SLIM) {
+    body.innerHTML = '<p class="ins-empty">Loading indicators\u2026</p>';
+    return;
+  }
+  const area = sum(rows, 'area_km2');
+  const pop = sum(rows, 'population'), st = sum(rows, 'pop_st');
+  const prio = {};
+  rows.forEach(r => { if (r.priority) prio[r.priority] = (prio[r.priority] || 0) + 1; });
+  const reliable = rows.filter(r => r.lulc_reliable).length;
+
+  body.innerHTML =
+    '<div class="ins-sec"><div class="cards">' +
+      card('Villages', fmt(rows.length), rows.length === 1 ? 'village' : 'villages') +
+      card('Total area', fmt(area), 'km\u00b2') +
+    '</div></div>' +
+
+    '<div class="ins-sec"><h3>People</h3><div class="cards">' +
+      card('Population', fmt(pop), 'people',
+           { accent: true, sub: 'Census 2011, whole-village \u2014 an upper bound' }) +
+      card('Households', fmt(sum(rows, 'households')), 'households') +
+      card('Scheduled Tribe', fmt(st), 'people',
+           { sub: pop ? (100 * st / pop).toFixed(1) + '% of population' : '' }) +
+      card('Density', fmt(area ? pop / area : 0), 'people / km\u00b2') +
+      card('Land-dependent workers', num1(wmean(rows, 'land_dependent_pct')), '% of workers',
+           { wide: true, sub: 'Cultivators and agricultural labourers' }) +
+    '</div></div>' +
+
+    '<div class="ins-sec"><h3>Protection &amp; tenure</h3><div class="cards">' +
+      areaCard('Park, sanctuary or ESZ', sum(rows, 'protected_km2'), area, '#1b7f5a') +
+      areaCard('Corridor or tiger reserve', sum(rows, 'connect_km2'), area, '#d98324') +
+      areaCard('Recorded Forest Area', sum(rows, 'rfa_km2'), area, '#2f6d3a') +
+      card('Outside Recorded Forest', fmt(sum(rows, 'outside_rfa_km2')), 'km\u00b2',
+           { wide: true, sub: 'Not the same as private land \u2014 also revenue land, ' +
+             'water bodies and gaps in the forest layer' }) +
+    '</div></div>' +
+
+    '<div class="ins-sec"><h3>Land cover</h3><div class="cards">' +
+      card('Natural forest', num1(wmean(rows, 'natural_forest_pct')), '% of area', { accent: true }) +
+      card('Plantation', num1(wmean(rows, 'plantation_pct')), '% of area') +
+      card('Agriculture', num1(wmean(rows, 'agri_pct')), '% of area') +
+      card('Degraded forest', num1(wmean(rows, 'wl_degraded_forest_pct')), '% of area') +
+      card('Built-up', num1(wmean(rows, 'lulc_builtup_pct')), '% of area') +
+      card('Reliable at this scale', fmt(reliable), 'of ' + fmt(rows.length) + ' villages',
+           { sub: 'Mapped at 1:250,000 \u2014 villages under 25 km\u00b2 are indicative only' }) +
+    '</div></div>' +
+
+    '<div class="ins-sec"><h3>Pressure &amp; scores</h3><div class="cards">' +
+      card('National highway', fmt(sum(rows, 'nh_km')), 'km',
+           { wide: true, sub: 'Length of national highway inside the selection' }) +
+      card('Conservation value', num1(wmean(rows, 'conservation_score')), 'of 100',
+           { sub: 'Percentile rank within the ESA' }) +
+      card('Human pressure', num1(wmean(rows, 'conflict_score')), 'of 100',
+           { sub: 'Percentile rank within the ESA' }) +
+    '</div></div>' +
+
+    (Object.keys(prio).length
+      ? '<div class="ins-sec"><h3>Priority bands</h3><div class="cards">' +
+        Object.entries(prio).sort((a, b) => b[1] - a[1]).map(([k, v]) =>
+          card(k, fmt(v), v === 1 ? 'village' : 'villages',
+               { sub: (100 * v / rows.length).toFixed(0) + '% of the selection' })).join('') +
+        '</div></div>'
+      : '');
+}
+
+/* app.js calls this whenever the filters change */
+window.onSelectionChange = function (rows, scope) {
+  renderInsights(rows, scope);
+};
 
 /* ---------------- boot ---------------- */
 (async function () {
-  const sel = document.querySelector('#f-metric');
+  const sel = q('#f-metric');
   if (sel) sel.onchange = applyMetric;
   try {
-    const a = await fetch('api/v1/analysis-summary.json').then(r => r.json());
-    state.an = a;
-    renderAnalysis(a);
-  } catch (e) { console.error('analysis summary', e); }
-  // the choropleth needs the map source, which arrives later
+    const [slim, summ] = await Promise.all([
+      fetch('api/v1/analysis-slim.json').then(r => r.json()),
+      fetch('api/v1/analysis-summary.json').then(r => r.json()),
+    ]);
+    SLIM = slim; state.an = summ;
+    // attach the indicator columns onto the rows the filters already work over
+    const fields = slim.sum_fields.concat(slim.mean_fields);
+    const at = new Map(slim.vid.map((v, i) => [v, i]));
+    state.rows.forEach(r => {
+      const i = at.get(String(r.vid));
+      if (i == null) return;
+      fields.forEach(f => { if (slim[f]) r[f] = slim[f][i]; });
+      r.priority = slim.priority[i];
+      r.lulc_reliable = !!slim.lulc_reliable[i];
+      r.uninhabited = !!slim.uninhabited[i];
+    });
+    q('#an-limits').innerHTML = summ.limitations.map(l => '<li>' + esc(l) + '</li>').join('');
+    renderInsights(state.filtered && state.filtered.length ? state.filtered : state.rows,
+                   currentScope());
+  } catch (e) {
+    console.error('analysis load', e);
+    q('#ins-body').innerHTML = '<p class="ins-empty">Indicators could not be loaded.</p>';
+  }
   map.on('idle', function once() { map.off('idle', once); applyMetric(); });
 })();
+
+function currentScope() {
+  const st = q('#f-state') && q('#f-state').value;
+  const di = q('#f-district') && q('#f-district').value;
+  const tl = q('#f-taluka') && q('#f-taluka').value;
+  if (tl) return tl + ', ' + di;
+  if (di) return di + ' district';
+  if (st) return st === 'TAMIL NADU' ? 'Tamil Nadu' : st[0] + st.slice(1).toLowerCase();
+  return 'All six states';
+}
