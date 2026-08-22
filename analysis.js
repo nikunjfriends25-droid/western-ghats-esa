@@ -30,12 +30,22 @@ function metricValues(key) {
     .filter(x => typeof x === 'number' && isFinite(x));
 }
 
+/** Quantile breaks, with special handling for zero-inflated metrics.
+ *  Protection and connectivity are zero for most villages, so plain quantiles
+ *  collapse to two distinct values and the ramp loses four of its six steps.
+ *  When zeros dominate, the breaks are computed over the non-zero values and
+ *  zero keeps the palest colour as a class of its own. */
 function quantileBreaks(vals, n) {
-  const v = vals.slice().sort((a, b) => a - b);
-  if (v.length < n) return null;
-  const out = [];
-  for (let i = 1; i < n; i++) out.push(v[Math.floor(i / n * v.length)]);
-  return [...new Set(out)];
+  if (vals.length < n) return null;
+  const zeros = vals.filter(v => v === 0).length;
+  const heavy = zeros / vals.length > 0.35;
+  const pool = heavy ? vals.filter(v => v > 0) : vals;
+  if (pool.length < n) return null;
+  const v = pool.slice().sort((a, b) => a - b);
+  const out = heavy ? [Number.MIN_VALUE] : [];
+  const k = heavy ? n - 1 : n;
+  for (let i = 1; i < k; i++) out.push(v[Math.floor(i / k * v.length)]);
+  return [...new Set(out)].sort((a, b) => a - b);
 }
 
 function applyMetric() {
@@ -58,8 +68,8 @@ function applyMetric() {
   const [label, unit] = METRIC[k] || [k, ''];
   legend.innerHTML =
     '<div class="ramp">' + RAMP.map(c => '<i style="background:' + c + '"></i>').join('') + '</div>' +
-    '<div class="ramp-lab"><span>' + fmt(breaks[0]) + '</span><span>' +
-    fmt(breaks[breaks.length - 1]) + '</span></div>' +
+    '<div class="ramp-lab"><span>' + (breaks[0] === Number.MIN_VALUE ? '0' : fmt(breaks[0])) +
+    '</span><span>' + fmt(breaks[breaks.length - 1]) + '</span></div>' +
     '<p class="hint">' + esc(label) + ' (' + esc(unit) + ') — quantile breaks. Grey = no data.</p>';
 }
 

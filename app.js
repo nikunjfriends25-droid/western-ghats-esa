@@ -199,75 +199,119 @@ async function openVillage(code) {
   }
 }
 const ENT = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '`': '&#96;' };
-/* Village report card -- analysis 8. Rendered from the per-village API's
-   `analysis` block; every figure is per whole village, so it inherits the
-   bifurcated / Kerala over-statement caveat shown above it. */
+/* Village report card. Grouped, scannable, and every figure carries its unit.
+   Rendered from the per-village API's `analysis` block; all of it is per WHOLE
+   village, so it inherits the bifurcated / Kerala over-statement caveat. */
+
+const BAND_STYLE = {
+  'protect':                { c: '#2f6d3a', t: 'High ecological value with little human pressure — the cheapest protection to deliver.' },
+  'protect, some pressure': { c: '#4f924f', t: 'High ecological value, moderate pressure. Worth protecting, with attention to local use.' },
+  'negotiate':              { c: '#d98324', t: 'High ecological value AND high pressure. Protection here needs local agreement to hold.' },
+  'secondary':              { c: '#7cb073', t: 'Moderate value, little pressure. Easy to include, lower ecological return.' },
+  'moderate on both':       { c: '#8a9a86', t: 'Middling on both axes — no strong signal either way.' },
+  'pressure-led':           { c: '#c2763a', t: 'Moderate value under heavy pressure. Restrictions will be felt more than they gain.' },
+  'low priority':           { c: '#9aa29b', t: 'Little measured ecological value and little pressure.' },
+  'contested':              { c: '#b8433a', t: 'Low measured value but high pressure — the hardest inclusion to justify.' },
+  'unclassified':           { c: '#9aa29b', t: 'Too few indicators available to place this village.' },
+};
+
 function renderCard(a) {
   if (!a) return '';
-  const row = (k, v, s) => v == null || v === '' ? '' :
-    `<dt>${esc(k)}</dt><dd>${typeof v === 'number' ? fmt(v) : esc(v)}${s ? ' ' + s : ''}</dd>`;
-  const sec = (title, body) => body.trim()
-    ? `<h4>${esc(title)}</h4><dl class="kv">${body}</dl>` : '';
 
-  const people = sec('People', [
-    row('Population', a.population), row('Households', a.households),
-    row('Scheduled Tribe', a.pop_st, a.st_pct != null ? `(${a.st_pct}%)` : ''),
-    row('Literacy', a.literacy_pct, '%'),
-    row('Land-dependent workers', a.land_dependent_pct, '%'),
-    row('Density', a.pop_density, '/km²')].join(''));
+  const n = (v, d) => (typeof v === 'number' && isFinite(v)) ? v.toFixed(d == null ? 1 : d) : null;
+  const stat = (label, val, unit, sub) => val == null ? '' :
+    `<div class="vs"><span class="vs-l">${esc(label)}</span>
+       <span class="vs-v">${val}${unit ? `<i>${unit}</i>` : ''}</span>
+       ${sub ? `<span class="vs-s">${sub}</span>` : ''}</div>`;
+  const group = (title, body) => body.trim() ? `<section class="vg">
+      <h4>${esc(title)}</h4><div class="vs-grid">${body}</div></section>` : '';
+  const listRow = (label, v) => !v || v === '—' ? '' :
+    `<div class="vrow"><span>${esc(label)}</span><b>${esc(v)}</b></div>`;
 
-  const land = sec('Land cover', [
-    row('Natural forest', a.natural_forest_pct, '%'),
-    row('Plantation', a.plantation_pct, '%'),
-    row('Agriculture', a.agri_pct, '%'),
-    row('Degraded forest', a.wl_degraded_forest_pct, '%'),
-    row('Built-up', a.lulc_builtup_pct, '%')].join(''));
+  /* --- people --- */
+  const people = group('People · Census 2011', [
+    stat('Population', a.population == null ? null : fmt(a.population), 'people'),
+    stat('Households', a.households == null ? null : fmt(a.households), 'households'),
+    stat('Scheduled Tribe', a.pop_st == null ? null : fmt(a.pop_st), 'people',
+         a.st_pct != null ? n(a.st_pct) + '% of population' : ''),
+    stat('Density', n(a.pop_density, 0), 'per km²'),
+    stat('Literacy', n(a.literacy_pct), '%'),
+    stat('Land-dependent', n(a.land_dependent_pct), '% of workers',
+         'cultivators + labourers'),
+  ].join(''));
 
-  const prot = sec('Protection & tenure', [
-    row('Protected / ESZ', a.protected_pct, '%'),
-    row('Corridor / tiger reserve', a.connectivity_pct, '%'),
-    row('Recorded Forest Area', a.rfa_pct, '%'),
-    row('Outside Recorded Forest', a.outside_rfa_pct, '%'),
-    row('Parks / sanctuaries', a.pa_names), row('ESZ', a.esz_names),
-    row('Tiger reserve', a.tiger_names)].join(''));
+  /* --- land cover --- */
+  const cover = group('Land cover', [
+    stat('Natural forest', n(a.natural_forest_pct), '% of area'),
+    stat('Plantation', n(a.plantation_pct), '% of area'),
+    stat('Agriculture', n(a.agri_pct), '% of area'),
+    stat('Degraded forest', n(a.wl_degraded_forest_pct), '% of area'),
+    stat('Built-up', n(a.lulc_builtup_pct), '% of area'),
+  ].join(''));
 
-  const admin = sec('Administration & setting', [
-    row('Forest division', a.fsi_division), row('Forest range', a.fsi_range),
-    row('Basin', a.basin), row('Sub-basin', a.subbasin),
-    row('National highway', a.nh_km, 'km'), row('Highways', a.nh_names)].join(''));
+  /* --- protection, as shares of this village --- */
+  const shareBar = (label, pct, km2, colour) => pct == null ? '' :
+    `<div class="vbar"><div class="vbar-t"><span>${esc(label)}</span>
+       <b>${n(pct, 0)}<i>%</i></b></div>
+     <div class="vbar-track"><i style="width:${Math.max(0, Math.min(100, pct))}%;
+       background:${colour}"></i></div>
+     ${km2 != null ? `<div class="vbar-s">${n(km2, 2)} km² of ${n(a.area_km2 || 0, 2)} km²</div>` : ''}</div>`;
 
-  const gauge = (label, v, hint) => v == null ? '' :
-    `<div class="gauge">
-       <div class="g-top"><span>${esc(label)}</span><b>${v.toFixed(0)}<small>/100</small></b></div>
-       <div class="g-track"><i style="width:${Math.max(0, Math.min(100, v))}%"></i></div>
-       <div class="g-hint">${esc(hint)}</div>
+  const prot = (a.protected_pct != null || a.rfa_pct != null) ? `<section class="vg">
+      <h4>Protection &amp; tenure</h4>
+      ${shareBar('Park, sanctuary or ESZ', a.protected_pct, a.protected_km2, '#1b7f5a')}
+      ${shareBar('Corridor or tiger reserve', a.connectivity_pct, a.connect_km2, '#d98324')}
+      ${shareBar('Recorded Forest Area', a.rfa_pct, a.rfa_km2, '#2f6d3a')}
+      ${listRow('Parks / sanctuaries', a.pa_names)}
+      ${listRow('Eco-Sensitive Zone', a.esz_names)}
+      ${listRow('Tiger reserve', a.tiger_names)}
+    </section>` : '';
+
+  /* --- setting --- */
+  const setting = (a.fsi_division || a.basin || a.nh_km) ? `<section class="vg">
+      <h4>Setting</h4>
+      ${listRow('Forest division', a.fsi_division)}
+      ${listRow('Forest range', a.fsi_range)}
+      ${listRow('River basin', a.basin)}
+      ${listRow('Sub-basin', a.subbasin)}
+      ${a.nh_km ? listRow('National highway', n(a.nh_km, 1) + ' km' +
+          (a.nh_names ? ' · ' + a.nh_names : '')) : ''}
+    </section>` : '';
+
+  /* --- composite --- */
+  const axis = (label, v, bandName, what) => v == null ? '' :
+    `<div class="vax">
+       <div class="vax-t"><span>${esc(label)}</span>
+         <b>${n(v, 0)}<i>/100</i></b>
+         ${bandName ? `<em class="vax-b">${esc(bandName)}</em>` : ''}</div>
+       <div class="vax-track"><i style="width:${Math.max(0, Math.min(100, v))}%"></i></div>
+       <div class="vax-s">${esc(what)}</div>
      </div>`;
-  const BAND = {
-    protect: ['#2f6d3a', 'High ecological value, low human pressure — the cheapest protection to deliver.'],
-    negotiate: ['#d98324', 'High value and high pressure — protection here needs local agreement.'],
-    'contested low-value': ['#b8433a', 'Low measured value but high pressure — the hardest case to justify.'],
-    mixed: ['#6b7280', 'Middling on both axes.'],
-    unclassified: ['#9aa29b', 'Too few indicators available to score.'],
-  };
-  const b = BAND[a.priority] || BAND.unclassified;
-  const scores = (a.conservation_score != null || a.conflict_score != null) ? `
-    <h4>Composite assessment</h4>
-    <div class="scores">
-      ${gauge('Conservation value', a.conservation_score, 'Forest, connectivity, recorded forest')}
-      ${gauge('Human pressure', a.conflict_score, 'People, built-up, highways, land dependence')}
-      ${a.priority ? `<div class="band" style="--b:${b[0]}">
-          <span class="band-dot"></span><b>${esc(a.priority)}</b>
-          <span class="band-why">${esc(b[1])}</span></div>` : ''}
-      <p class="g-note">Both are percentile ranks against the other 4,330 ESA villages, not
-        absolute measures. A score of 80 means higher than 80% of them.</p>
-    </div>` : '';
 
+  const bs = BAND_STYLE[a.priority] || BAND_STYLE.unclassified;
+  const composite = (a.conservation_score != null || a.conflict_score != null) ? `
+    <section class="vg">
+      <h4>Composite assessment</h4>
+      ${axis('Conservation value', a.conservation_score, a.cons_band,
+             'natural forest, corridors, recorded forest')}
+      ${axis('Human pressure', a.conflict_score, a.risk_band,
+             'population, built-up, highways, land dependence')}
+      ${a.priority ? `<div class="vband" style="--b:${bs.c}">
+          <b>${esc(a.priority)}</b><span>${esc(bs.t)}</span></div>` : ''}
+      <p class="vnote">Both are percentile ranks against the other 4,330 ESA villages, not
+        absolute measures — 84 means higher than 84% of them. Bands are terciles.</p>
+    </section>` : '';
+
+  /* --- caveats specific to this village --- */
   const notes = [];
-  if (a.lulc_reliable === false) notes.push('Village is under 25 km², so land-cover shares are indicative only — the satellite mapping is 1:250,000.');
-  if (a.rfa_gap_suspect) notes.push('No Recorded Forest Area recorded here despite high forest cover — likely a gap in the forest layer, not private land.');
-  if (a.uninhabited) notes.push('Recorded as uninhabited in the 2011 Census.');
+  if (a.lulc_reliable === false)
+    notes.push('Under 25 km², so land cover here is indicative only — the satellite mapping is 1:250,000.');
+  if (a.rfa_gap_suspect)
+    notes.push('No Recorded Forest Area despite high forest cover — most likely a gap in the forest layer, not private land.');
+  if (a.uninhabited)
+    notes.push('Recorded as uninhabited in the 2011 Census.');
 
-  return `<div class="an">${people}${land}${prot}${admin}${scores}
+  return `<div class="an">${people}${cover}${prot}${setting}${composite}
     ${notes.map(t => `<div class="flag">${t}</div>`).join('')}</div>`;
 }
 
