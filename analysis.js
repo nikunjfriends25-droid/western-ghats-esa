@@ -23,10 +23,14 @@ const RAMP = ['#eef3e8', '#cfe0c3', '#a8c99a', '#7cb073', '#4f924f', '#2f6d3a'];
 const q = s => document.querySelector(s);
 
 /* ---------------- choropleth ---------------- */
+/* Values for the chosen metric.
+   This used to read map.getSource('villages')._data -- a PRIVATE MapLibre field
+   that is not reliably populated in the minified build, so it returned nothing and
+   the choropleth silently never rendered. state.rows carries the same 14 fields,
+   loaded from analysis-slim.json, and is available before the map finishes. */
 function metricValues(key) {
-  const src = map.getSource && map.getSource('villages');
-  if (!src || !src._data) return [];
-  return src._data.features.map(f => f.properties[key])
+  return state.rows
+    .map(r => r[key])
     .filter(x => typeof x === 'number' && isFinite(x));
 }
 
@@ -50,7 +54,11 @@ function quantileBreaks(vals, n) {
 
 function applyMetric() {
   const sel = q('#f-metric');
-  if (!sel || !state.mapReady || !map.getLayer('v-fill')) return;
+  if (!sel) return;
+  if (!state.mapReady || !map.getLayer('v-fill')) {
+    // the map is not up yet; it re-applies on idle and after the indicators load
+    return;
+  }
   const k = sel.value, legend = q('#legend');
   if (!k) {
     map.setPaintProperty('v-fill', 'fill-color',
@@ -262,6 +270,7 @@ window.onSelectionChange = function (rows, scope) {
       r.uninhabited = !!slim.uninhabited[i];
     });
     q('#an-limits').innerHTML = summ.limitations.map(l => '<li>' + esc(l) + '</li>').join('');
+    applyMetric();          // values are only available now
     renderInsights(state.filtered && state.filtered.length ? state.filtered : state.rows,
                    currentScope());
   } catch (e) {
