@@ -224,6 +224,8 @@ function renderInsights(rows, scopeLabel) {
            { sub: 'Percentile rank within the ESA' }) +
     '</div></div>' +
 
+    keralaPanel(scopeLabel) +
+
     (Object.keys(prio).length
       ? '<div class="ins-sec"><h3>Priority bands</h3><div class="cards">' +
         Object.entries(prio).sort((a, b) => b[1] - a[1]).map(([k, v]) =>
@@ -231,6 +233,40 @@ function renderInsights(rows, scopeLabel) {
                { sub: (100 * v / rows.length).toFixed(0) + '% of the selection' })).join('') +
         '</div></div>'
       : '');
+}
+
+/* Kerala is the only state with an official published boundary, so it is the only
+   place the whole-village approximation can be checked against ground truth. */
+let KLC = null;
+function keralaPanel(scopeLabel) {
+  if (!KLC || !/^kerala$/i.test((scopeLabel || '').trim())) return '';
+  const row = (label, k, unit) => {
+    const d = KLC.deltas[k]; if (!d) return '';
+    const up = d.difference > 0;
+    return '<tr><td>' + esc(label) + '</td><td>' + fmt(d.whole_villages) + (unit || '') +
+      '</td><td><b>' + fmt(d.official) + (unit || '') + '</b></td><td class="' +
+      (up ? 'up' : 'dn') + '">' + (up ? '+' : '') + fmt(d.difference) + '</td></tr>';
+  };
+  return '<div class="ins-sec klc"><h3>Measured against Kerala’s official boundary</h3>' +
+    '<table class="mini klc-t"><tr><th>Metric</th><th>Whole villages</th>' +
+    '<th>Official</th><th>Diff</th></tr>' +
+    row('Area', 'area_km2', ' km²') +
+    row('Protected / ESZ', 'protected_pct', '%') +
+    row('Corridor / tiger', 'connectivity_pct', '%') +
+    row('Recorded forest', 'rfa_pct', '%') +
+    row('Outside rec. forest', 'outside_rfa_pct', '%') +
+    row('Natural forest', 'natural_forest_pct', '%') +
+    row('Plantation', 'plantation_pct', '%') +
+    row('Built-up', 'builtup_pct', '%') +
+    row('National highway', 'nh_km', ' km') +
+    '</table>' +
+    '<p class="hint">Kerala notified <em>portions</em> of villages; this atlas holds whole ' +
+    'villages. Every metric moves the same way — the notified portion is the wilder, more ' +
+    'protected, less settled part. Plantation halves and highways drop by two thirds, so the ' +
+    'whole-village figures overstate development pressure. Population is not compared: Census ' +
+    'counts are per whole village and cannot be apportioned to a portion without an ' +
+    'assumption that cannot be tested. ' +
+    '<a href="about.html#kerala-check">How this was measured →</a></p></div>';
 }
 
 /* app.js calls this whenever the filters change */
@@ -243,11 +279,12 @@ window.onSelectionChange = function (rows, scope) {
   const sel = q('#f-metric');
   if (sel) sel.onchange = applyMetric;
   try {
-    const [slim, summ] = await Promise.all([
+    const [slim, summ, klc] = await Promise.all([
       fetch('api/v1/analysis-slim.json').then(r => r.json()),
       fetch('api/v1/analysis-summary.json').then(r => r.json()),
+      fetch('api/v1/kerala-comparison.json').then(r => r.ok ? r.json() : null).catch(() => null),
     ]);
-    SLIM = slim; state.an = summ;
+    SLIM = slim; state.an = summ; KLC = klc;
     // attach the indicator columns onto the rows the filters already work over
     const fields = slim.sum_fields.concat(slim.mean_fields);
     const at = new Map(slim.vid.map((v, i) => [v, i]));

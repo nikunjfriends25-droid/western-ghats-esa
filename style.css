@@ -428,3 +428,11 @@ ul.lim li{font-size:.78rem;color:var(--muted);margin:.35rem 0;line-height:1.45}
 }
 .vs-na{color:var(--muted);font-style:italic;font-size:.8rem!important;font-weight:500!important}
 .vs.w{grid-column:1/-1}
+
+/* ---------- Kerala ground-truth comparison ---------- */
+.klc{border:1px solid var(--accent);border-radius:var(--r);padding:.6rem .65rem;
+  background:var(--accent-2)}
+.klc>h3{color:var(--accent)}
+table.klc-t td:first-child{text-align:left;color:var(--ink-2)}
+table.klc-t .up{color:var(--accent);font-weight:650}
+table.klc-t .dn{color:var(--bifur);font-weight:650}

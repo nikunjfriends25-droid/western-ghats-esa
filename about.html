@@ -393,6 +393,45 @@
     <p>Plantation share is still published and can be mapped. It is simply not scored.</p>
   </div>
 
+  <h3 id="kerala-check">Checking the analysis against ground truth</h3>
+  <p>Every derived figure on this site rests on one approximation: villages are drawn whole,
+  even where only part of them was notified. Kerala is the only state that published its own
+  ESA boundary, so it is the one place that approximation can be <em>measured</em> rather than
+  merely disclosed. The same metrics, computed on both geometries:</p>
+  <table>
+    <tr><th>Metric</th><th>Whole villages</th><th>Kerala's official boundary</th><th>Difference</th></tr>
+    <tr><td>Area</td><td>13,030 km²</td><td>8,863 km²</td><td>−4,168 km²</td></tr>
+    <tr><td>Protected / ESZ</td><td>21.5%</td><td>30.8%</td><td>+9.3</td></tr>
+    <tr><td>Corridor / tiger reserve</td><td>27.3%</td><td>38.1%</td><td>+10.8</td></tr>
+    <tr><td>Recorded Forest Area</td><td>75.0%</td><td>92.0%</td><td>+17.0</td></tr>
+    <tr><td>Outside Recorded Forest</td><td>25.0%</td><td>8.0%</td><td>−17.0</td></tr>
+    <tr><td>Natural forest</td><td>77.4%</td><td>83.7%</td><td>+6.3</td></tr>
+    <tr><td>Plantation</td><td>10.6%</td><td>4.0%</td><td>−6.5</td></tr>
+    <tr><td>Built-up</td><td>0.47%</td><td>0.07%</td><td>−0.40</td></tr>
+    <tr><td>National highway</td><td>465 km</td><td>137 km</td><td>−328 km</td></tr>
+  </table>
+  <p><strong>Every metric moves in the same direction</strong>, and that direction is
+  interpretable: the notified portion is the wilder, higher, more protected part of each
+  village, while the part left out is where the estates, roads and settlement are. Plantation
+  more than halves, highway length drops by two thirds, and the share outside Recorded Forest
+  Area falls from a quarter to a twelfth.</p>
+  <div class="callout">
+    <p><strong>What this implies for the other five states.</strong> Where no official boundary
+    exists, the whole-village figures on this site almost certainly lean the same way: they
+    <em>overstate</em> development pressure — plantation, built-up, roads, land outside recorded
+    forest — and <em>understate</em> how protected and forested the notified area really is.
+    Kerala suggests the size of that bias, though it is the most portion-wise state and so
+    likely an upper bound on it.</p>
+    <p>Population is deliberately absent from this comparison. Census counts are per whole
+    village, and apportioning them to a village portion needs an assumption — uniform density,
+    or a dasymetric weighting — that there is no ground truth to validate. An unvalidatable
+    estimate would be worse than none.</p>
+  </div>
+  <p class="hint">Two caveats on the official layer itself: it covers 98 villages where the
+  gazette lists 131 Kerala rows, so it is not a complete substitute; and at 8,863 km² it is
+  89% of the 9,993.7 km² Annexure A states for Kerala. Served at
+  <code>api/v1/kerala-comparison.json</code>.</p>
+
   <h3>Where the analysis is weakest</h3>
   <div class="callout warn">
     <p><strong>Whole-village inflation runs through every derived number.</strong> Bifurcated
