@@ -106,12 +106,12 @@ Reverse coverage is 66.7 % — expected, because Kerala's ESA is village *portio
   the main reason Kerala's ratio is 1.30.
 - **Karnataka remains the weakest state** at 0.86 of notified area — a coverage gap rather
   than a matching gap, since 1429 of 1449 rows are matched.
-- **Population excludes urban local bodies.** The census workbook used holds only rural
-  village records, so the 22 gazette entries that are Town Panchayats, Municipal Councils or
-  Census Towns (Valparai, Coonoor, Gudalur, Mahabaleshwar, Matheran, Sawantwadi and others,
-  1,455 km²) have no population figure and are excluded from every total. They are flagged
-  `population_status`, never counted as zero. `uninhabited` means the Census recorded zero
-  people, not that the figure is missing.
+- **Population joins both census directories** — the rural village PCA and the town/ward PCA.
+  33 gazette entries are urban local bodies (Town Panchayat, Municipal Council, Census Town);
+  omitting the town directory understated the population by 537,562 and wrongly published
+  Valparai as uninhabited. Census Towns keep village-range codes, so a code cannot classify a
+  settlement. `uninhabited` means the Census recorded zero people, never a missing figure; one
+  record (Valvane, Satara) has no census code and so no population.
 - Areas are computed in EPSG:7755; the notification does not state its own area basis.
 - This is an independent reconstruction for reference and research. It has **no legal
   standing** and must not be used to determine whether a specific parcel falls inside the ESA.
