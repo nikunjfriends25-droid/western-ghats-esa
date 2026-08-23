@@ -30,3 +30,20 @@
   addEventListener('resize', onScroll, { passive: true });
   update();
 })();
+
+/* Reference tables carry sentences, so on a phone a four-column grid gives each
+   cell ~80px and rows half a screen tall. Stack them there instead, labelling
+   each cell from its own header so the columns stay identifiable. */
+(function () {
+  document.querySelectorAll('table.ref').forEach(function (t) {
+    var head = t.rows[0];
+    if (!head) return;
+    var labels = Array.prototype.map.call(head.cells, function (c) { return c.textContent.trim(); });
+    Array.prototype.forEach.call(t.rows, function (r, i) {
+      if (i === 0) return;
+      Array.prototype.forEach.call(r.cells, function (c, j) {
+        if (labels[j]) c.setAttribute('data-l', labels[j]);
+      });
+    });
+  });
+})();

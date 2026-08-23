@@ -187,10 +187,13 @@ dl.kv dd{margin:0;word-break:break-word;font-variant-numeric:tabular-nums}
 /* Prose keeps a readable measure, but tables and code use the full column width --
    that is where the extra space on a wide screen actually helps. */
 .doc{min-width:0}
-.doc>h2,.doc>h3,.doc>p,.doc>ul,.doc>ol,.doc>.callout{max-width:74ch}
+.doc>h2,.doc>h3,.doc>h4,.doc>p,.doc>ul,.doc>ol,.doc>.callout{max-width:74ch}
 .doc>h2{font-size:1.5rem;margin:2.6rem 0 .7rem;scroll-margin-top:1.5rem}
 .doc>h2:first-child{margin-top:0}
 .doc h3{font-size:1.02rem;margin:1.8rem 0 .5rem;color:var(--ink)}
+.doc h4{font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--muted);margin:1.9rem 0 .55rem;padding-bottom:.3rem;
+  border-bottom:1px solid var(--line)}
 .doc p,.doc li{color:var(--ink-2);margin:0 0 .9rem}
 .doc ul,.doc ol{padding-left:1.25rem}
 .doc li{margin-bottom:.55rem}
@@ -215,6 +218,27 @@ dl.kv dd{margin:0;word-break:break-word;font-variant-numeric:tabular-nums}
 .doc pre{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
   padding:.85rem 1rem;overflow-x:auto;font-size:.83rem;line-height:1.5;max-width:100%}
 .doc pre code{border:0;padding:0;background:none}
+
+/* Reference tables hold sentences, not figures, so they wrap and use the full
+   column width instead of inheriting the numeric tables' nowrap. */
+.doc table.ref{display:table;width:100%;max-width:100%;table-layout:fixed;overflow:visible}
+.doc table.ref th,.doc table.ref td{white-space:normal;vertical-align:top;
+  padding:.6rem .8rem;min-width:0;hyphens:auto;overflow-wrap:anywhere}
+.doc table.ref td:first-child{width:19%;color:var(--ink)}
+.doc table.ref tr:hover{background:transparent}
+.r-u{display:block;font-size:.72rem;font-weight:400;color:var(--muted);
+  letter-spacing:.02em;margin-top:.1rem}
+@media (max-width:700px){
+  .doc table.ref,.doc table.ref tbody,.doc table.ref tr,.doc table.ref td{display:block;width:auto}
+  .doc table.ref tr:first-child{display:none}
+  .doc table.ref tr{border-bottom:1px solid var(--line);padding:.5rem 0}
+  .doc table.ref tr:last-child{border-bottom:0}
+  .doc table.ref td{border-bottom:0;padding:.25rem .8rem}
+  .doc table.ref td:first-child{width:auto;font-weight:650;font-size:1rem}
+  .doc table.ref td[data-l]:not(:first-child)::before{content:attr(data-l);
+    display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;
+    color:var(--muted);font-weight:600;margin-bottom:.1rem}
+}
 .callout{background:var(--surface);border:1px solid var(--line);
   border-left:3px solid var(--accent);border-radius:var(--r);padding:.9rem 1.1rem;margin:1.3rem 0}
 .callout.warn{border-left-color:var(--bifur)}
@@ -240,7 +264,8 @@ dl.kv dd{margin:0;word-break:break-word;font-variant-numeric:tabular-nums}
 }
 
 /* ---------- analysis ---------- */
-.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.sr-only{position:fixed;top:0;left:0;width:1px;height:1px;overflow:hidden;
+  clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
 .ramp{display:flex;height:10px;border-radius:3px;overflow:hidden;margin:.5rem 0 .2rem}
 .ramp i{flex:1}
 .ramp-lab{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);

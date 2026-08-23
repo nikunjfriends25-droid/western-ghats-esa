@@ -41,6 +41,8 @@
     <li><a href="#extract">Reading the gazette</a></li>
     <li><a href="#match">Matching names to polygons</a></li>
     <li><a href="#verify">Three verifications</a></li>
+    <li><a href="#card-reference">What every card means</a></li>
+    <li><a href="#kerala-check">Checked against ground truth</a></li>
     <li><a href="#limits">Where it is weakest</a></li>
     <li><a href="#zones">Why there are no zones</a></li>
     <li><a href="#cats">What the categories mean</a></li>
@@ -365,7 +367,7 @@
   <p>Two scores, each the mean of percentile-ranked components. Percentile ranking makes them
   <strong>relative to this set of villages</strong> rather than absolute: a score of 80 means
   "higher than 80% of ESA villages", not "80% of some ideal".</p>
-  <table>
+  <table class="ref">
     <tr><th>Conservation value</th><th>Human pressure</th></tr>
     <tr><td>Natural forest %</td><td>Population density</td></tr>
     <tr><td>Corridor / tiger reserve %</td><td>Built-up %</td></tr>
@@ -432,6 +434,54 @@
   89% of the 9,993.7 km² Annexure A states for Kerala. Served at
   <code>api/v1/kerala-comparison.json</code>.</p>
 
+<!--CARDREF:START-->
+  <h3 id="card-reference">What every card means</h3>
+  <p>Each figure in the selection panel and on the village card is defined below — what it is, how it is computed, and what it cannot be used for. The same text appears behind the <b>i</b> button on each card, generated from the same file so the two cannot disagree.</p>
+  <h4>Extent</h4>
+  <table class="ref"><tr><th>Card</th><th>What it is</th><th>How it is computed</th><th>Watch out for</th></tr>
+    <tr><td><b>Villages</b> <span class="r-u">count</span></td><td>How many gazette rows are in the current selection.</td><td>One row per village named in Annexure C of the notification that was matched to a boundary. 4,331 of 4,402 rows matched overall.</td><td>A few gazette rows name the same place more than once for different survey blocks; the 1:1 constraint gives the polygon to the first, so those repeats appear under Not mapped.</td></tr>
+    <tr><td><b>Total area</b> <span class="r-u">km²</span></td><td>Ground area of the selected village polygons.</td><td>Measured in EPSG:7755, an equal-area projection for India, never in degrees.</td><td>Bifurcated and Kerala villages are drawn whole, so this is larger than the area actually notified. Kerala measured against its own official boundary is 8,863 km² rather than 13,030.</td></tr>
+  </table>
+  <h4>People</h4>
+  <table class="ref"><tr><th>Card</th><th>What it is</th><th>How it is computed</th><th>Watch out for</th></tr>
+    <tr><td><b>Population</b> <span class="r-u">people</span></td><td>Resident population of the selected settlements at the 2011 Census.</td><td>Joined on the 2011 census code from both Primary Census Abstracts — the rural village directory and the town/ward directory. 4,330 of 4,331 records match.</td><td>This is whole-village population. Where only part of a village was notified, everyone in the village is counted, so treat it as an upper bound. One record, Valvane in Satara, has no census code and no figure.</td></tr>
+    <tr><td><b>Households</b> <span class="r-u">households</span></td><td>Number of households recorded by the 2011 Census.</td><td>Census field No_HH, summed across the selection.</td><td>Same whole-village basis as population.</td></tr>
+    <tr><td><b>Scheduled Tribe</b> <span class="r-u">people</span></td><td>Residents recorded as Scheduled Tribe.</td><td>Census field P_ST. The percentage is of the selection&#x27;s total population.</td><td>Relevant to Forest Rights Act claims, but the whole-village basis applies here too.</td></tr>
+    <tr><td><b>Density</b> <span class="r-u">people / km²</span></td><td>How densely settled the selection is.</td><td>Total population divided by total area.</td><td>Because the area is whole-village and includes uninhabited forest, density is lower than the lived experience of the settled parts.</td></tr>
+    <tr><td><b>Land-dependent workers</b> <span class="r-u">% of workers</span></td><td>Share of working people whose livelihood is directly tied to land.</td><td>Cultivators plus agricultural labourers, divided by total workers. Census fields MAIN_CL_P, MAIN_AL_P, TOT_WORK_P.</td><td>A measure of who stands to be affected by land-use restrictions, not of poverty.</td></tr>
+  </table>
+  <h4>Protection &amp; tenure</h4>
+  <table class="ref"><tr><th>Card</th><th>What it is</th><th>How it is computed</th><th>Watch out for</th></tr>
+    <tr><td><b>Park, sanctuary or ESZ</b> <span class="r-u">km²</span></td><td>How much of the selection already sits inside a National Park, Wildlife Sanctuary, or an Eco-Sensitive Zone notified around one.</td><td>The union of the protected-area and Parivesh ESZ layers, intersected with the villages. Unioned first, because both layers self-overlap and summing would double-count.</td><td>Protected areas come from OpenStreetMap via EJAtlas, not the official Wildlife Institute of India boundaries, so this figure carries unquantified error.</td></tr>
+    <tr><td><b>Corridor or tiger reserve</b> <span class="r-u">km²</span></td><td>Area overlapping a mapped wildlife corridor or tiger reserve — the connectivity argument for the notification.</td><td>Union of the Parivesh wildlife corridor and tiger reserve layers, intersected with the villages.</td><td>Corridors are indicative planning geometry, not notified boundaries.</td></tr>
+    <tr><td><b>Recorded Forest Area</b> <span class="r-u">km²</span></td><td>Land already recorded as forest, and so already under forest administration.</td><td>The Bharatmaps Recorded Forest Area layer intersected with the villages, unioned first.</td><td>Where the ESA overlaps recorded forest, the notification changes relatively little — the state already controls land use there.</td></tr>
+    <tr><td><b>Outside Recorded Forest</b> <span class="r-u">km²</span></td><td>The remainder: village area not recorded as forest.</td><td>Total area minus Recorded Forest Area.</td><td>This is NOT private land. It also holds revenue and common land, water bodies, PSU and defence land, and gaps in the forest layer itself — 346 villages record no forest area despite being more than half forest. Do not quote it as a private-ownership figure.</td></tr>
+  </table>
+  <h4>Land cover</h4>
+  <table class="ref"><tr><th>Card</th><th>What it is</th><th>How it is computed</th><th>Watch out for</th></tr>
+    <tr><td><b>Natural forest</b> <span class="r-u">% of area</span></td><td>Share under evergreen, semi-evergreen or deciduous forest.</td><td>Categorical zonal statistics over the NRSC LULC 250K 2017-18 raster at 56 m, counted in the raster&#x27;s own projection so no pixels are resampled. Aggregates are area-weighted.</td><td>Mapped at 1:250,000 with 112–168 m registration error. For a village under about 25 km² that band is comparable to its whole area, so those figures are indicative only.</td></tr>
+    <tr><td><b>Plantation</b> <span class="r-u">% of area</span></td><td>Agricultural plantation — coffee, cardamom, rubber, tea.</td><td>LULC class 7, distinct from the forest classes.</td><td>This is the estate-versus-forest distinction that drives most local opposition. It is published and mappable but deliberately excluded from the composite scores.</td></tr>
+    <tr><td><b>Agriculture</b> <span class="r-u">% of area</span></td><td>Cropland and fallow.</td><td>LULC kharif, rabi, zaid, double/triple crop and current fallow classes combined.</td><td>Same 1:250,000 scale limit.</td></tr>
+    <tr><td><b>Degraded forest</b> <span class="r-u">% of area</span></td><td>Forest land classed as degraded.</td><td>NRSC Wasteland Atlas 2015-16, class 6. The wasteland raster is sparse, so shares are expressed against village area from the land-cover raster, not against the wasteland total.</td><td>A different epoch from the land-cover layer (2015-16 against 2017-18).</td></tr>
+    <tr><td><b>Built-up</b> <span class="r-u">% of area</span></td><td>Settlement and other built surface.</td><td>LULC class 1.</td><td>At 56 m with 1:250,000 mapping, small hamlets fall below what can be resolved.</td></tr>
+    <tr><td><b>Reliable at this scale</b> <span class="r-u">villages</span></td><td>How many villages in the selection are large enough for land cover to be dependable.</td><td>Villages of 25 km² or more. Only 416 of 4,331 clear that bar, though they hold 52% of the area.</td><td>Below that threshold the satellite registration error is comparable to the village itself. Composition is still shown, but treat it as indicative.</td></tr>
+  </table>
+  <h4>Pressure &amp; scores</h4>
+  <table class="ref"><tr><th>Card</th><th>What it is</th><th>How it is computed</th><th>Watch out for</th></tr>
+    <tr><td><b>National highway</b> <span class="r-u">km</span></td><td>Length of national highway running inside the selection.</td><td>MoRTH highway network from GatiShakti, clipped to the village polygons.</td><td>National highways only — state highways and district roads are not included, so this understates road presence.</td></tr>
+    <tr><td><b>Conservation value</b> <span class="r-u">of 100</span></td><td>Where protection buys the most ecologically.</td><td>Mean of three percentile-ranked components: natural forest %, corridor or tiger reserve %, and Recorded Forest Area %.</td><td>A percentile rank against the other ESA villages, not an absolute measure — 80 means higher than 80% of them. Villages with fewer than two available components are left unscored.</td></tr>
+    <tr><td><b>Human pressure</b> <span class="r-u">of 100</span></td><td>Where restrictions will be felt most.</td><td>Mean of four percentile-ranked components: population density, built-up %, highway density per km², and land-dependent workers %.</td><td>Deliberately measures people and infrastructure only. An earlier version shared variables with the conservation score, which forced 86% of villages onto one diagonal; the two now correlate −0.48.</td></tr>
+    <tr><td><b>Priority bands</b> <span class="r-u">villages</span></td><td>Where each village falls on the two axes together.</td><td>Both scores cut into terciles, giving nine cells, each separately named: protect, protect with some pressure, negotiate, secondary, moderate on both, pressure-led, low priority, contested.</td><td>Terciles are relative to this dataset. An earlier version named only three cells and dumped 59% of villages into an uninformative &#x27;mixed&#x27;.</td></tr>
+  </table>
+  <h4>On the village card</h4>
+  <table class="ref"><tr><th>Card</th><th>What it is</th><th>How it is computed</th><th>Watch out for</th></tr>
+    <tr><td><b>Literacy</b> <span class="r-u">%</span></td><td>Literate residents as a share of population.</td><td>Census field P_LIT divided by total population.</td><td>Census definition of literacy, age 7 and above.</td></tr>
+    <tr><td><b>Gazette entry</b></td><td>How the village appears in the notification itself, before any processing.</td><td>State, district, taluka, village name and serial number transcribed from Annexure C, plus the verbatim printed form including the * bifurcation marker.</td><td>The gazette&#x27;s district and taluka names are sometimes older than the census ones — Surat and Tapi, for instance.</td></tr>
+    <tr><td><b>Name match score</b> <span class="r-u">0–100</span></td><td>How confidently the gazette name was matched to a census village.</td><td>RapidFuzz similarity after transliteration folding, with the scope showing how wide the search had to go: district+taluka, district, or state-wide.</td><td>A low score, or a state-wide scope, means the pairing deserves checking against the gazette.</td></tr>
+    <tr><td><b>Setting</b></td><td>Which forest and hydrological units the village sits in.</td><td>Largest-overlap assignment against FSI forest divisions and ranges, and India-WRIS river basins and sub-basins.</td><td>A location label only. Nothing here measures water yield or forest administration workload.</td></tr>
+  </table>
+
+  <!--CARDREF:END-->
   <h3>Where the analysis is weakest</h3>
   <div class="callout warn">
     <p><strong>Whole-village inflation runs through every derived number.</strong> Bifurcated
@@ -482,7 +532,7 @@
   (PDF, 4.9&nbsp;MB). Everything in the reconstruction derives from this document.</p>
 
   <h3>Base geometry</h3>
-  <table>
+  <table class="ref">
     <tr><th>Layer</th><th>Source</th><th>Used for</th></tr>
     <tr><td>All-India village boundaries</td><td>Census of India / Survey of India lineage,
       661,194 features</td><td>The polygon for every gazette-named village, plus 2011 Census
@@ -492,7 +542,7 @@
   </table>
 
   <h3>Analysis layers</h3>
-  <table>
+  <table class="ref">
     <tr><th>Layer</th><th>Publisher</th><th>Obtained via</th><th>Used for</th></tr>
     <tr><td>Primary Census Abstract 2011</td><td>Office of the Registrar General &amp; Census
       Commissioner, India</td><td>Direct</td><td>Population, households, SC/ST, literacy,

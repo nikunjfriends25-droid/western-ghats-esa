@@ -1,0 +1,241 @@
+{
+  "note": "Single source of truth for every metric shown in the portal. The info buttons on the selection panel and the village card read from this file, and the reference table in about.html is generated from it, so the two cannot drift apart.",
+  "groups": [
+    {
+      "id": "extent",
+      "title": "Extent",
+      "items": [
+        {
+          "key": "villages",
+          "label": "Villages",
+          "unit": "count",
+          "what": "How many gazette rows are in the current selection.",
+          "how": "One row per village named in Annexure C of the notification that was matched to a boundary. 4,331 of 4,402 rows matched overall.",
+          "caveat": "A few gazette rows name the same place more than once for different survey blocks; the 1:1 constraint gives the polygon to the first, so those repeats appear under Not mapped."
+        },
+        {
+          "key": "area_km2",
+          "label": "Total area",
+          "unit": "km²",
+          "what": "Ground area of the selected village polygons.",
+          "how": "Measured in EPSG:7755, an equal-area projection for India, never in degrees.",
+          "caveat": "Bifurcated and Kerala villages are drawn whole, so this is larger than the area actually notified. Kerala measured against its own official boundary is 8,863 km² rather than 13,030."
+        }
+      ]
+    },
+    {
+      "id": "people",
+      "title": "People",
+      "items": [
+        {
+          "key": "population",
+          "label": "Population",
+          "unit": "people",
+          "what": "Resident population of the selected settlements at the 2011 Census.",
+          "how": "Joined on the 2011 census code from both Primary Census Abstracts — the rural village directory and the town/ward directory. 4,330 of 4,331 records match.",
+          "caveat": "This is whole-village population. Where only part of a village was notified, everyone in the village is counted, so treat it as an upper bound. One record, Valvane in Satara, has no census code and no figure."
+        },
+        {
+          "key": "households",
+          "label": "Households",
+          "unit": "households",
+          "what": "Number of households recorded by the 2011 Census.",
+          "how": "Census field No_HH, summed across the selection.",
+          "caveat": "Same whole-village basis as population."
+        },
+        {
+          "key": "pop_st",
+          "label": "Scheduled Tribe",
+          "unit": "people",
+          "what": "Residents recorded as Scheduled Tribe.",
+          "how": "Census field P_ST. The percentage is of the selection's total population.",
+          "caveat": "Relevant to Forest Rights Act claims, but the whole-village basis applies here too."
+        },
+        {
+          "key": "pop_density",
+          "label": "Density",
+          "unit": "people / km²",
+          "what": "How densely settled the selection is.",
+          "how": "Total population divided by total area.",
+          "caveat": "Because the area is whole-village and includes uninhabited forest, density is lower than the lived experience of the settled parts."
+        },
+        {
+          "key": "land_dependent_pct",
+          "label": "Land-dependent workers",
+          "unit": "% of workers",
+          "what": "Share of working people whose livelihood is directly tied to land.",
+          "how": "Cultivators plus agricultural labourers, divided by total workers. Census fields MAIN_CL_P, MAIN_AL_P, TOT_WORK_P.",
+          "caveat": "A measure of who stands to be affected by land-use restrictions, not of poverty."
+        }
+      ]
+    },
+    {
+      "id": "protection",
+      "title": "Protection & tenure",
+      "items": [
+        {
+          "key": "protected",
+          "label": "Park, sanctuary or ESZ",
+          "unit": "km²",
+          "what": "How much of the selection already sits inside a National Park, Wildlife Sanctuary, or an Eco-Sensitive Zone notified around one.",
+          "how": "The union of the protected-area and Parivesh ESZ layers, intersected with the villages. Unioned first, because both layers self-overlap and summing would double-count.",
+          "caveat": "Protected areas come from OpenStreetMap via EJAtlas, not the official Wildlife Institute of India boundaries, so this figure carries unquantified error."
+        },
+        {
+          "key": "connect",
+          "label": "Corridor or tiger reserve",
+          "unit": "km²",
+          "what": "Area overlapping a mapped wildlife corridor or tiger reserve — the connectivity argument for the notification.",
+          "how": "Union of the Parivesh wildlife corridor and tiger reserve layers, intersected with the villages.",
+          "caveat": "Corridors are indicative planning geometry, not notified boundaries."
+        },
+        {
+          "key": "rfa",
+          "label": "Recorded Forest Area",
+          "unit": "km²",
+          "what": "Land already recorded as forest, and so already under forest administration.",
+          "how": "The Bharatmaps Recorded Forest Area layer intersected with the villages, unioned first.",
+          "caveat": "Where the ESA overlaps recorded forest, the notification changes relatively little — the state already controls land use there."
+        },
+        {
+          "key": "outside_rfa",
+          "label": "Outside Recorded Forest",
+          "unit": "km²",
+          "what": "The remainder: village area not recorded as forest.",
+          "how": "Total area minus Recorded Forest Area.",
+          "caveat": "This is NOT private land. It also holds revenue and common land, water bodies, PSU and defence land, and gaps in the forest layer itself — 346 villages record no forest area despite being more than half forest. Do not quote it as a private-ownership figure."
+        }
+      ]
+    },
+    {
+      "id": "landcover",
+      "title": "Land cover",
+      "items": [
+        {
+          "key": "natural_forest_pct",
+          "label": "Natural forest",
+          "unit": "% of area",
+          "what": "Share under evergreen, semi-evergreen or deciduous forest.",
+          "how": "Categorical zonal statistics over the NRSC LULC 250K 2017-18 raster at 56 m, counted in the raster's own projection so no pixels are resampled. Aggregates are area-weighted.",
+          "caveat": "Mapped at 1:250,000 with 112–168 m registration error. For a village under about 25 km² that band is comparable to its whole area, so those figures are indicative only."
+        },
+        {
+          "key": "plantation_pct",
+          "label": "Plantation",
+          "unit": "% of area",
+          "what": "Agricultural plantation — coffee, cardamom, rubber, tea.",
+          "how": "LULC class 7, distinct from the forest classes.",
+          "caveat": "This is the estate-versus-forest distinction that drives most local opposition. It is published and mappable but deliberately excluded from the composite scores."
+        },
+        {
+          "key": "agri_pct",
+          "label": "Agriculture",
+          "unit": "% of area",
+          "what": "Cropland and fallow.",
+          "how": "LULC kharif, rabi, zaid, double/triple crop and current fallow classes combined.",
+          "caveat": "Same 1:250,000 scale limit."
+        },
+        {
+          "key": "wl_degraded_forest_pct",
+          "label": "Degraded forest",
+          "unit": "% of area",
+          "what": "Forest land classed as degraded.",
+          "how": "NRSC Wasteland Atlas 2015-16, class 6. The wasteland raster is sparse, so shares are expressed against village area from the land-cover raster, not against the wasteland total.",
+          "caveat": "A different epoch from the land-cover layer (2015-16 against 2017-18)."
+        },
+        {
+          "key": "lulc_builtup_pct",
+          "label": "Built-up",
+          "unit": "% of area",
+          "what": "Settlement and other built surface.",
+          "how": "LULC class 1.",
+          "caveat": "At 56 m with 1:250,000 mapping, small hamlets fall below what can be resolved."
+        },
+        {
+          "key": "lulc_reliable",
+          "label": "Reliable at this scale",
+          "unit": "villages",
+          "what": "How many villages in the selection are large enough for land cover to be dependable.",
+          "how": "Villages of 25 km² or more. Only 416 of 4,331 clear that bar, though they hold 52% of the area.",
+          "caveat": "Below that threshold the satellite registration error is comparable to the village itself. Composition is still shown, but treat it as indicative."
+        }
+      ]
+    },
+    {
+      "id": "pressure",
+      "title": "Pressure & scores",
+      "items": [
+        {
+          "key": "nh_km",
+          "label": "National highway",
+          "unit": "km",
+          "what": "Length of national highway running inside the selection.",
+          "how": "MoRTH highway network from GatiShakti, clipped to the village polygons.",
+          "caveat": "National highways only — state highways and district roads are not included, so this understates road presence."
+        },
+        {
+          "key": "conservation_score",
+          "label": "Conservation value",
+          "unit": "of 100",
+          "what": "Where protection buys the most ecologically.",
+          "how": "Mean of three percentile-ranked components: natural forest %, corridor or tiger reserve %, and Recorded Forest Area %.",
+          "caveat": "A percentile rank against the other ESA villages, not an absolute measure — 80 means higher than 80% of them. Villages with fewer than two available components are left unscored."
+        },
+        {
+          "key": "conflict_score",
+          "label": "Human pressure",
+          "unit": "of 100",
+          "what": "Where restrictions will be felt most.",
+          "how": "Mean of four percentile-ranked components: population density, built-up %, highway density per km², and land-dependent workers %.",
+          "caveat": "Deliberately measures people and infrastructure only. An earlier version shared variables with the conservation score, which forced 86% of villages onto one diagonal; the two now correlate −0.48."
+        },
+        {
+          "key": "priority",
+          "label": "Priority bands",
+          "unit": "villages",
+          "what": "Where each village falls on the two axes together.",
+          "how": "Both scores cut into terciles, giving nine cells, each separately named: protect, protect with some pressure, negotiate, secondary, moderate on both, pressure-led, low priority, contested.",
+          "caveat": "Terciles are relative to this dataset. An earlier version named only three cells and dumped 59% of villages into an uninformative 'mixed'."
+        }
+      ]
+    },
+    {
+      "id": "village",
+      "title": "On the village card",
+      "items": [
+        {
+          "key": "literacy_pct",
+          "label": "Literacy",
+          "unit": "%",
+          "what": "Literate residents as a share of population.",
+          "how": "Census field P_LIT divided by total population.",
+          "caveat": "Census definition of literacy, age 7 and above."
+        },
+        {
+          "key": "gazette_entry",
+          "label": "Gazette entry",
+          "unit": "",
+          "what": "How the village appears in the notification itself, before any processing.",
+          "how": "State, district, taluka, village name and serial number transcribed from Annexure C, plus the verbatim printed form including the * bifurcation marker.",
+          "caveat": "The gazette's district and taluka names are sometimes older than the census ones — Surat and Tapi, for instance."
+        },
+        {
+          "key": "match",
+          "label": "Name match score",
+          "unit": "0–100",
+          "what": "How confidently the gazette name was matched to a census village.",
+          "how": "RapidFuzz similarity after transliteration folding, with the scope showing how wide the search had to go: district+taluka, district, or state-wide.",
+          "caveat": "A low score, or a state-wide scope, means the pairing deserves checking against the gazette."
+        },
+        {
+          "key": "setting",
+          "label": "Setting",
+          "unit": "",
+          "what": "Which forest and hydrological units the village sits in.",
+          "how": "Largest-overlap assignment against FSI forest divisions and ranges, and India-WRIS river basins and sub-basins.",
+          "caveat": "A location label only. Nothing here measures water yield or forest administration workload."
+        }
+      ]
+    }
+  ]
+}
