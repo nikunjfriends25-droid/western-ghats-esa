@@ -426,3 +426,5 @@ ul.lim li{font-size:.78rem;color:var(--muted);margin:.35rem 0;line-height:1.45}
     font-size:7.5pt;color:#4a5247;line-height:1.5;break-inside:avoid}
   .r-foot p{margin:0 0 2mm}
 }
+.vs-na{color:var(--muted);font-style:italic;font-size:.8rem!important;font-weight:500!important}
+.vs.w{grid-column:1/-1}

@@ -265,7 +265,11 @@ function renderCard(a) {
 
   /* --- people --- */
   const people = group('People · Census 2011', [
-    stat('Population', a.population == null ? null : fmt(a.population), 'people'),
+    a.population == null
+      ? `<div class="vs w"><span class="vs-l">Population</span>
+           <span class="vs-v vs-na">no data</span>
+           <span class="vs-s">${esc(a.population_status || 'not available')}</span></div>`
+      : stat('Population', fmt(a.population), 'people'),
     stat('Households', a.households == null ? null : fmt(a.households), 'households'),
     stat('Scheduled Tribe', a.pop_st == null ? null : fmt(a.pop_st), 'people',
          a.st_pct != null ? n(a.st_pct) + '% of population' : ''),
@@ -344,7 +348,9 @@ function renderCard(a) {
   if (a.rfa_gap_suspect)
     notes.push('No Recorded Forest Area despite high forest cover — most likely a gap in the forest layer, not private land.');
   if (a.uninhabited)
-    notes.push('Recorded as uninhabited in the 2011 Census.');
+    notes.push('Recorded as uninhabited in the 2011 Census — the figure is a measured zero, not a missing value.');
+  if (a.population == null && a.urban_body)
+    notes.push('This is an urban local body. The census workbook behind this atlas covers rural villages only, so its residents are not counted in any population figure here.');
 
   return `<div class="an">${people}${cover}${prot}${setting}${composite}
     ${notes.map(t => `<div class="flag">${t}</div>`).join('')}</div>`;
