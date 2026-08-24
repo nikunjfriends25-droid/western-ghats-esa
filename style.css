@@ -320,6 +320,56 @@ ul.lim li{font-size:.78rem;color:var(--muted);margin:.35rem 0;line-height:1.45}
 .ins-lim summary{cursor:pointer;font-size:.78rem;color:var(--muted);font-weight:600}
 .ins-lim summary:hover{color:var(--ink)}
 .ins-empty{font-size:.8rem;color:var(--muted);line-height:1.5}
+/* "not available on this basis" -- an explanation where a card would have been */
+.ins-na{font-size:.75rem;color:var(--muted);line-height:1.5;margin:.1rem 0 0;
+  background:var(--surface-2);border:1px dashed var(--line-2);border-radius:var(--r);
+  padding:.6rem .7rem}
+.ins-na b{color:var(--ink)}
+
+/* ---------- geometry basis toggle (Kerala only) ---------- */
+.basis{margin:0 0 .8rem}
+.basis-l{display:block;font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--muted);font-weight:600;margin-bottom:.3rem}
+.basis-b{display:grid;grid-template-columns:1fr 1fr;gap:.3rem}
+.basis .bt{display:block;text-align:left;padding:.42rem .5rem;border-radius:8px;cursor:pointer;
+  border:1px solid var(--line-2);background:var(--surface-2);color:var(--ink-2);
+  font-size:.76rem;line-height:1.25}
+.basis .bt small{display:block;font-size:.64rem;color:var(--muted);margin-top:.1rem}
+.basis .bt:hover{border-color:var(--accent)}
+.basis .bt[aria-pressed=true]{background:var(--accent-2);border-color:var(--accent);
+  color:var(--ink);font-weight:640}
+.basis-note{font-size:.73rem;color:var(--muted);line-height:1.45;margin:0 0 .9rem;
+  padding-left:.6rem;border-left:2px solid #0277bd}
+
+/* ---------- the i buttons and their popover ---------- */
+.i{display:inline-grid;place-items:center;width:13px;height:13px;padding:0;margin-left:.3rem;
+  border:1px solid var(--line-2);border-radius:99px;background:var(--surface);
+  color:var(--muted);font-size:9px;font-weight:700;font-style:normal;line-height:1;
+  cursor:pointer;vertical-align:middle;text-transform:none;letter-spacing:0;flex:0 0 auto}
+.i:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-2)}
+.i:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.kv dt .i,.vg>h4 .i,.ins-sec>h3 .i{margin-left:.25rem}
+
+/* position:fixed on purpose -- an absolutely positioned popover with no
+   positioned ancestor is measured against the root and stretches the document. */
+#defpop{position:fixed;z-index:60;background:var(--surface);border:1px solid var(--line-2);
+  border-radius:var(--r);box-shadow:var(--shadow);padding:.8rem .9rem .75rem;
+  font-size:.78rem;line-height:1.5;color:var(--ink-2);max-height:70vh;overflow-y:auto}
+#defpop[hidden]{display:none}
+#defpop h4{font-size:.9rem;color:var(--ink);margin:0 2rem .35rem 0}
+#defpop h4 span{font-size:.68rem;font-weight:500;color:var(--muted);text-transform:none}
+#defpop p{margin:0 0 .55rem}
+#defpop dl{margin:0 0 .55rem}
+#defpop dt{font-size:.63rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);
+  font-weight:700;margin-top:.45rem}
+#defpop dd{margin:.1rem 0 0}
+#defpop a{font-size:.73rem}
+.defpop-x{position:absolute;top:.3rem;right:.4rem;width:22px;height:22px;border:0;
+  background:none;color:var(--muted);font-size:1.1rem;line-height:1;cursor:pointer;border-radius:6px}
+.defpop-x:hover{background:var(--surface-2);color:var(--ink)}
+
+@media (max-width:700px){.basis-b{grid-template-columns:1fr}}
+@media print{.i,#defpop,.basis{display:none!important}}
 
 @media (max-width:1400px){:root{--ins:290px}}
 @media (max-width:1180px){

@@ -221,6 +221,7 @@ async function openVillage(code) {
     <button class="btn btn-pdf-card" id="pdf-village">Export this village as PDF</button>
     <a class="btn" href="api/v1/villages/${encodeURIComponent(code)}.json" download>Download this village (GeoJSON)</a>`;
   d.querySelector('.close').onclick = () => { d.hidden = true; highlight(null); };
+  if (window.stampInfo) window.stampInfo(d);
   const pdfBtn = d.querySelector('#pdf-village');
   if (pdfBtn && window.exportVillagePdf) {
     pdfBtn.onclick = () => window.exportVillagePdf(p, f && f.analysis);
@@ -506,9 +507,12 @@ function buildCats() {
   syncCats();
 }
 
+window.setVillageVisibility = setVillageVisibility;
 function setVillageVisibility() {
   if (!state.mapReady) return;
-  const v = state.hideVillages ? 'none' : 'visible';
+  // on Kerala's official basis the whole-village polygons would sit under the
+  // notified ones and misrepresent which geometry the panel is reporting
+  const v = (state.hideVillages || state.basisOfficial) ? 'none' : 'visible';
   ['v-fill', 'v-line'].forEach(l => map.getLayer(l) &&
     map.setLayoutProperty(l, 'visibility', v));
 }
@@ -557,6 +561,9 @@ $('#l-kerala').onclick = async () => {
   const el = $('#l-kerala'), on = el.getAttribute('aria-pressed') !== 'true';
   press(el, on);
   if (!state.mapReady) return;
+  // switching the reference layer off while the panel is measuring on it would
+  // leave the two disagreeing about which geometry is on screen
+  if (!on && state.basisOfficial && window.setBasis) { await window.setBasis('whole'); return; }
   if (on && !map.getSource('kl')) {
     busy(true, 'Loading Kerala official ESA…');
     try {
