@@ -87,7 +87,7 @@ function keralaComparison(rows) {
     ['Units counted', W.length, O.length, 'whole villages / notified polygons', 0],
     ['Total area', wA, oA, 'km\u00b2', 0],
     ['Park, sanctuary or ESZ', shr(W, 'protected_km2', wA), shr(O, 'protected_km2', oA), '% of area', 1],
-    ['Corridor or tiger reserve', shr(W, 'connect_km2', wA), shr(O, 'connect_km2', oA), '% of area', 1],
+    ['Corridor outside protection', shr(W, 'connect_km2', wA), shr(O, 'connect_km2', oA), '% of area', 1],
     ['Recorded Forest Area', shr(W, 'rfa_km2', wA), shr(O, 'rfa_km2', oA), '% of area', 1],
     ['Outside Recorded Forest', shr(W, 'outside_rfa_km2', wA), shr(O, 'outside_rfa_km2', oA), '% of area', 1],
     ['Natural forest', wmean(W, 'natural_forest_pct'), wmean(O, 'natural_forest_pct'), '% of area', 1],
@@ -159,7 +159,7 @@ function buildSelectionReport() {
       <h2>Protection &amp; tenure</h2>
       ${rTable([
         ['Park, sanctuary or ESZ', rNum(sum(rows, 'protected_km2')), 'km² (' + (area ? (100 * sum(rows, 'protected_km2') / area).toFixed(1) : '0') + '% of selection)'],
-        ['Corridor or tiger reserve', rNum(sum(rows, 'connect_km2')), 'km²'],
+        ['Corridor outside protection', rNum(sum(rows, 'connect_km2')), 'km²'],
         ['Recorded Forest Area', rNum(sum(rows, 'rfa_km2')), 'km²'],
         ['Outside Recorded Forest Area', rNum(sum(rows, 'outside_rfa_km2')), 'km²'],
       ])}
@@ -222,7 +222,7 @@ function keralaVillagePart(p, a) {
   const M = [
     ['Area', a && a.area_km2, o.notified_km2, 'km\u00b2', 2],
     ['Park, sanctuary or ESZ', a && a.protected_pct, o.protected_pct, '% of extent', 1],
-    ['Corridor or tiger reserve', a && a.connectivity_pct, o.connect_pct, '% of extent', 1],
+    ['Corridor outside protection', a && a.connectivity_pct, o.connect_pct, '% of extent', 1],
     ['Recorded Forest Area', a && a.rfa_pct, o.rfa_pct, '% of extent', 1],
     ['Outside Recorded Forest', a && a.outside_rfa_pct, o.outside_rfa_pct, '% of extent', 1],
     ['Natural forest', a && a.natural_forest_pct, o.natural_forest_pct, '% of extent', 1],
@@ -305,7 +305,7 @@ function buildVillageReport(p, a) {
       <h2>Protection, tenure &amp; setting</h2>
       ${rTable([
         ['Park, sanctuary or ESZ', rPct(a.protected_pct), 'of village'],
-        ['Corridor or tiger reserve', rPct(a.connectivity_pct), 'of village'],
+        ['Corridor outside protection', rPct(a.connectivity_pct), 'of village'],
         ['Recorded Forest Area', rPct(a.rfa_pct), 'of village'],
         ['Outside Recorded Forest', rPct(a.outside_rfa_pct), 'of village'],
         a.pa_names ? ['Parks / sanctuaries', esc(a.pa_names)] : null,

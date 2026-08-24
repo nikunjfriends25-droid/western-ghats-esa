@@ -13,7 +13,7 @@ const METRIC = {
   agri_pct: ['Agriculture', '%'],
   wl_degraded_forest_pct: ['Degraded forest', '%'],
   protected_pct: ['Protected area / ESZ', '%'],
-  connectivity_pct: ['Corridor / tiger reserve', '%'],
+  connectivity_pct: ['Corridor outside protection', '%'],
   rfa_pct: ['Recorded Forest Area', '%'],
   outside_rfa_pct: ['Outside Recorded Forest', '%'],
   conservation_score: ['Conservation value', '0–100'],
@@ -373,7 +373,7 @@ function renderInsights(rows, scopeLabel) {
 
     '<div class="ins-sec"><h3>Protection &amp; tenure</h3><div class="cards">' +
       areaCard('Park, sanctuary or ESZ', sum(R, 'protected_km2'), area, '#1b7f5a') +
-      areaCard('Corridor or tiger reserve', sum(R, 'connect_km2'), area, '#d98324') +
+      areaCard('Corridor outside protection', sum(R, 'connect_km2'), area, '#d98324') +
       areaCard('Recorded Forest Area', sum(R, 'rfa_km2'), area, '#2f6d3a') +
       card('Outside Recorded Forest', fmt(sum(R, 'outside_rfa_km2')), 'km\u00b2',
            { wide: true, sub: 'Not the same as private land \u2014 also revenue land, ' +
@@ -465,7 +465,7 @@ function keralaPanel(scopeLabel) {
     '<th>Official</th><th>Diff</th></tr>' +
     row('Area', 'area_km2', ' km²') +
     row('Protected / ESZ', 'protected_pct', '%') +
-    row('Corridor / tiger', 'connectivity_pct', '%') +
+    row('Corridor outside prot.', 'connectivity_pct', '%') +
     row('Recorded forest', 'rfa_pct', '%') +
     row('Outside rec. forest', 'outside_rfa_pct', '%') +
     row('Natural forest', 'natural_forest_pct', '%') +

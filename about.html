@@ -310,7 +310,7 @@
 
   <h4>Population and census indicators</h4>
   <p>Joined on the 2011 Census village code that the reconstruction already carries —
-  <strong>4,297 of 4,331 villages match</strong>. This is an exact key join, with no fuzzy
+  <strong>4,330 of 4,331 villages match</strong>. This is an exact key join, with no fuzzy
   matching at this stage.</p>
   <p>A few villages straddle a sub-district boundary, and the Census reports each part as a
   separate row under the same code. Those parts are <strong>summed</strong>, not de-duplicated:
@@ -370,13 +370,13 @@
   <table class="ref">
     <tr><th>Conservation value</th><th>Human pressure</th></tr>
     <tr><td>Natural forest %</td><td>Population density</td></tr>
-    <tr><td>Corridor / tiger reserve %</td><td>Built-up %</td></tr>
-    <tr><td>Recorded Forest Area %</td><td>Highway density (km/km²)</td></tr>
+    <tr><td>Recorded Forest Area %</td><td>Built-up %</td></tr>
+    <tr><td>&mdash;</td><td>Highway density (km/km²)</td></tr>
     <tr><td>—</td><td>Land-dependent workers %</td></tr>
   </table>
   <p>Missing values are <strong>not imputed</strong>. A village is scored on whatever components
   it has, the count is published as <code>conservation_n</code> and <code>conflict_n</code>, and
-  anything with fewer than two components is left unscored. Bands are terciles, not a midpoint
+  anything with fewer than two components is left unscored (no village is currently in that state, so the guard has never excluded anyone). Bands are terciles, not a midpoint
   cut — a 50/50 split would fall exactly where villages are densest.</p>
 
   <div class="callout">
@@ -390,7 +390,7 @@
     subtler: land-cover classes sum to 100%, so natural forest and agriculture correlate −0.80
     almost by construction. Using forest on one axis and agriculture on the other was one
     compositional variable counted twice with opposite signs. Pressure now measures people and
-    infrastructure only, and the two scores correlate <strong>−0.48</strong> — related, as real
+    infrastructure only, and the two scores correlate <strong>−0.49</strong> — related, as real
     conservation value and real pressure should be, but no longer one axis wearing two hats.</p>
     <p>Plantation share is still published and can be mapped. It is simply not scored.</p>
   </div>
@@ -401,14 +401,14 @@
   ESA boundary, so it is the one place that approximation can be <em>measured</em> rather than
   merely disclosed. The same metrics, computed on both geometries:</p>
   <table>
-    <tr><th>Metric</th><th>Whole villages</th><th>Kerala's official boundary</th><th>Difference</th></tr>
-    <tr><td>Area</td><td>13,030 km²</td><td>8,863 km²</td><td>−4,168 km²</td></tr>
-    <tr><td>Protected / ESZ</td><td>21.5%</td><td>30.8%</td><td>+9.3</td></tr>
-    <tr><td>Corridor / tiger reserve</td><td>27.3%</td><td>38.1%</td><td>+10.8</td></tr>
+    <tr><th>Metric</th><th>Whole villages</th><th>Kerala’s official boundary</th><th>Difference</th></tr>
+    <tr><td>Area</td><td>13,030 km²</td><td>8,863 km²</td><td>−4,167 km²</td></tr>
+    <tr><td>Protected / ESZ</td><td>20.3%</td><td>29.1%</td><td>+8.8</td></tr>
+    <tr><td>Corridor outside protection</td><td>5.5%</td><td>6.5%</td><td>+1.0</td></tr>
     <tr><td>Recorded Forest Area</td><td>75.0%</td><td>92.0%</td><td>+17.0</td></tr>
     <tr><td>Outside Recorded Forest</td><td>25.0%</td><td>8.0%</td><td>−17.0</td></tr>
     <tr><td>Natural forest</td><td>77.4%</td><td>83.7%</td><td>+6.3</td></tr>
-    <tr><td>Plantation</td><td>10.6%</td><td>4.0%</td><td>−6.5</td></tr>
+    <tr><td>Plantation</td><td>10.6%</td><td>4.0%</td><td>−6.6</td></tr>
     <tr><td>Built-up</td><td>0.47%</td><td>0.07%</td><td>−0.40</td></tr>
     <tr><td>National highway</td><td>465 km</td><td>137 km</td><td>−328 km</td></tr>
   </table>
@@ -452,10 +452,12 @@
   </table>
   <h4>Protection &amp; tenure</h4>
   <table class="ref"><tr><th>Card</th><th>What it is</th><th>How it is computed</th><th>Watch out for</th></tr>
-    <tr><td><b>Park, sanctuary or ESZ</b> <span class="r-u">km²</span></td><td>How much of the selection already sits inside a National Park, Wildlife Sanctuary, or an Eco-Sensitive Zone notified around one.</td><td>The union of the protected-area and Parivesh ESZ layers, intersected with the villages. Unioned first, because both layers self-overlap and summing would double-count.</td><td>Protected areas come from OpenStreetMap via EJAtlas, not the official Wildlife Institute of India boundaries, so this figure carries unquantified error.</td></tr>
-    <tr><td><b>Corridor or tiger reserve</b> <span class="r-u">km²</span></td><td>Area overlapping a mapped wildlife corridor or tiger reserve — the connectivity argument for the notification.</td><td>Union of the Parivesh wildlife corridor and tiger reserve layers, intersected with the villages.</td><td>Corridors are indicative planning geometry, not notified boundaries.</td></tr>
+    <tr><td><b>Park, sanctuary or ESZ</b> <span class="r-u">km²</span></td><td>How much of the selection already sits inside a National Park, Wildlife Sanctuary, or an Eco-Sensitive Zone notified around one.</td><td>Union of the India-WRIS national protected-area layer and the Parivesh Eco-Sensitive Zone layer, intersected with the villages. Unioned first, because summing per-feature intersections would double-count overlap.</td><td>Replaces the OpenStreetMap-derived layer used until v3.10, which carried unquantified error. Two things to know about the new source. India-WRIS (Ministry of Jal Shakti) REPUBLISHES protected-area boundaries; it is not the notifying authority, which is MoEFCC, so this is an official portal’s copy rather than a notified boundary. And its latest year of notification is 2021, so any park, sanctuary or ESZ notified between 2022 and the 2024 draft gazette is missing. The switch moved protection inside the ESA from 15,759 km² (28.0%) to 15,003 km² (26.7%); earlier downloads will not reconcile with current ones. The WII protected-area shapefile was also compared and rejected: it is a mid-2010s snapshot missing Kodaikanal, Megamalai and Bhimgad, and self-overlaps by 3.5%.</td></tr>
+    <tr><td><b>Corridor outside protection</b> <span class="r-u">km²</span></td><td>Corridor land that is NOT already inside a protected area — the ground that connects protected areas rather than forming part of one.</td><td>The Parivesh wildlife-corridor layer with all protected area (parks, sanctuaries and Eco-Sensitive Zones) subtracted. Protection is removed rather than overlaid, so this figure and the protection figure are disjoint and may be added.</td><td>The subtraction removes 53% of the raw corridor layer as already protected. It also repairs a defect in the source: that layer’s type field files national parks and sanctuaries as &quot;corridor&quot; — Bandipur, Periyar and Parambikulam among them — and 79% of its &quot;tiger reserve&quot; area also sat inside its &quot;corridor&quot; area. Read this as POLICY OVERLAP, not as measured ecological connectivity: it records whether an identified corridor crosses the village, not how much movement the village actually carries. A sole pinch-point and the ragged edge of a wide corridor score the same per unit area; nothing here is least-cost or circuit-modelled. It is zero for 78% of villages, and for that reason it is NOT a component of the conservation score — it is published, mapped and filterable only.</td></tr>
+    <tr><td><b>Tiger reserve</b> <span class="r-u">km²</span></td><td>Village area inside a tiger reserve.</td><td>Those India-WRIS protected areas whose sub-type field marks them as part of a tiger reserve, intersected with the villages.</td><td>This is the protected-area CORE of each reserve, not the full notified reserve. A tiger reserve is core plus buffer, and buffer zones are frequently not themselves notified parks or sanctuaries, so they are absent here — against NTCA’s notified totals these polygons run roughly half. It is a subset of the protection figure, never an addition to it: the source layer is de-overlapped, so every tiger-reserve polygon is also a protected-area polygon. Cross-checked against the WII tiger-reserve layer, which agrees to within 1% inside the ESA (5,471 km² against 5,409 km²). The WII layer used for that cross-check is itself a core-only tiger-reserve layer, so the agreement confirms the core extent, not the full notified reserve.</td></tr>
     <tr><td><b>Recorded Forest Area</b> <span class="r-u">km²</span></td><td>Land already recorded as forest, and so already under forest administration.</td><td>The Bharatmaps Recorded Forest Area layer intersected with the villages, unioned first.</td><td>Where the ESA overlaps recorded forest, the notification changes relatively little — the state already controls land use there.</td></tr>
     <tr><td><b>Outside Recorded Forest</b> <span class="r-u">km²</span></td><td>The remainder: village area not recorded as forest.</td><td>Total area minus Recorded Forest Area.</td><td>This is NOT private land. It also holds revenue and common land, water bodies, PSU and defence land, and gaps in the forest layer itself — 346 villages record no forest area despite being more than half forest. Do not quote it as a private-ownership figure.</td></tr>
+    <tr><td><b>Neither recorded forest nor protected</b> <span class="r-u">km²</span></td><td>Village area that is outside Recorded Forest Area AND outside every park, sanctuary and Eco-Sensitive Zone — the ground where the ESA notification would be the only instrument in force.</td><td>Total area minus the area of the UNION of the recorded-forest and protected layers. It must be measured on the union: most Western Ghats parks are also recorded forest, so subtracting the two figures from each other in turn removes the same ground twice. Until v3.11 it was computed that way and read 18,134 km²; measured correctly it is 20,153 km².</td><td>This is NOT private land, and the name is not a description of ownership. It includes water bodies and reservoirs, revenue and common land, PSU and defence land, and every gap in the recorded-forest layer — 346 villages record no forest area despite being more than half forest. A water-body deduction that used to be applied was removed in v3.11 because it double-subtracted; reservoirs are therefore inside this figure. Do not quote it as a private-ownership or an available-land figure.</td></tr>
   </table>
   <h4>Land cover</h4>
   <table class="ref"><tr><th>Card</th><th>What it is</th><th>How it is computed</th><th>Watch out for</th></tr>
@@ -469,9 +471,9 @@
   <h4>Pressure &amp; scores</h4>
   <table class="ref"><tr><th>Card</th><th>What it is</th><th>How it is computed</th><th>Watch out for</th></tr>
     <tr><td><b>National highway</b> <span class="r-u">km</span></td><td>Length of national highway running inside the selection.</td><td>MoRTH highway network from GatiShakti, clipped to the village polygons.</td><td>National highways only — state highways and district roads are not included, so this understates road presence.</td></tr>
-    <tr><td><b>Conservation value</b> <span class="r-u">of 100</span></td><td>Where protection buys the most ecologically.</td><td>Mean of three percentile-ranked components: natural forest %, corridor or tiger reserve %, and Recorded Forest Area %.</td><td>A percentile rank against the other ESA villages, not an absolute measure — 80 means higher than 80% of them. Villages with fewer than two available components are left unscored.</td></tr>
+    <tr><td><b>Conservation value</b> <span class="r-u">of 100</span></td><td>How much forest a village holds and how much of it is already recorded forest. Read the caveat before calling it ecological value.</td><td>Mean of two percentile-ranked components: natural forest % and Recorded Forest Area %.</td><td>A percentile rank against the other ESA villages, not an absolute measure. Understand what it does and does not contain. Both components describe forest: natural forest % is measured from imagery, Recorded Forest Area % is tenure status, so this is closer to &quot;forest cover and forest tenure&quot; than to a biodiversity score. It contains no measure of endemism, irreplaceability or spatial configuration, which is what systematic conservation prioritisation normally rests on. A band of &quot;low priority&quot; therefore means low forest cover and non-forest tenure — not low ecological value. Note also that natural forest % counts evergreen and deciduous forest only, so montane grassland (170 km² of the ESA), scrub forest (699 km²) and littoral swamp score zero on it, and the shola–grassland mosaic and Myristica swamps are under-valued despite being among the most endemic-rich habitats in the range; the broader forest_pct field is published for anyone who wants them included. A corridor component was removed in v3.11 after an audit — it was zero for 78% of villages, so percentile-ranking turned it into a flag, and being the complement of protection it pushed protected villages down while recorded forest pushed them up. Of the two survivors, natural forest % is a clean gradient (1.8% zeros, 3,347 distinct values) and Recorded Forest Area % carries a 17.5% tie block at zero.</td></tr>
     <tr><td><b>Human pressure</b> <span class="r-u">of 100</span></td><td>Where restrictions will be felt most.</td><td>Mean of four percentile-ranked components: population density, built-up %, highway density per km², and land-dependent workers %.</td><td>Deliberately measures people and infrastructure only. An earlier version shared variables with the conservation score, which forced 86% of villages onto one diagonal; the two now correlate −0.48.</td></tr>
-    <tr><td><b>Priority bands</b> <span class="r-u">villages</span></td><td>Where each village falls on the two axes together.</td><td>Both scores cut into terciles, giving nine cells, each separately named: protect, protect with some pressure, negotiate, secondary, moderate on both, pressure-led, low priority, contested.</td><td>Terciles are relative to this dataset. An earlier version named only three cells and dumped 59% of villages into an uninformative &#x27;mixed&#x27;.</td></tr>
+    <tr><td><b>Priority bands</b> <span class="r-u">villages</span></td><td>Where each village falls on the two axes together.</td><td>Both scores cut into terciles, giving nine cells, each separately named: protect, protect with some pressure, negotiate, secondary, moderate on both, pressure-led, low priority, contested.</td><td>Terciles are relative to this dataset. **The bands changed in v3.11**: removing the corridor component from the conservation score moved 770 of 4,331 villages (17.8%) across a band boundary, so a band cited from an earlier download may not match the current one. An earlier version named only three cells and dumped 59% of villages into an uninformative &quot;mixed&quot;.</td></tr>
   </table>
   <h4>On the village card</h4>
   <table class="ref"><tr><th>Card</th><th>What it is</th><th>How it is computed</th><th>Watch out for</th></tr>
@@ -488,7 +490,7 @@
     and all Kerala villages are whole-village polygons standing in for partial extents.
     Population is therefore an <em>upper bound</em> — and 39% of the population total is Kerala,
     where extent is over-stated by roughly 30%. Every percentage-<em>of-area</em> figure moves
-    the other way: 28% protected and 60% recorded forest are <em>under</em>-estimates, because
+    the other way: 27% protected and 60% recorded forest are <em>under</em>-estimates, because
     the denominator is inflated while the numerators are real.</p>
 
     <p><strong>Land outside Recorded Forest Area is not private land.</strong> It also holds
@@ -505,9 +507,41 @@
     clear that threshold, though they hold 52% of the area. The rest carry
     <code>lulc_reliable = false</code> and are marked indicative in the interface.</p>
 
-    <p><strong>Protected areas are OpenStreetMap-derived</strong>, obtained via EJAtlas, not the
-    official Wildlife Institute of India boundaries. The 28% figure carries unquantified error
-    and should be quoted with that attribution.</p>
+    <p><strong>Protected areas come from an official portal, but read the two limits.</strong>
+    Until v3.10 this layer was OpenStreetMap-derived via EJAtlas and carried unquantified error.
+    It is now the India-WRIS national protected-area layer, which records each area's type,
+    sub-type, state and year of notification. Inside the ESA it gives 12,968&nbsp;km² of parks
+    and sanctuaries against the 13,668&nbsp;km² OpenStreetMap gave, so protection including
+    Eco-Sensitive Zones is now <strong>15,003&nbsp;km², 26.7% of the ESA</strong>, where earlier
+    editions of this page said 28%. Anyone holding an older download will not reconcile with a
+    current one.</p>
+    <p>First limit: India-WRIS is the Ministry of Jal Shakti's water portal, which
+    <strong>republishes</strong> these boundaries. The notifying authority is MoEFCC. This is an
+    official copy, not a notified boundary, and it should be quoted that way. Second: its latest
+    year of notification is <strong>2021</strong>, so any park, sanctuary or Eco-Sensitive Zone
+    notified between 2022 and the 2024 draft gazette is simply absent from the numerator. The
+    Wildlife Institute of India shapefile was compared and rejected — a mid-2010s snapshot
+    missing Kodaikanal, Megamalai and Bhimgad, and self-overlapping by 3.5%.</p>
+    <p><strong>Tiger reserve means the protected-area core, not core plus buffer.</strong>
+    Reserves are identified by the layer's own sub-type field, so a reserve's buffer zone counts
+    only where the buffer is itself a notified park or sanctuary. Against NTCA's notified totals
+    these polygons run roughly half. The figure is always a <em>subset</em> of the protection
+    figure and must never be added to it — the source layer is de-overlapped, so every
+    tiger-reserve polygon is also a protected-area polygon. Cross-checked against the WII tiger
+    layer, the two agree to within 1% inside the ESA (5,471&nbsp;km² against 5,409&nbsp;km²).</p>
+    <p><strong>"Corridor" is policy overlap, not modelled connectivity.</strong> It records
+    whether an identified corridor polygon crosses the village, after all protected ground is
+    subtracted — so it is disjoint from the protection figure and the two may be added. It is
+    not least-cost, circuit or graph-theoretic connectivity: a sole pinch-point and the ragged
+    edge of a wide corridor score the same per unit area. The source layer's <code>type</code>
+    field is unreliable — it files Bandipur, Periyar and Parambikulam as "corridor", and 79% of
+    its "tiger reserve" area also lay inside its "corridor" area — which subtracting protection
+    largely repairs but does not certify. It is zero for 78% of villages, and for that reason it
+    is <strong>not</strong> a component of the conservation score.</p>
+    <p><strong>Published overlays are display geometry.</strong> The GeoJSON overlay files are
+    simplified to about 55&nbsp;m, drop sub-hectare slivers, and cover the ESA's bounding box
+    rather than the ESA itself. Measuring areas from them will not reproduce the indicator
+    values, which are computed on full-resolution geometry clipped to each village.</p>
 
     <p><strong>"Mining" means derelict land, not active leases.</strong> The Wasteland Atlas
     class is abandoned industrial and mining land as of 2015-16. It finds 15&nbsp;km² across the
@@ -547,13 +581,17 @@
     <tr><td>Primary Census Abstract 2011</td><td>Office of the Registrar General &amp; Census
       Commissioner, India</td><td>Direct</td><td>Population, households, SC/ST, literacy,
       worker composition</td></tr>
-    <tr><td>Protected areas (national parks, sanctuaries)</td><td>OpenStreetMap contributors</td>
-      <td>EJAtlas geoserver</td><td>Existing statutory protection</td></tr>
+    <tr><td>Protected areas (national parks, sanctuaries, tiger reserves)</td>
+      <td>India-WRIS, Ministry of Jal Shakti (republishing MoEFCC boundaries;
+      latest notification year 2021)</td>
+      <td>India-WRIS WFS export</td><td>Existing statutory protection; tiger reserves are
+      flagged by the layer's own sub-type field, and are the protected-area core only</td></tr>
     <tr><td>Eco-Sensitive Zones</td><td>Parivesh / Bharatmaps, MoEFCC</td>
       <td><a href="https://github.com/yashveeeeeeer/india-geodata">india-geodata</a></td>
       <td>ESZs already notified around individual parks</td></tr>
-    <tr><td>Wildlife corridors &amp; tiger reserves</td><td>Parivesh / Bharatmaps, MoEFCC</td>
-      <td>india-geodata</td><td>Connectivity</td></tr>
+    <tr><td>Wildlife corridors</td><td>Parivesh / Bharatmaps, MoEFCC</td>
+      <td><a href="https://github.com/yashveeeeeeer/india-geodata">india-geodata</a></td>
+      <td>Connectivity, measured only outside protected areas</td></tr>
     <tr><td>Recorded Forest Area</td><td>Bharatmaps</td><td>india-geodata</td>
       <td>Land already under forest administration</td></tr>
     <tr><td>Forest circles, divisions &amp; ranges</td><td>Forest Survey of India</td>

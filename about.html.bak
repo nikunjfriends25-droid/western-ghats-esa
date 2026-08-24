@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: blob: https://*.basemaps.cartocdn.com; connect-src 'self' https://*.basemaps.cartocdn.com; worker-src blob:; child-src blob:; font-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Method &amp; caveats — Western Ghats ESA Atlas</title>
+<meta name="description" content="How the Western Ghats ESA village boundaries were reconstructed from the 2024 draft notification, how they were verified three independent ways, and where the reconstruction is weakest.">
+<link rel="canonical" href="https://nikunjfriends25-droid.github.io/western-ghats-esa/about.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Western Ghats ESA Atlas">
+<meta property="og:title" content="Method &amp; caveats — Western Ghats ESA Atlas">
+<meta property="og:description" content="How the Western Ghats ESA village boundaries were reconstructed, verified, and where they are weakest.">
+<meta property="og:url" content="https://nikunjfriends25-droid.github.io/western-ghats-esa/about.html">
+<meta property="og:image" content="https://nikunjfriends25-droid.github.io/western-ghats-esa/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nikunjfriends25-droid.github.io/western-ghats-esa/og.png">
+<meta name="author" content="Nikunj Jambu">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='13' font-size='13'>🏞️</text></svg>">
+<link href="style.css" rel="stylesheet">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="mark">🏞️</span>
+    <h1>Western Ghats ESA Atlas</h1>
+    <span class="tag">Method &amp; caveats</span>
+  </div>
+  <nav>
+    <a href="index.html" class="cta">Open the atlas</a>
+    <a href="api.html">API</a>
+    <a href="https://github.com/nikunjfriends25-droid/western-ghats-esa">GitHub</a>
+  </nav>
+</header>
+
+<div class="docwrap">
+<nav class="docnav">
+  <h4>Contents</h4>
+  <ol>
+    <li><a href="#what">What this is</a></li>
+    <li><a href="#extract">Reading the gazette</a></li>
+    <li><a href="#match">Matching names to polygons</a></li>
+    <li><a href="#verify">Three verifications</a></li>
+    <li><a href="#card-reference">What every card means</a></li>
+    <li><a href="#kerala-check">Checked against ground truth</a></li>
+    <li><a href="#limits">Where it is weakest</a></li>
+    <li><a href="#zones">Why there are no zones</a></li>
+    <li><a href="#cats">What the categories mean</a></li>
+    <li><a href="#sources">Sources &amp; licence</a></li>
+  </ol>
+  <div class="back"><a href="index.html">&larr; Back to the atlas</a></div>
+</nav>
+<main class="doc">
+  <h2 id="what">What this is</h2>
+  <p class="lede">On 31 July 2024 the Ministry of Environment, Forest and Climate Change
+  published draft notification <strong><a href="https://moef.gov.in/storage/tender/1723024218.pdf">S.O. 3060(E)</a></strong>
+  (<a href="https://moef.gov.in/storage/tender/1723024218.pdf">PDF, 4.9&nbsp;MB, 279 pages</a>), listing 4,402 villages across
+  Goa, Gujarat, Karnataka, Kerala, Maharashtra and Tamil Nadu proposed as an Ecologically
+  Sensitive Area in the Western Ghats. The notification names those villages in a table.
+  It does not publish their boundaries.</p>
+  <p>This atlas reconstructs them. Every village named in Annexure&nbsp;C was matched to its
+  polygon in the all-India census village boundary dataset, giving
+  <strong>4,331 of 4,402 rows (98.4%)</strong> a mapped extent carrying its 2011 Census code
+  and LGD code.</p>
+
+  <h2 id="extract">Reading the gazette</h2>
+  <p>The village list and the boundary coordinates are read directly from the text layer of the
+  notification published by MoEFCC, so every name and every coordinate is taken exactly as
+  printed rather than recognised from an image.</p>
+  <p><a class="btn primary" href="https://moef.gov.in/storage/tender/1723024218.pdf">Download the notification &mdash; PDF, 4.9&nbsp;MB &darr;</a></p>
+  <p class="hint">279 pages, hosted by MoEFCC at
+  <code>moef.gov.in/storage/tender/1723024218.pdf</code>. Everything in this atlas is derived
+  from that file.</p>
+  <p>Two checks confirm nothing was dropped in the reading. All six state serial runs reconcile
+  exactly and contiguously — Goa 108, Gujarat 64, Karnataka 1,449, Kerala 131,
+  Maharashtra 2,515, Tamil Nadu 135, giving <strong>4,402 rows</strong>, which is the count the
+  notification itself states. Annexure&nbsp;B yields <strong>401 boundary points</strong>, and
+  all 402 coordinate pairs printed in it are accounted for: the single one excluded is a typo in
+  the gazette, Karnataka point 45, which reads 71.2007,&nbsp;31.6736 — a location in Punjab,
+  some 2,000&nbsp;km from the Western Ghats.</p>
+
+  <h2 id="match">Matching names to polygons</h2>
+  <p>Village names were matched to census records hierarchically — district and taluka first,
+  then district, then state-wide — under a strict <strong>1:1 constraint</strong>, so no polygon
+  is ever assigned to two gazette rows.</p>
+  <p>Three things made the difference over a naive fuzzy match:</p>
+  <ul>
+    <li>Each census village offers <strong>three romanised spellings</strong>
+      (<code>name</code>, <code>censusname</code>, <code>lgd_villagename</code>) as match aliases.</li>
+    <li>Both sides are additionally compared under a <strong>transliteration folding</strong>
+      (<code>oo→u</code>, <code>ee→i</code>, doubled consonants collapsed, trailing vowels
+      dropped). Without it, <em>Marayur</em> against <em>Marayoor</em> scores only 80 and is
+      rejected; with it, the pair is effectively identical.</li>
+    <li>Thresholds scale with how much the search was narrowed. District-plus-taluka already
+      cuts the pool to a handful of villages — Devikulam taluka has twelve — so it runs a looser
+      threshold (72) than a district-wide (85) or state-wide (93) search.</li>
+  </ul>
+
+  <div class="callout">
+    <p><strong>A name can match perfectly in the wrong place.</strong> The gazette's
+    <em>Khadi</em> in Surat scored a perfect 100 against <em>Khada</em> in Junagadh — 295&nbsp;km
+    away in Saurashtra, nowhere near the Western Ghats. Raigad's <em>Wandoli</em> matched a
+    village in Gadchiroli, 631&nbsp;km across Maharashtra.</p>
+    <p>So a geographic gate is applied: villages matched at district-and-taluka scope define
+    each state's ESA core, and any wider-scope match landing more than 50&nbsp;km outside that
+    core is rejected and retried against its remaining candidates. Thirty outliers were caught;
+    twenty-three found a correct nearer village instead. No match now sits beyond 50&nbsp;km of
+    its state core.</p>
+  </div>
+
+  <h2 id="verify">Three independent verifications</h2>
+  <p>A village-name match can be confidently wrong, so the result is checked three ways that do
+  not share a failure mode.</p>
+
+  <h3>1 · Against the gazette's own coordinates</h3>
+  <p>Annexure&nbsp;B lists 401 "prominent points on the outer boundary" of the ESA. These are
+  <em>boundary</em> points, so the correct test is how far each lies from the edge of the
+  reconstructed polygon — not whether it falls inside. A point sitting exactly on a boundary is
+  a coin-flip for a point-in-polygon test, and roughly half of them do fall inside, which is
+  the expected signature.</p>
+  <table>
+    <tr><th>State</th><th>Points</th><th>Median distance</th><th>Within 2 km</th><th>Within 5 km</th></tr>
+    <tr><td>Goa</td><td>39</td><td><strong>101 m</strong></td><td>39</td><td>39</td></tr>
+    <tr><td>Gujarat</td><td>61</td><td><strong>244 m</strong></td><td>60</td><td>61</td></tr>
+    <tr><td>Tamil Nadu</td><td>109</td><td>404 m</td><td>94</td><td>101</td></tr>
+    <tr><td>Maharashtra</td><td>135</td><td>495 m</td><td>127</td><td>135</td></tr>
+    <tr><td>Karnataka</td><td>57</td><td>536 m</td><td>48</td><td>56</td></tr>
+  </table>
+  <p>Goa's median of 101&nbsp;m is finer than the census village boundaries' own positional
+  accuracy, so the reconstructed edge is effectively the edge the gazette describes.</p>
+
+  <h3>2 · Against Kerala's own published ESA</h3>
+  <p>Kerala released its ESA as KML — an independent government source for the same ground.
+  The direction of this test matters, so stated precisely:</p>
+  <ul>
+    <li><strong>98.1% of the official Kerala area falls inside these village polygons.</strong>
+      Only 170 km² of it lands outside — and that residue is spread across 833 fragments of
+      which 820 are smaller than 1 km², i.e. sliver mismatches along shared edges rather than
+      any missing region. 67 of its 98 polygons are more than 99% covered, 86 are more than
+      95% covered.</li>
+    <li><strong>66.7% of these village polygons fall inside the official area.</strong> The
+      other third is the part of each village that was <em>not</em> notified.</li>
+  </ul>
+  <p>Both numbers are correct and they measure opposite things. The first says the official ESA
+  is almost entirely contained by this reconstruction — which is the test that matters. The
+  second is low by design, because Kerala notified <em>portions</em> of villages while this
+  atlas holds whole villages; a whole village is necessarily bigger than the slice of it that
+  was listed.</p>
+  <p>On the map this looks counter-intuitive at first. Switch on the Kerala official layer and
+  the blue outline sits <em>inside</em> the purple village polygons, with purple spilling
+  beyond it — that spill is the 33%, not a mismatch. If the blue appeared to extend past the
+  purple, that would be the failure. It does not.</p>
+
+  <h3>3 · Against the notified areas</h3>
+  <p>Annexure&nbsp;A states an area per state, giving a third check that is independent of both
+  geometry sources.</p>
+  <table>
+    <tr><th>State</th><th>Reconstructed km²</th><th>Notified km²</th><th>Ratio</th></tr>
+    <tr><td>Maharashtra</td><td>17,117</td><td>17,340</td><td><strong>0.99</strong></td></tr>
+    <tr><td>Goa</td><td>1,436</td><td>1,461</td><td><strong>0.98</strong></td></tr>
+    <tr><td>Gujarat</td><td>464</td><td>449</td><td>1.03</td></tr>
+    <tr><td>Tamil Nadu</td><td>6,422</td><td>6,914</td><td>0.93</td></tr>
+    <tr><td>Karnataka</td><td>17,785</td><td>20,668</td><td>0.86</td></tr>
+    <tr><td>Kerala</td><td>13,030</td><td>9,994</td><td>1.30</td></tr>
+    <tr><td><strong>Total</strong></td><td><strong>56,254</strong></td><td><strong>56,826</strong></td><td><strong>0.99</strong></td></tr>
+  </table>
+  <p>The three checks improved together across successive revisions of the method, which is the
+  reassuring part: a matching rule loose enough to invent false pairings would push polygons to
+  wrong places and degrade checks 1 and 2 even while the match count rose.</p>
+
+  <h2 id="limits">Where it is weakest</h2>
+
+  <div class="callout warn">
+    <p><strong>Bifurcated villages are drawn whole.</strong> The gazette marks some villages
+    with an asterisk, meaning only part of the village falls inside the ESA. No partial extent
+    is published anywhere, so those polygons show the <em>entire</em> village and therefore
+    <strong>over-state</strong> the ESA. Only the State Governments' physical-verification maps
+    can resolve them. The atlas flags every such village when you open it.</p>
+  </div>
+
+  <p><strong>Kerala is portion-wise by design.</strong> This is why Kerala's ratio is 1.30
+  rather than 1.00 — it is not an error in the matching. For Kerala, treat the official state
+  KML layer as authoritative and these village polygons as context. You can overlay the
+  official layer directly in the atlas.</p>
+
+  <p><strong>Karnataka is the least complete state</strong>, at 0.86 of its notified area, with
+  19 rows unmapped. Its census transliterations diverge from the gazette's more than any other
+  state's.</p>
+
+  <p><strong>The 71 unmapped rows are mostly structural.</strong> They are composite cells
+  naming two features at once (<code>Amravathi R.F./Anamalai R.F.</code>), gazette rows repeated
+  for different survey blocks (<code>Valparai (TP)</code> appears four times, and the 1:1
+  constraint gives the polygon to the first occurrence), placeholder text
+  (<code>Area Under Forest</code>), and small Raigad hamlets below census village granularity.
+  The full list, with a reason for each, is in the atlas under "Not mapped".</p>
+
+  <div class="callout warn">
+    <p><strong>This is not an official record.</strong> It is an independent reconstruction for
+    reference and research, with no legal standing. It must not be used to determine whether a
+    specific parcel of land falls inside the ESA. For that, consult the notification itself and
+    the relevant State Government.</p>
+  </div>
+
+  <h2 id="zones">Why there are no Zone 1/2/3</h2>
+  <p>A common expectation is that the Western Ghats ESA is graded into Zone&nbsp;1, Zone&nbsp;2 and
+  Zone&nbsp;3. It is not — and the distinction matters if you are comparing this atlas against
+  older maps or reports.</p>
+  <p>The graded scheme comes from the <strong>Western Ghats Ecology Expert Panel</strong> (the
+  Gadgil report, 2011), which proposed dividing the range into <strong>ESZ&nbsp;1, ESZ&nbsp;2 and
+  ESZ&nbsp;3</strong> with progressively lighter restrictions. <strong>That scheme was never
+  notified.</strong></p>
+  <p>What followed was the <strong>High Level Working Group</strong> (the Kasturirangan report,
+  submitted 15&nbsp;April&nbsp;2013), which the 2024 draft notification is built on. It took a
+  different approach: rather than grading the whole range, it identified roughly
+  <strong>37% of the Western Ghats — 59,940&nbsp;km² of natural landscape</strong> — as a single
+  continuous ecologically sensitive band, and left everything outside it unclassified.</p>
+  <p>So S.O.&nbsp;3060(E) defines <strong>one undivided ESA</strong>. Searching the full
+  279-page notification for zone terminology returns nothing: the only occurrences of "ESZ" are
+  an email address (<code>esz-mef@nic.in</code>) and the file number
+  <code>F.No.1/04/2012-ESZ-RE</code>. The only "categories" it names are categories of
+  <em>projects and activities</em> that are prohibited or regulated, and the CPCB's
+  Red/Orange/White <em>industry</em> categories — neither of which is spatial.</p>
+  <div class="callout">
+    <p>Consequently the categories in this atlas are <strong>not statutory zones</strong>. They
+    record how each village was mapped and how much to trust its extent — nothing about
+    differing levels of legal protection. Every village shown is subject to the same single set
+    of ESA restrictions.</p>
+  </div>
+
+  <h2 id="cats">What the categories mean</h2>
+  <p>Every village in the atlas carries one of five categories. They are not levels of legal
+  protection — as above, the ESA is single and undivided, and every village shown is subject to
+  the same restrictions. What the category tells you is <strong>how that polygon was arrived
+  at, and how much to trust its extent</strong>. Two of the five are warnings.</p>
+
+  <h3>Whole village — 4,131 villages, 40,850 km²</h3>
+  <p>The ordinary case, and about 73% of the mapped area. The gazette names the village without
+  qualification, so the entire revenue village falls inside the ESA and the polygon is simply
+  that village's census boundary. Nothing is being inferred beyond the name match itself, so
+  the extent is as good as the census boundary is.</p>
+
+  <h3>Bifurcated — 26 villages, 111 km² <em>(treat as an over-estimate)</em></h3>
+  <p>The gazette marks some village names with an asterisk. That marker means only <strong>part
+  </strong> of the village lies inside the ESA — the boundary cuts through it.</p>
+  <p>The notification does not publish where that cut falls. No annexure, no coordinates, no
+  sub-village list. So the honest options were to drop these villages entirely or to draw them
+  whole and label them clearly. This atlas draws them whole, which means
+  <strong>every one of these polygons is larger than the ESA actually is.</strong> The map
+  flags it when you open one.</p>
+  <p>The scale is small — these 26 cover 111 km², well under 1% of the mapped area — so the
+  effect on any regional total is minor. For a specific village it is not minor at all. Only
+  the State Governments' physical-verification maps can resolve the true extents.</p>
+  <p>All 26 are in Goa (9) and Maharashtra (17). The gazette marks 54 villages this way in
+  total; the remaining 27 are mostly small Raigad hamlets that have no census village polygon
+  at all, and appear under <a href="index.html">Not mapped</a> instead.</p>
+
+  <h3>Kerala village — 122 villages, 12,360 km² <em>(use the official layer)</em></h3>
+  <p>Every Kerala row carries this category, because Kerala is a special case. The State defines
+  its ESA <strong>portion-wise</strong>: not "this village is in", but "this part of this village
+  is in". The gazette lists the village names; Kerala publishes the actual portions separately
+  as KML.</p>
+  <p>So these 122 polygons are whole villages standing in for what is really a set of partial
+  ones. That is the entire reason Kerala's area ratio is 1.30 rather than 1.00 — it is not a
+  matching error, it is the difference between two definitions.</p>
+  <p>Kerala's official layer is included in the atlas. Switch on <em>Kerala official ESA</em>
+  under Reference layers to see the real boundary sitting inside these village polygons, and
+  treat that layer as authoritative for Kerala.</p>
+
+  <h3>Notified forest — 51 areas, 2,263 km²</h3>
+  <p>Not revenue villages at all. These are Reserve Forests and forest blocks that the gazette
+  lists in the same table as villages — entries like <em>Thadagam R.F.</em>,
+  <em>Anaikatti North R.F.</em> and <em>Jaganarai Slopes R.F.</em> They are identified by the
+  <code>R.F.</code> suffix the notification uses.</p>
+  <p>All 51 are in Tamil Nadu, which lists forest blocks far more than the other five states do.
+  They are mappable here because the census boundary dataset carries Reserve Forests as features
+  in their own right. They range from 1.5 km² to 365 km², so a few of them are large.</p>
+
+  <h3>Kerala, bifurcated — 1 village, 670 km²</h3>
+  <p>A single village, Chittar, that is both a Kerala row and asterisk-marked in the gazette —
+  so both caveats apply at once. It is worth its own category because it is large: at 670 km²
+  it is by far the biggest polygon carrying a partial-extent warning, and it alone accounts for
+  most of the 781 km² of asterisk-marked area in the dataset.</p>
+
+  <p>In the data files these appear in the <code>esa_category</code> field as
+  <code>whole_village</code>, <code>bifurcated_village</code>, <code>kerala_village</code>,
+  <code>notified_forest</code> and <code>kerala_bifurcated_village</code>. The separate boolean
+  <code>bifurcated</code> field is the quickest way to filter out every partial-extent polygon
+  in one step.</p>
+
+  <h2 id="analysis">The analysis layer</h2>
+  <p class="lede">Everything above is a transcription of a legal document. Everything in this
+  section is <strong>derived</strong> — the ESA polygons joined to census, land-cover,
+  protection and hydrology data. It is a weaker kind of claim, it inherits the errors of every
+  layer it touches, and it is kept separate for that reason.</p>
+
+  <h3>How each figure is computed</h3>
+
+  <h4>Geometry and units</h4>
+  <p>Every area is measured in <strong>EPSG:7755</strong> (India-wide equal-area), never in
+  degrees. Overlays are polygon intersections against the village boundary, reported both in
+  km² and as a share of that village.</p>
+  <p>One trap dominated this stage. Several source layers contain <strong>self-overlapping
+  polygons</strong> — Recorded Forest Area reached 154% of a single village, wildlife corridors
+  173%. Summing per-feature intersections double-counts wherever a layer overlaps itself. Each
+  layer is therefore <strong>unioned into one geometry before measurement</strong>, and any
+  result still exceeding the village area is logged as a fault rather than quietly clipped.</p>
+  <p>The same logic applies across layers: "protected" is the <em>union</em> of national parks,
+  sanctuaries and Parivesh ESZs, not the larger of the two. Taking the maximum understated
+  protection by about 2,000&nbsp;km², because ESZs sit largely <em>outside</em> park boundaries.</p>
+
+  <h4>Population and census indicators</h4>
+  <p>Joined on the 2011 Census village code that the reconstruction already carries —
+  <strong>4,297 of 4,331 villages match</strong>. This is an exact key join, with no fuzzy
+  matching at this stage.</p>
+  <p>A few villages straddle a sub-district boundary, and the Census reports each part as a
+  separate row under the same code. Those parts are <strong>summed</strong>, not de-duplicated:
+  dropping one would silently halve that village's population. Seventeen such cases exist
+  nationally, all in West Bengal, so none affect this dataset — but the pipeline handles them
+  correctly regardless.</p>
+  <p><strong>Two census directories, not one.</strong> The Census publishes rural villages and
+  towns as separate Primary Census Abstracts. Joining only the village directory left every
+  Town Panchayat, Municipal Council and Census Town without a population — which published
+  Valparai, a hill town of 70,859 people, as uninhabited. Both directories are now joined:
+  <strong>4,330 of 4,331</strong> records match, and <strong>33 entries are urban local
+  bodies</strong> counted from the town directory. Including them raised the population total
+  by 537,562.</p>
+  <p>Two traps in that data worth knowing. <strong>Census Towns keep village-range codes</strong>,
+  so the code number cannot tell a town from a village — only the directory it came from can.
+  And settlements straddling a sub-district boundary are reported as several "(Part)" rows under
+  one code; those are summed, since dropping one would halve the settlement.</p>
+
+  <div class="callout warn">
+    <p><strong>"Uninhabited" means a measured zero, never a missing figure.</strong> An earlier
+    version of this atlas treated any record without a population as uninhabited, which is how a
+    town of tens of thousands came to be published as having no residents. The two are now
+    distinct: 125 villages are recorded uninhabited by the Census, and exactly one record —
+    Valvane, in Satara — has no population because it carries no census code in the boundary
+    layer at all.</p>
+  </div>
+  <p>Derived rates: Scheduled Tribe share and literacy are shares of village population;
+  land-dependent workers is (cultivators + agricultural labourers) ÷ total workers; density is
+  population ÷ village area.</p>
+
+  <h4>Land cover</h4>
+  <p>Categorical zonal statistics over two NRSC rasters at 56&nbsp;m, counted in the rasters'
+  own Lambert Conformal Conic projection so no pixels are resampled. Each class becomes a
+  percentage of the village.</p>
+  <p>The Wasteland Atlas is a <strong>sparse</strong> raster — it holds data only where
+  wasteland exists. Its class counts therefore had to be expressed against village area taken
+  from the land-cover raster, which was verified to cover the villages exactly (ratio 1.000).
+  Left uncorrected, "degraded forest" would have read as a share of wasteland rather than of the
+  village, inflating it roughly fivefold.</p>
+  <p>Where percentages are aggregated across villages — in the selection panel, or a state
+  total — they are <strong>area-weighted</strong>. A plain average would let a 0.5&nbsp;km²
+  village count as much as a 300&nbsp;km² one.</p>
+
+  <h4>Highways</h4>
+  <p>Length of the national highway network falling inside each village, in kilometres. Where it
+  feeds a score it is converted to density (km per km²), since raw length simply favours large
+  villages.</p>
+
+  <h4>Land outside Recorded Forest Area</h4>
+  <p>Village area minus the area under Recorded Forest Area. This is deliberately <em>not</em>
+  called private land — see the caveats below.</p>
+
+  <h3>The composite scores</h3>
+  <p>Two scores, each the mean of percentile-ranked components. Percentile ranking makes them
+  <strong>relative to this set of villages</strong> rather than absolute: a score of 80 means
+  "higher than 80% of ESA villages", not "80% of some ideal".</p>
+  <table class="ref">
+    <tr><th>Conservation value</th><th>Human pressure</th></tr>
+    <tr><td>Natural forest %</td><td>Population density</td></tr>
+    <tr><td>Corridor / tiger reserve %</td><td>Built-up %</td></tr>
+    <tr><td>Recorded Forest Area %</td><td>Highway density (km/km²)</td></tr>
+    <tr><td>—</td><td>Land-dependent workers %</td></tr>
+  </table>
+  <p>Missing values are <strong>not imputed</strong>. A village is scored on whatever components
+  it has, the count is published as <code>conservation_n</code> and <code>conflict_n</code>, and
+  anything with fewer than two components is left unscored. Bands are terciles, not a midpoint
+  cut — a 50/50 split would fall exactly where villages are densest.</p>
+
+  <div class="callout">
+    <p><strong>Both scores were rebuilt after an audit, and it is worth saying why.</strong></p>
+    <p>The first version put population density on <em>both</em> axes — inverted on one — and
+    set Recorded Forest Area against its own arithmetic complement. Two of four and two of five
+    components were exact mirrors, which forced <strong>86% of villages onto a single
+    diagonal</strong>. The quadrants were an artefact of the formula, not a finding about the
+    Western Ghats.</p>
+    <p>Removing those mirrors still left a correlation of −0.601. The remaining cause was
+    subtler: land-cover classes sum to 100%, so natural forest and agriculture correlate −0.80
+    almost by construction. Using forest on one axis and agriculture on the other was one
+    compositional variable counted twice with opposite signs. Pressure now measures people and
+    infrastructure only, and the two scores correlate <strong>−0.48</strong> — related, as real
+    conservation value and real pressure should be, but no longer one axis wearing two hats.</p>
+    <p>Plantation share is still published and can be mapped. It is simply not scored.</p>
+  </div>
+
+  <h3 id="kerala-check">Checking the analysis against ground truth</h3>
+  <p>Every derived figure on this site rests on one approximation: villages are drawn whole,
+  even where only part of them was notified. Kerala is the only state that published its own
+  ESA boundary, so it is the one place that approximation can be <em>measured</em> rather than
+  merely disclosed. The same metrics, computed on both geometries:</p>
+  <table>
+    <tr><th>Metric</th><th>Whole villages</th><th>Kerala's official boundary</th><th>Difference</th></tr>
+    <tr><td>Area</td><td>13,030 km²</td><td>8,863 km²</td><td>−4,168 km²</td></tr>
+    <tr><td>Protected / ESZ</td><td>21.5%</td><td>30.8%</td><td>+9.3</td></tr>
+    <tr><td>Corridor / tiger reserve</td><td>27.3%</td><td>38.1%</td><td>+10.8</td></tr>
+    <tr><td>Recorded Forest Area</td><td>75.0%</td><td>92.0%</td><td>+17.0</td></tr>
+    <tr><td>Outside Recorded Forest</td><td>25.0%</td><td>8.0%</td><td>−17.0</td></tr>
+    <tr><td>Natural forest</td><td>77.4%</td><td>83.7%</td><td>+6.3</td></tr>
+    <tr><td>Plantation</td><td>10.6%</td><td>4.0%</td><td>−6.5</td></tr>
+    <tr><td>Built-up</td><td>0.47%</td><td>0.07%</td><td>−0.40</td></tr>
+    <tr><td>National highway</td><td>465 km</td><td>137 km</td><td>−328 km</td></tr>
+  </table>
+  <p><strong>Every metric moves in the same direction</strong>, and that direction is
+  interpretable: the notified portion is the wilder, higher, more protected part of each
+  village, while the part left out is where the estates, roads and settlement are. Plantation
+  more than halves, highway length drops by two thirds, and the share outside Recorded Forest
+  Area falls from a quarter to a twelfth.</p>
+  <div class="callout">
+    <p><strong>What this implies for the other five states.</strong> Where no official boundary
+    exists, the whole-village figures on this site almost certainly lean the same way: they
+    <em>overstate</em> development pressure — plantation, built-up, roads, land outside recorded
+    forest — and <em>understate</em> how protected and forested the notified area really is.
+    Kerala suggests the size of that bias, though it is the most portion-wise state and so
+    likely an upper bound on it.</p>
+    <p>Population is deliberately absent from this comparison. Census counts are per whole
+    village, and apportioning them to a village portion needs an assumption — uniform density,
+    or a dasymetric weighting — that there is no ground truth to validate. An unvalidatable
+    estimate would be worse than none.</p>
+  </div>
+  <p class="hint">Two caveats on the official layer itself: it covers 98 villages where the
+  gazette lists 131 Kerala rows, so it is not a complete substitute; and at 8,863 km² it is
+  89% of the 9,993.7 km² Annexure A states for Kerala. Served at
+  <code>api/v1/kerala-comparison.json</code>.</p>
+
+<!--CARDREF:START-->
+  <h3 id="card-reference">What every card means</h3>
+  <p>Each figure in the selection panel and on the village card is defined below — what it is, how it is computed, and what it cannot be used for. The same text appears behind the <b>i</b> button on each card, generated from the same file so the two cannot disagree.</p>
+  <h4>Extent</h4>
+  <table class="ref"><tr><th>Card</th><th>What it is</th><th>How it is computed</th><th>Watch out for</th></tr>
+    <tr><td><b>Villages</b> <span class="r-u">count</span></td><td>How many gazette rows are in the current selection.</td><td>One row per village named in Annexure C of the notification that was matched to a boundary. 4,331 of 4,402 rows matched overall.</td><td>A few gazette rows name the same place more than once for different survey blocks; the 1:1 constraint gives the polygon to the first, so those repeats appear under Not mapped.</td></tr>
+    <tr><td><b>Total area</b> <span class="r-u">km²</span></td><td>Ground area of the selected village polygons.</td><td>Measured in EPSG:7755, an equal-area projection for India, never in degrees.</td><td>Bifurcated and Kerala villages are drawn whole, so this is larger than the area actually notified. Kerala measured against its own official boundary is 8,863 km² rather than 13,030.</td></tr>
+  </table>
+  <h4>People</h4>
+  <table class="ref"><tr><th>Card</th><th>What it is</th><th>How it is computed</th><th>Watch out for</th></tr>
+    <tr><td><b>Population</b> <span class="r-u">people</span></td><td>Resident population of the selected settlements at the 2011 Census.</td><td>Joined on the 2011 census code from both Primary Census Abstracts — the rural village directory and the town/ward directory. 4,330 of 4,331 records match.</td><td>This is whole-village population. Where only part of a village was notified, everyone in the village is counted, so treat it as an upper bound. One record, Valvane in Satara, has no census code and no figure.</td></tr>
+    <tr><td><b>Households</b> <span class="r-u">households</span></td><td>Number of households recorded by the 2011 Census.</td><td>Census field No_HH, summed across the selection.</td><td>Same whole-village basis as population.</td></tr>
+    <tr><td><b>Scheduled Tribe</b> <span class="r-u">people</span></td><td>Residents recorded as Scheduled Tribe.</td><td>Census field P_ST. The percentage is of the selection&#x27;s total population.</td><td>Relevant to Forest Rights Act claims, but the whole-village basis applies here too.</td></tr>
+    <tr><td><b>Density</b> <span class="r-u">people / km²</span></td><td>How densely settled the selection is.</td><td>Total population divided by total area.</td><td>Because the area is whole-village and includes uninhabited forest, density is lower than the lived experience of the settled parts.</td></tr>
+    <tr><td><b>Land-dependent workers</b> <span class="r-u">% of workers</span></td><td>Share of working people whose livelihood is directly tied to land.</td><td>Cultivators plus agricultural labourers, divided by total workers. Census fields MAIN_CL_P, MAIN_AL_P, TOT_WORK_P.</td><td>A measure of who stands to be affected by land-use restrictions, not of poverty.</td></tr>
+  </table>
+  <h4>Protection &amp; tenure</h4>
+  <table class="ref"><tr><th>Card</th><th>What it is</th><th>How it is computed</th><th>Watch out for</th></tr>
+    <tr><td><b>Park, sanctuary or ESZ</b> <span class="r-u">km²</span></td><td>How much of the selection already sits inside a National Park, Wildlife Sanctuary, or an Eco-Sensitive Zone notified around one.</td><td>The union of the protected-area and Parivesh ESZ layers, intersected with the villages. Unioned first, because both layers self-overlap and summing would double-count.</td><td>Protected areas come from OpenStreetMap via EJAtlas, not the official Wildlife Institute of India boundaries, so this figure carries unquantified error.</td></tr>
+    <tr><td><b>Corridor or tiger reserve</b> <span class="r-u">km²</span></td><td>Area overlapping a mapped wildlife corridor or tiger reserve — the connectivity argument for the notification.</td><td>Union of the Parivesh wildlife corridor and tiger reserve layers, intersected with the villages.</td><td>Corridors are indicative planning geometry, not notified boundaries.</td></tr>
+    <tr><td><b>Recorded Forest Area</b> <span class="r-u">km²</span></td><td>Land already recorded as forest, and so already under forest administration.</td><td>The Bharatmaps Recorded Forest Area layer intersected with the villages, unioned first.</td><td>Where the ESA overlaps recorded forest, the notification changes relatively little — the state already controls land use there.</td></tr>
+    <tr><td><b>Outside Recorded Forest</b> <span class="r-u">km²</span></td><td>The remainder: village area not recorded as forest.</td><td>Total area minus Recorded Forest Area.</td><td>This is NOT private land. It also holds revenue and common land, water bodies, PSU and defence land, and gaps in the forest layer itself — 346 villages record no forest area despite being more than half forest. Do not quote it as a private-ownership figure.</td></tr>
+  </table>
+  <h4>Land cover</h4>
+  <table class="ref"><tr><th>Card</th><th>What it is</th><th>How it is computed</th><th>Watch out for</th></tr>
+    <tr><td><b>Natural forest</b> <span class="r-u">% of area</span></td><td>Share under evergreen, semi-evergreen or deciduous forest.</td><td>Categorical zonal statistics over the NRSC LULC 250K 2017-18 raster at 56 m, counted in the raster&#x27;s own projection so no pixels are resampled. Aggregates are area-weighted.</td><td>Mapped at 1:250,000 with 112–168 m registration error. For a village under about 25 km² that band is comparable to its whole area, so those figures are indicative only.</td></tr>
+    <tr><td><b>Plantation</b> <span class="r-u">% of area</span></td><td>Agricultural plantation — coffee, cardamom, rubber, tea.</td><td>LULC class 7, distinct from the forest classes.</td><td>This is the estate-versus-forest distinction that drives most local opposition. It is published and mappable but deliberately excluded from the composite scores.</td></tr>
+    <tr><td><b>Agriculture</b> <span class="r-u">% of area</span></td><td>Cropland and fallow.</td><td>LULC kharif, rabi, zaid, double/triple crop and current fallow classes combined.</td><td>Same 1:250,000 scale limit.</td></tr>
+    <tr><td><b>Degraded forest</b> <span class="r-u">% of area</span></td><td>Forest land classed as degraded.</td><td>NRSC Wasteland Atlas 2015-16, class 6. The wasteland raster is sparse, so shares are expressed against village area from the land-cover raster, not against the wasteland total.</td><td>A different epoch from the land-cover layer (2015-16 against 2017-18).</td></tr>
+    <tr><td><b>Built-up</b> <span class="r-u">% of area</span></td><td>Settlement and other built surface.</td><td>LULC class 1.</td><td>At 56 m with 1:250,000 mapping, small hamlets fall below what can be resolved.</td></tr>
+    <tr><td><b>Reliable at this scale</b> <span class="r-u">villages</span></td><td>How many villages in the selection are large enough for land cover to be dependable.</td><td>Villages of 25 km² or more. Only 416 of 4,331 clear that bar, though they hold 52% of the area.</td><td>Below that threshold the satellite registration error is comparable to the village itself. Composition is still shown, but treat it as indicative.</td></tr>
+  </table>
+  <h4>Pressure &amp; scores</h4>
+  <table class="ref"><tr><th>Card</th><th>What it is</th><th>How it is computed</th><th>Watch out for</th></tr>
+    <tr><td><b>National highway</b> <span class="r-u">km</span></td><td>Length of national highway running inside the selection.</td><td>MoRTH highway network from GatiShakti, clipped to the village polygons.</td><td>National highways only — state highways and district roads are not included, so this understates road presence.</td></tr>
+    <tr><td><b>Conservation value</b> <span class="r-u">of 100</span></td><td>Where protection buys the most ecologically.</td><td>Mean of three percentile-ranked components: natural forest %, corridor or tiger reserve %, and Recorded Forest Area %.</td><td>A percentile rank against the other ESA villages, not an absolute measure — 80 means higher than 80% of them. Villages with fewer than two available components are left unscored.</td></tr>
+    <tr><td><b>Human pressure</b> <span class="r-u">of 100</span></td><td>Where restrictions will be felt most.</td><td>Mean of four percentile-ranked components: population density, built-up %, highway density per km², and land-dependent workers %.</td><td>Deliberately measures people and infrastructure only. An earlier version shared variables with the conservation score, which forced 86% of villages onto one diagonal; the two now correlate −0.48.</td></tr>
+    <tr><td><b>Priority bands</b> <span class="r-u">villages</span></td><td>Where each village falls on the two axes together.</td><td>Both scores cut into terciles, giving nine cells, each separately named: protect, protect with some pressure, negotiate, secondary, moderate on both, pressure-led, low priority, contested.</td><td>Terciles are relative to this dataset. An earlier version named only three cells and dumped 59% of villages into an uninformative &#x27;mixed&#x27;.</td></tr>
+  </table>
+  <h4>On the village card</h4>
+  <table class="ref"><tr><th>Card</th><th>What it is</th><th>How it is computed</th><th>Watch out for</th></tr>
+    <tr><td><b>Literacy</b> <span class="r-u">%</span></td><td>Literate residents as a share of population.</td><td>Census field P_LIT divided by total population.</td><td>Census definition of literacy, age 7 and above.</td></tr>
+    <tr><td><b>Gazette entry</b></td><td>How the village appears in the notification itself, before any processing.</td><td>State, district, taluka, village name and serial number transcribed from Annexure C, plus the verbatim printed form including the * bifurcation marker.</td><td>The gazette&#x27;s district and taluka names are sometimes older than the census ones — Surat and Tapi, for instance.</td></tr>
+    <tr><td><b>Name match score</b> <span class="r-u">0–100</span></td><td>How confidently the gazette name was matched to a census village.</td><td>RapidFuzz similarity after transliteration folding, with the scope showing how wide the search had to go: district+taluka, district, or state-wide.</td><td>A low score, or a state-wide scope, means the pairing deserves checking against the gazette.</td></tr>
+    <tr><td><b>Setting</b></td><td>Which forest and hydrological units the village sits in.</td><td>Largest-overlap assignment against FSI forest divisions and ranges, and India-WRIS river basins and sub-basins.</td><td>A location label only. Nothing here measures water yield or forest administration workload.</td></tr>
+  </table>
+
+  <!--CARDREF:END-->
+  <h3>Where the analysis is weakest</h3>
+  <div class="callout warn">
+    <p><strong>Whole-village inflation runs through every derived number.</strong> Bifurcated
+    and all Kerala villages are whole-village polygons standing in for partial extents.
+    Population is therefore an <em>upper bound</em> — and 39% of the population total is Kerala,
+    where extent is over-stated by roughly 30%. Every percentage-<em>of-area</em> figure moves
+    the other way: 28% protected and 60% recorded forest are <em>under</em>-estimates, because
+    the denominator is inflated while the numerators are real.</p>
+
+    <p><strong>Land outside Recorded Forest Area is not private land.</strong> It also holds
+    revenue and common land, water bodies, PSU and defence land, and parks notified on
+    non-forest land — plus any gap in the forest layer itself. <strong>346 villages record no
+    forest area despite being more than half forest</strong>; those are layer gaps, not tenure
+    findings, and carry an <code>rfa_gap_suspect</code> flag in the data. Do not quote this as a
+    private-ownership figure without a cadastral source.</p>
+
+    <p><strong>Land cover is unreliable for small villages.</strong> NRSC land cover is mapped at
+    1:250,000 from AWiFS imagery, with registration accuracy of one pixel in plains and two to
+    three in hills — roughly 112–168&nbsp;m. For a village under about 25&nbsp;km² that
+    uncertainty band is comparable to its entire area. Only <strong>416 of 4,331 villages</strong>
+    clear that threshold, though they hold 52% of the area. The rest carry
+    <code>lulc_reliable = false</code> and are marked indicative in the interface.</p>
+
+    <p><strong>Protected areas are OpenStreetMap-derived</strong>, obtained via EJAtlas, not the
+    official Wildlife Institute of India boundaries. The 28% figure carries unquantified error
+    and should be quoted with that attribution.</p>
+
+    <p><strong>"Mining" means derelict land, not active leases.</strong> The Wasteland Atlas
+    class is abandoned industrial and mining land as of 2015-16. It finds 15&nbsp;km² across the
+    entire ESA — far too little to represent active extraction in the Goa–Sindhudurg belt, which
+    is itself evidence the metric does not measure what its name suggests. It is excluded from
+    scoring. Active leases would need Indian Bureau of Mines or state DGM data.</p>
+
+    <p><strong>Watershed is a location, not a contribution.</strong> Each village is labelled
+    with the basin, sub-basin and watershed it mostly falls in. Nothing computes discharge,
+    upstream area or headwater position, so no claim is made about how much water the ESA yields.</p>
+
+    <p><strong>Two raster epochs.</strong> Wasteland is 2015-16, land cover 2017-18. Both are
+    56&nbsp;m in the same projection so the pixel arithmetic is sound, but a wasteland share is
+    expressed against a denominator two years later.</p>
+  </div>
+
+  <h2 id="sources">Sources, credits &amp; licence</h2>
+
+  <h3>The notification</h3>
+  <p>MoEFCC draft notification
+  <a href="https://moef.gov.in/storage/tender/1723024218.pdf">S.O.&nbsp;3060(E), 31&nbsp;July&nbsp;2024</a>
+  (PDF, 4.9&nbsp;MB). Everything in the reconstruction derives from this document.</p>
+
+  <h3>Base geometry</h3>
+  <table class="ref">
+    <tr><th>Layer</th><th>Source</th><th>Used for</th></tr>
+    <tr><td>All-India village boundaries</td><td>Census of India / Survey of India lineage,
+      661,194 features</td><td>The polygon for every gazette-named village, plus 2011 Census
+      and LGD codes</td></tr>
+    <tr><td>Kerala ESA (KML)</td><td>Government of Kerala</td>
+      <td>Independent verification; authoritative for Kerala</td></tr>
+  </table>
+
+  <h3>Analysis layers</h3>
+  <table class="ref">
+    <tr><th>Layer</th><th>Publisher</th><th>Obtained via</th><th>Used for</th></tr>
+    <tr><td>Primary Census Abstract 2011</td><td>Office of the Registrar General &amp; Census
+      Commissioner, India</td><td>Direct</td><td>Population, households, SC/ST, literacy,
+      worker composition</td></tr>
+    <tr><td>Protected areas (national parks, sanctuaries)</td><td>OpenStreetMap contributors</td>
+      <td>EJAtlas geoserver</td><td>Existing statutory protection</td></tr>
+    <tr><td>Eco-Sensitive Zones</td><td>Parivesh / Bharatmaps, MoEFCC</td>
+      <td><a href="https://github.com/yashveeeeeeer/india-geodata">india-geodata</a></td>
+      <td>ESZs already notified around individual parks</td></tr>
+    <tr><td>Wildlife corridors &amp; tiger reserves</td><td>Parivesh / Bharatmaps, MoEFCC</td>
+      <td>india-geodata</td><td>Connectivity</td></tr>
+    <tr><td>Recorded Forest Area</td><td>Bharatmaps</td><td>india-geodata</td>
+      <td>Land already under forest administration</td></tr>
+    <tr><td>Forest circles, divisions &amp; ranges</td><td>Forest Survey of India</td>
+      <td>india-geodata</td><td>Forest administrative setting</td></tr>
+    <tr><td>LULC 250K, 2017-18</td><td>National Remote Sensing Centre / ISRO</td><td>Bhuvan</td>
+      <td>Land-cover composition, 19 classes</td></tr>
+    <tr><td>Wasteland Atlas, 2015-16</td><td>National Remote Sensing Centre / ISRO</td>
+      <td>Bhuvan</td><td>Degraded forest, derelict mining and industrial land</td></tr>
+    <tr><td>River basins, sub-basins &amp; watersheds</td><td>India-WRIS, Ministry of Jal Shakti</td>
+      <td>india-geodata</td><td>Hydrological setting</td></tr>
+    <tr><td>National highways</td><td>Ministry of Road Transport &amp; Highways, via
+      PM GatiShakti</td><td>india-geodata</td><td>Infrastructure pressure</td></tr>
+    <tr><td>Basemap</td><td>OpenStreetMap contributors, tiles by CARTO</td><td>Direct</td>
+      <td>Geographic context</td></tr>
+  </table>
+
+  <h3>How to cite</h3>
+  <p>If you use this atlas, cite it as:</p>
+  <p class="cite">Jambu, N. (2026). <em>Western Ghats ESA Atlas: village boundaries of the 2024
+  draft notification</em> [Data set].
+  <a href="https://nikunjfriends25-droid.github.io/western-ghats-esa/">https://nikunjfriends25-droid.github.io/western-ghats-esa/</a></p>
+
+  <p>Several analysis layers were obtained through <strong>India Geodata</strong>, a
+  consolidated repository of India's openly-licensed geospatial data. Its own citation file
+  names no individual author, so it is cited as a repository:</p>
+  <p class="cite"><em>India Geodata: Unified Geospatial Data Repository</em> (2026).
+  Released 7 March 2026 under CC&nbsp;BY&nbsp;4.0.
+  <a href="https://github.com/yashveeeeeeer/india-geodata">https://github.com/yashveeeeeeer/india-geodata</a></p>
+
+  <details class="bib">
+    <summary>BibTeX, for reference managers</summary>
+<pre><code>@misc{india_geodata,
+  title     = {India Geodata: Unified Geospatial Data Repository},
+  year      = {2026},
+  publisher = {GitHub},
+  url       = {https://github.com/yashveeeeeeer/india-geodata}
+}</code></pre>
+  </details>
+
+  <p>Where a figure rests on a single government dataset, cite that dataset directly rather
+  than this page — the Primary Census Abstract 2011 for population, NRSC land cover for
+  land-cover shares, Parivesh for eco-sensitive zones and wildlife layers, and the notification
+  itself for anything about the ESA's extent. India Geodata in turn aggregates work by
+  <a href="https://github.com/ramSeraph/indian_admin_boundaries">ramSeraph</a> (CC0-1.0) and the
+  <a href="https://github.com/datameet/maps">DataMeet India community</a> (CC&nbsp;BY&nbsp;4.0)
+  among others; its
+  <a href="https://github.com/yashveeeeeeer/india-geodata/blob/main/CITATION.cff">CITATION.cff</a>
+  carries the full reference list.</p>
+
+  <h3>Licence</h3>
+  <p>This reconstruction and its derived indicators are released under
+  <a href="https://creativecommons.org/licenses/by/4.0/">CC&nbsp;BY&nbsp;4.0</a> — attribute
+  <em>Western Ghats ESA Atlas, Nikunj Jambu</em> and link back.</p>
+  <p><strong>Each underlying dataset retains its own terms.</strong> Government of India data is
+  subject to the terms of its publishing ministry; OpenStreetMap-derived layers are ODbL and
+  require attribution to OpenStreetMap contributors; NRSC/Bhuvan products are subject to ISRO's
+  data policy. If you redistribute any individual layer rather than this reconstruction, check
+  the original licence rather than relying on the licence of this page.</p>
+  <p>For official political maps of India, Survey of India maps are the authoritative reference.
+  Compiled and maintained by <strong>Nikunj Jambu</strong>.</p>
+
+</main>
+</div>
+
+<footer class="footer">
+  <span class="who">Compiled &amp; maintained by <b>Nikunj Jambu</b></span>
+  <span class="right">
+    <a href="index.html">Open the atlas</a>
+    <a href="api.html">API</a>
+    <a href="https://github.com/nikunjfriends25-droid/western-ghats-esa">Source</a>
+  </span>
+</footer>
+<script src="doc.js"></script>
+</body>
+</html>

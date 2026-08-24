@@ -300,7 +300,7 @@ function renderCard(a) {
   const prot = (a.protected_pct != null || a.rfa_pct != null) ? `<section class="vg">
       <h4>Protection &amp; tenure</h4>
       ${shareBar('Park, sanctuary or ESZ', a.protected_pct, a.protected_km2, '#1b7f5a')}
-      ${shareBar('Corridor or tiger reserve', a.connectivity_pct, a.connect_km2, '#d98324')}
+      ${shareBar('Corridor outside protection', a.connectivity_pct, a.connect_km2, '#d98324')}
       ${shareBar('Recorded Forest Area', a.rfa_pct, a.rfa_km2, '#2f6d3a')}
       ${listRow('Parks / sanctuaries', a.pa_names)}
       ${listRow('Eco-Sensitive Zone', a.esz_names)}
