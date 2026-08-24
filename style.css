@@ -226,8 +226,8 @@ dl.kv dd{margin:0;word-break:break-word;font-variant-numeric:tabular-nums}
   padding:.6rem .8rem;min-width:0;hyphens:auto;overflow-wrap:anywhere}
 .doc table.ref td:first-child{width:19%;color:var(--ink)}
 .doc table.ref tr:hover{background:transparent}
-.r-u{display:block;font-size:.72rem;font-weight:400;color:var(--muted);
-  letter-spacing:.02em;margin-top:.1rem}
+.doc table.ref .r-u{display:block;font-size:.72rem;font-weight:400;
+  color:var(--muted);letter-spacing:.02em;margin-top:.1rem}
 @media (max-width:700px){
   .doc table.ref,.doc table.ref tbody,.doc table.ref tr,.doc table.ref td{display:block;width:auto}
   .doc table.ref tr:first-child{display:none}
@@ -496,6 +496,15 @@ ul.lim li{font-size:.78rem;color:var(--muted);margin:.35rem 0;line-height:1.45}
     font-variant-numeric:tabular-nums;vertical-align:top}
   table.r-tab tr{border-bottom:.3pt solid #eef1ec}
   .r-u{font-weight:400;color:#6b7280;font-size:8pt}
+  table.r-cmp{width:100%;border-collapse:collapse;font-size:8.6pt;margin-top:1mm}
+  table.r-cmp th{text-align:left;font-weight:500;color:#4a5247;padding:1.1mm 0;vertical-align:top}
+  table.r-cmp td{text-align:right;font-weight:650;padding:1.1mm 0 1.1mm 3mm;
+    font-variant-numeric:tabular-nums;vertical-align:top;white-space:nowrap}
+  table.r-cmp tr{border-bottom:.3pt solid #eef1ec}
+  table.r-cmp thead th,table.r-cmp thead td{font-size:7.4pt;text-transform:uppercase;
+    letter-spacing:.05em;color:#6b7280;font-weight:600;border-bottom:.6pt solid #dbe1d6}
+  table.r-cmp .c-off{color:#01579b}
+  table.r-cmp .c-d{font-weight:500;color:#6b7280}
   .r-note{font-size:8pt;color:#6b7280;margin:1.5mm 0 0}
   .r-foot{border-top:.8pt solid #dbe1d6;margin-top:6mm;padding-top:3mm;
     font-size:7.5pt;color:#4a5247;line-height:1.5;break-inside:avoid}
