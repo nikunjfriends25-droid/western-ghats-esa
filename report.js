@@ -189,6 +189,81 @@ function buildSelectionReport() {
                      body + (kerala ? keralaComparison(rows) : ''), mapSnapshot());
 }
 
+/* ---------------- Kerala village: the notified part of it ----------------
+   A Kerala village polygon is the WHOLE village standing in for the portion the
+   State actually notified, so a village report giving only whole-village figures
+   overstates it. The notified part is obtained geometrically -- the village
+   intersected with Kerala's published boundary -- so no name matching is involved
+   and there is nothing to mismatch. 100 of the 123 Kerala gazette rows overlap
+   that layer; the other 23 are a gap in the official layer, not a zero. */
+function keralaVillagePart(p, a) {
+  if (String(p.gz_state) !== 'KERALA') return '';
+  if (typeof KVO === 'undefined' || !KVO || !KVO.rows) return '';
+  const o = KVO.rows[String(p.vid)];
+  if (!o) return '';
+
+  if (!o.covered) {
+    return `
+      <section class="r-sec">
+        <h2>Kerala's official boundary</h2>
+        <p class="r-note"><strong>This village lies outside the boundary Kerala
+        published.</strong> The gazette names it, but the State's own ESA layer does not
+        cover it, so there is no notified extent to measure against. That is a gap between
+        the two government sources, not a measurement of zero. The figures above are for the
+        whole village and should be read as an upper bound.</p>
+      </section>`;
+  }
+
+  const ok = v => typeof v === 'number' && isFinite(v);
+  const grp = (v, dp) => Number(v.toFixed(dp)).toLocaleString('en-IN',
+    { minimumFractionDigits: dp, maximumFractionDigits: dp });
+
+  /* label, whole-village value, notified-part value, unit, decimals */
+  const M = [
+    ['Area', a && a.area_km2, o.notified_km2, 'km\u00b2', 2],
+    ['Park, sanctuary or ESZ', a && a.protected_pct, o.protected_pct, '% of extent', 1],
+    ['Corridor or tiger reserve', a && a.connectivity_pct, o.connect_pct, '% of extent', 1],
+    ['Recorded Forest Area', a && a.rfa_pct, o.rfa_pct, '% of extent', 1],
+    ['Outside Recorded Forest', a && a.outside_rfa_pct, o.outside_rfa_pct, '% of extent', 1],
+    ['Natural forest', a && a.natural_forest_pct, o.natural_forest_pct, '% of extent', 1],
+    ['Plantation', a && a.plantation_pct, o.plantation_pct, '% of extent', 1],
+    ['Agriculture', a && a.agri_pct, o.agri_pct, '% of extent', 1],
+    ['Degraded forest', a && a.wl_degraded_forest_pct, o.wl_degraded_forest_pct, '% of extent', 1],
+    ['Built-up', a && a.lulc_builtup_pct, o.lulc_builtup_pct, '% of extent', 2],
+    ['National highway', a && a.nh_km, o.nh_km, 'km', 1],
+  ];
+
+  const body = M.map(([label, w, n, unit, dp]) => {
+    if (!ok(w) || !ok(n)) return '';
+    const x = Number(w.toFixed(dp)), y = Number(n.toFixed(dp)), d = y - x;
+    return '<tr><th>' + esc(label) + ' <span class="r-u">' + esc(unit) + '</span></th>' +
+      '<td>' + grp(x, dp) + '</td>' +
+      '<td class="c-off">' + grp(y, dp) + '</td>' +
+      '<td class="c-d">' + (d > 0 ? '+' : '') + grp(d, dp) + '</td></tr>';
+  }).join('');
+
+  return `
+    <section class="r-sec">
+      <h2>Kerala's official boundary \u2014 the notified part of this village</h2>
+      <p class="r-note">Kerala notified <em>${grp(o.notified_share_pct, 0)}%</em> of this
+      village \u2014 ${grp(o.notified_km2, 2)} km&sup2; of its ${grp(o.village_km2, 2)} km&sup2;.
+      The right column measures only that part. It is the village clipped to the State's
+      published boundary, so the pairing is geometric and involves no name matching.</p>
+      <table class="r-cmp">
+        <thead><tr><th>Measure</th><td>Whole village</td><td>Notified part</td>
+          <td>Difference</td></tr></thead>
+        <tbody>${body}</tbody>
+      </table>
+      <p class="r-note">Population, literacy and the composite scores have no notified-part
+      column. Census 2011 counts are recorded per whole village and cannot be apportioned to
+      part of one without an assumption that cannot be tested; the conservation and pressure
+      scores are percentile ranks against all 4,331 ESA villages and are defined only on that
+      whole-village set.${o.lulc_reliable === false ? ' The notified part here is under ' +
+      '25 km\u00b2, so its land-cover shares are indicative only \u2014 the satellite mapping ' +
+      'is 1:250,000.' : ''}</p>
+    </section>`;
+}
+
 /* ---------------- single village report ---------------- */
 function buildVillageReport(p, a) {
   const body = `
@@ -252,7 +327,7 @@ function buildVillageReport(p, a) {
 
   return reportShell(p.gz_village + ' — village report',
                      [p.gz_taluka, p.gz_district, p.gz_state].filter(Boolean).join(', '),
-                     body, mapSnapshot());
+                     body + keralaVillagePart(p, a), mapSnapshot());
 }
 
 /* ---------------- print plumbing ---------------- */

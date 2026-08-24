@@ -279,6 +279,7 @@ const num1 = v => (v == null ? null : v.toFixed(1));
    village PORTIONS. So for Kerala alone the panel can be recomputed on the real
    notified geometry instead of the whole-village approximation. */
 let KLV = null;                 // per-village metrics on the 98 official polygons
+let KVO = null;                 // each Kerala village clipped to the official boundary
 let BASIS = 'whole';            // 'whole' | 'official'
 const isKerala = t => /^kerala$/i.test(String(t || '').trim());
 
@@ -492,14 +493,15 @@ window.onSelectionChange = function (rows, scope) {
   if (sel) sel.onchange = applyMetric;
   try {
     const opt = u => fetch(u).then(r => r.ok ? r.json() : null).catch(() => null);
-    const [slim, summ, klc, klv, defs] = await Promise.all([
+    const [slim, summ, klc, klv, defs, kvo] = await Promise.all([
       fetch('api/v1/analysis-slim.json').then(r => r.json()),
       fetch('api/v1/analysis-summary.json').then(r => r.json()),
       opt('api/v1/kerala-comparison.json'),
       opt('api/v1/kerala-official.json'),
       opt('data/definitions.json'),
+      opt('api/v1/kerala-village-official.json'),
     ]);
-    SLIM = slim; state.an = summ; KLC = klc; KLV = klv;
+    SLIM = slim; state.an = summ; KLC = klc; KLV = klv; KVO = kvo;
     if (defs) {
       DEFS = {}; BY_LABEL = {};
       defs.groups.forEach(g => g.items.forEach(it => {
