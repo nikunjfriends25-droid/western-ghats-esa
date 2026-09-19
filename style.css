@@ -229,8 +229,24 @@ dl.kv dd{margin:0;word-break:break-word;font-variant-numeric:tabular-nums}
    column width instead of inheriting the numeric tables' nowrap. */
 .doc table.ref{display:table;width:100%;max-width:100%;table-layout:fixed;overflow:visible}
 .doc table.ref th,.doc table.ref td{white-space:normal;vertical-align:top;
-  padding:.6rem .8rem;min-width:0;hyphens:auto;overflow-wrap:anywhere}
+  padding:.6rem .8rem;min-width:0;
+  /* NOT hyphens:auto and NOT overflow-wrap:anywhere. In a narrow column those
+     two break ordinary words mid-stem -- "OpenStreetMap contribu-tors",
+     "National Remote Sensing Centr-e" -- which reads as a rendering fault.
+     break-word only splits a word that genuinely cannot fit on its own line. */
+  hyphens:none;overflow-wrap:break-word}
 .doc table.ref td:first-child{width:19%;color:var(--ink)}
+
+/* The source-credit tables are not four equal columns of prose: "Obtained via"
+   holds one or two words ("Bhuvan", "Direct", "india-geodata") while the
+   publisher names are long. Splitting them evenly is what squeezed the
+   publisher column until it hyphenated. */
+.doc table.ref.src td:first-child,
+.doc table.ref.src th:first-child{width:22%}
+.doc table.ref.src td:nth-child(2),
+.doc table.ref.src th:nth-child(2){width:30%}
+.doc table.ref.src td:nth-child(3),
+.doc table.ref.src th:nth-child(3){width:17%}
 .doc table.ref tr:hover{background:transparent}
 .doc table.ref .r-u{display:block;font-size:.72rem;font-weight:400;
   color:var(--muted);letter-spacing:.02em;margin-top:.1rem}
@@ -240,7 +256,14 @@ dl.kv dd{margin:0;word-break:break-word;font-variant-numeric:tabular-nums}
   .doc table.ref tr{border-bottom:1px solid var(--line);padding:.5rem 0}
   .doc table.ref tr:last-child{border-bottom:0}
   .doc table.ref td{border-bottom:0;padding:.25rem .8rem}
-  .doc table.ref td:first-child{width:auto;font-weight:650;font-size:1rem}
+  /* the .src percentage widths are more specific than the block rule above, so
+     they survive the stack and squeeze cells to 56-98px. Reset them all. */
+  .doc table.ref td,.doc table.ref th,
+  .doc table.ref.src td,.doc table.ref.src th,
+  .doc table.ref.src td:nth-child(2),.doc table.ref.src th:nth-child(2),
+  .doc table.ref.src td:nth-child(3),.doc table.ref.src th:nth-child(3){width:auto}
+  .doc table.ref td:first-child,
+  .doc table.ref.src td:first-child{width:auto;font-weight:650;font-size:1rem}
   .doc table.ref td[data-l]:not(:first-child)::before{content:attr(data-l);
     display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;
     color:var(--muted);font-weight:600;margin-bottom:.1rem}
