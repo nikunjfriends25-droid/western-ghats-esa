@@ -41,20 +41,13 @@ const busy = (on, msg) => { const l = $('#loading'); l.hidden = !on; if (msg) l.
 /* ---------------- map ---------------- */
 const map = new maplibregl.Map({
   container: 'map',
-  style: {
-    version: 8,
-    sources: {
-      base: {
-        type: 'raster', tileSize: 256,
-        tiles: ['https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png',
-                'https://b.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png',
-                'https://c.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png'],
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        maxzoom: 19
-      }
-    },
-    layers: [{ id: 'base', type: 'raster', source: 'base' }]
-  },
+  /* OpenFreeMap, not CARTO. CARTO's free raster tiles now return HTTP 200 with
+     "API KEY REQUIRED" rendered INTO the image, so nothing errors and the
+     watermark simply appears across the map. OpenFreeMap needs no key, sets no
+     rate limit, and serves style, glyphs, sprites and tiles from one host, which
+     keeps the CSP to a single entry. Positron is a quiet grey base -- the point
+     of this map is the village polygons on top of it, not the basemap. */
+  style: 'https://tiles.openfreemap.org/styles/positron',
   center: [75.4, 14.2], zoom: 5.1, maxZoom: 16, minZoom: 3.5,
   // without this the WebGL buffer is cleared after each frame and
   // getCanvas().toDataURL() returns a blank image, so the PDF export gets no map
