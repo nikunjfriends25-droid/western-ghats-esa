@@ -173,6 +173,13 @@ dl.kv dd{margin:0;word-break:break-word;font-variant-numeric:tabular-nums}
 @media (min-width:1000px){
   .docwrap{grid-template-columns:236px minmax(0,1fr);gap:3rem;padding-top:2.2rem}
 }
+/* On a wide screen the 1120px cap left ~780px of the viewport empty while the
+   four-column reference tables were squeezed into a 790px column and wrapped
+   every cell. Prose keeps its 74ch measure regardless (see the .doc>* rule), so
+   widening the container gives the extra room to the tables and code, which is
+   what actually needs it. */
+@media (min-width:1400px){ .docwrap{max-width:1340px} }
+@media (min-width:1700px){ .docwrap{max-width:1520px} }
 .docnav{align-self:start}
 @media (min-width:1000px){
   .docnav{position:sticky;top:1.5rem;max-height:calc(100vh - 3rem);overflow-y:auto}
