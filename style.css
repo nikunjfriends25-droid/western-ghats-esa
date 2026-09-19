@@ -178,7 +178,7 @@ dl.kv dd{margin:0;word-break:break-word;font-variant-numeric:tabular-nums}
    every cell. Prose keeps its 74ch measure regardless (see the .doc>* rule), so
    widening the container gives the extra room to the tables and code, which is
    what actually needs it. */
-@media (min-width:1400px){ .docwrap{max-width:1300px} }
+@media (min-width:1400px){ .docwrap{max-width:1120px} }
 .docnav{align-self:start}
 @media (min-width:1000px){
   .docnav{position:sticky;top:1.5rem;max-height:calc(100vh - 3rem);overflow-y:auto}
@@ -198,8 +198,10 @@ dl.kv dd{margin:0;word-break:break-word;font-variant-numeric:tabular-nums}
 
 /* Prose keeps a readable measure, but tables and code use the full column width --
    that is where the extra space on a wide screen actually helps. */
-.doc{min-width:0}
-.doc>h2,.doc>h3,.doc>h4,.doc>p,.doc>ul,.doc>ol,.doc>.callout{max-width:74ch}
+.doc{min-width:0;max-width:760px}   /* the single content measure: prose,
+   tables and code all bounded by this one value, so the right edge cannot go
+   ragged. Anything narrower (a two-column label grid) may be narrower. */
+.doc>h2,.doc>h3,.doc>h4,.doc>p,.doc>ul,.doc>ol,.doc>.callout{max-width:100%}
 .doc>h2{font-size:1.5rem;margin:2.6rem 0 .7rem;scroll-margin-top:1.5rem}
 .doc>h2:first-child{margin-top:0}
 .doc h3{font-size:1.02rem;margin:1.8rem 0 .5rem;color:var(--ink)}
@@ -236,8 +238,8 @@ dl.kv dd{margin:0;word-break:break-word;font-variant-numeric:tabular-nums}
    empty box with one short line in it, which is just blank space again. Cap them
    near the prose measure so body content reads as one column and only the wide
    reference tables use the full width. */
-.doc pre{max-width:860px}
-.doc table:not(.ref){max-width:860px}
+.doc pre{max-width:100%}
+.doc table:not(.ref){max-width:100%}
 /* A two-column label grid has no wide content: at full column width its two
    short labels sit marooned in huge empty cells while the prose beside it is
    half as wide, which reads as a broken layout. Let it hug its content. */
@@ -253,11 +255,11 @@ dl.kv dd{margin:0;word-break:break-word;font-variant-numeric:tabular-nums}
    table agree. So it is not a table at any width: each entry is a labelled block,
    which is what it already became on a phone. .src and .pair keep table layout
    because their cells hold short values, not paragraphs. */
-.doc table.ref{display:table;width:100%;max-width:860px;table-layout:fixed;overflow:visible}
+.doc table.ref{display:table;width:100%;max-width:100%;table-layout:fixed;overflow:visible}
 .doc table.ref:not(.src):not(.pair),
 .doc table.ref:not(.src):not(.pair) tbody,
 .doc table.ref:not(.src):not(.pair) tr,
-.doc table.ref:not(.src):not(.pair) td{display:block;width:auto;max-width:860px}
+.doc table.ref:not(.src):not(.pair) td{display:block;width:auto;max-width:100%}
 .doc table.ref:not(.src):not(.pair) tr:first-child{display:none}
 .doc table.ref:not(.src):not(.pair) tr{border-bottom:1px solid var(--line);padding:.55rem 0}
 .doc table.ref:not(.src):not(.pair) tr:last-child{border-bottom:0}
@@ -464,10 +466,10 @@ ul.lim li{font-size:.78rem;color:var(--muted);margin:.35rem 0;line-height:1.45}
 .g-note{font-size:.68rem;color:var(--muted);line-height:1.4;margin:.3rem 0 0}
 
 /* ---------- citations ---------- */
-.doc p.cite{max-width:74ch;padding:.6rem .8rem;background:var(--surface);
+.doc p.cite{max-width:100%;padding:.6rem .8rem;background:var(--surface);
   border-left:3px solid var(--line-2);border-radius:0 var(--r) var(--r) 0;
   font-size:.88rem;line-height:1.55;margin:.5rem 0 1rem}
-.doc details.bib{max-width:74ch;margin:0 0 1.2rem}
+.doc details.bib{max-width:100%;margin:0 0 1.2rem}
 .doc details.bib summary{cursor:pointer;font-size:.8rem;color:var(--muted);font-weight:600;
   padding:.2rem 0}
 .doc details.bib summary:hover{color:var(--ink)}
