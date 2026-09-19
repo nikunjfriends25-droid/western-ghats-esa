@@ -178,8 +178,7 @@ dl.kv dd{margin:0;word-break:break-word;font-variant-numeric:tabular-nums}
    every cell. Prose keeps its 74ch measure regardless (see the .doc>* rule), so
    widening the container gives the extra room to the tables and code, which is
    what actually needs it. */
-@media (min-width:1400px){ .docwrap{max-width:1340px} }
-@media (min-width:1700px){ .docwrap{max-width:1520px} }
+@media (min-width:1400px){ .docwrap{max-width:1300px} }
 .docnav{align-self:start}
 @media (min-width:1000px){
   .docnav{position:sticky;top:1.5rem;max-height:calc(100vh - 3rem);overflow-y:auto}
@@ -231,10 +230,42 @@ dl.kv dd{margin:0;word-break:break-word;font-variant-numeric:tabular-nums}
 .doc pre{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
   padding:.85rem 1rem;overflow-x:auto;font-size:.83rem;line-height:1.5;max-width:100%}
 .doc pre code{border:0;padding:0;background:none}
+/* Widening the container helped the wide reference tables, but code blocks and
+   two-column tables do not have wide content: the longest line in any example
+   here is ~570px, so at the full 1191px column they were 31-48% filled -- a big
+   empty box with one short line in it, which is just blank space again. Cap them
+   near the prose measure so body content reads as one column and only the wide
+   reference tables use the full width. */
+.doc pre{max-width:860px}
+.doc table:not(.ref){max-width:860px}
+/* A two-column label grid has no wide content: at full column width its two
+   short labels sit marooned in huge empty cells while the prose beside it is
+   half as wide, which reads as a broken layout. Let it hug its content. */
+.doc table.ref.pair{width:auto;max-width:640px;table-layout:auto}
+.doc table.ref.pair td:first-child,
+.doc table.ref.pair th:first-child{width:auto}
 
 /* Reference tables hold sentences, not figures, so they wrap and use the full
    column width instead of inheriting the numeric tables' nowrap. */
-.doc table.ref{display:table;width:100%;max-width:100%;table-layout:fixed;overflow:visible}
+/* The card reference is 27 entries of prose. As a four-column table it is either
+   cramped (narrow column) or wildly wider than the prose beside it (wide column) --
+   there is no width at which a 70-character prose line and a four-column prose
+   table agree. So it is not a table at any width: each entry is a labelled block,
+   which is what it already became on a phone. .src and .pair keep table layout
+   because their cells hold short values, not paragraphs. */
+.doc table.ref{display:table;width:100%;max-width:860px;table-layout:fixed;overflow:visible}
+.doc table.ref:not(.src):not(.pair),
+.doc table.ref:not(.src):not(.pair) tbody,
+.doc table.ref:not(.src):not(.pair) tr,
+.doc table.ref:not(.src):not(.pair) td{display:block;width:auto;max-width:860px}
+.doc table.ref:not(.src):not(.pair) tr:first-child{display:none}
+.doc table.ref:not(.src):not(.pair) tr{border-bottom:1px solid var(--line);padding:.55rem 0}
+.doc table.ref:not(.src):not(.pair) tr:last-child{border-bottom:0}
+.doc table.ref:not(.src):not(.pair) td{border-bottom:0;padding:.25rem .8rem}
+.doc table.ref:not(.src):not(.pair) td:first-child{font-weight:650;font-size:1rem;color:var(--ink)}
+.doc table.ref:not(.src):not(.pair) td[data-l]:not(:first-child)::before{content:attr(data-l);
+  display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--muted);font-weight:600;margin-bottom:.1rem}
 .doc table.ref th,.doc table.ref td{white-space:normal;vertical-align:top;
   padding:.6rem .8rem;min-width:0;
   /* NOT hyphens:auto and NOT overflow-wrap:anywhere. In a narrow column those
