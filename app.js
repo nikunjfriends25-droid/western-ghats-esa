@@ -276,9 +276,14 @@ function renderCard(a) {
   /* --- land cover --- */
   const cover = group('Land cover', [
     stat('Natural forest', n(a.natural_forest_pct), '% of area'),
+    stat('Forest cover (FSI)', n(a.fsi_forest_pct), '% of area', 'canopy \u226510%'),
+    stat('Dense + moderate canopy', n(a.fsi_good_forest_pct), '% of area'),
     stat('Plantation', n(a.plantation_pct), '% of area'),
     stat('Agriculture', n(a.agri_pct), '% of area'),
     stat('Degraded forest', n(a.wl_degraded_forest_pct), '% of area'),
+    stat('Scrub land', n(a.wl_scrub_land_pct), '% of area'),
+    stat('Classed as wasteland', n(a.wl_total_pct), '% of area',
+         'all Wasteland Atlas classes'),
     stat('Built-up', n(a.lulc_builtup_pct), '% of area'),
   ].join(''));
 

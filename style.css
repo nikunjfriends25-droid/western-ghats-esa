@@ -589,3 +589,31 @@ ul.lim li{font-size:.78rem;color:var(--muted);margin:.35rem 0;line-height:1.45}
 table.klc-t td:first-child{text-align:left;color:var(--ink-2)}
 table.klc-t .up{color:var(--accent);font-weight:650}
 table.klc-t .dn{color:var(--bifur);font-weight:650}
+
+/* ---------- guided tour ---------- */
+/* Spotlight and bubble are position:fixed on purpose: an absolutely positioned
+   element with no offsets takes the root as its containing block and stretches
+   the document, which is what once made the whole page scroll. */
+.tour-btn{border:1px solid var(--line-2);background:var(--surface);color:var(--ink-2);
+  padding:.35rem .7rem;border-radius:7px;font-size:.83rem;cursor:pointer}
+.tour-btn:hover{border-color:var(--accent);color:var(--accent)}
+.tour-spot{position:fixed;z-index:80;border-radius:10px;pointer-events:none;opacity:0;
+  box-shadow:0 0 0 9999px rgba(8,12,9,.62);transition:opacity .22s ease}
+body:not(.tour-on) .tour-spot,body:not(.tour-on) .tour-bub{display:none}
+.tour-bub{position:fixed;z-index:81;width:min(340px,calc(100vw - 24px));
+  background:var(--surface);border:1px solid var(--line-2);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:.9rem 1rem .8rem}
+.tour-bub h3{font-size:.98rem;margin:.15rem 0 .4rem;color:var(--ink)}
+.tour-bub p{font-size:.84rem;line-height:1.55;color:var(--ink-2);margin:0}
+.tour-n{font-size:.68rem!important;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--muted)!important;font-weight:600}
+.tour-act{display:flex;align-items:center;gap:.4rem;margin-top:.8rem}
+.tour-sp{flex:1}
+.tour-act button{font:inherit;font-size:.82rem;padding:.36rem .8rem;border-radius:7px;cursor:pointer}
+.tour-skip,.tour-back{border:1px solid var(--line-2);background:var(--surface);color:var(--ink-2)}
+.tour-skip:hover,.tour-back:hover{color:var(--ink);border-color:var(--line-2)}
+.tour-next{border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);font-weight:600}
+.tour-next:hover{filter:brightness(1.06)}
+.tour-bub button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:760px){.tour-bub{width:calc(100vw - 24px)}}
+@media print{.tour-btn,.tour-spot,.tour-bub{display:none!important}}

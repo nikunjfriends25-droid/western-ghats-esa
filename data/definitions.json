@@ -173,7 +173,87 @@
           "unit": "villages",
           "what": "How many villages in the selection are large enough for land cover to be dependable.",
           "how": "Villages of 25 km² or more. Only 416 of 4,331 clear that bar, though they hold 52% of the area.",
-          "caveat": "Below that threshold the satellite registration error is comparable to the village itself. Composition is still shown, but treat it as indicative."
+          "caveat": "Superseded in v3.12 by \"Land cover dependable here\", which uses the 24 m FSI mapping and a 1 km² floor. This 25 km² figure still applies to the NRSC-derived classes (plantation, agriculture, built-up, grassland), which have no finer equivalent."
+        },
+        {
+          "key": "wl_scrub_land_pct",
+          "label": "Scrub land",
+          "unit": "% of area",
+          "what": "Land the Wasteland Atlas classes as scrub.",
+          "how": "NRSC Wasteland Atlas 2015-16, class 2. The wasteland raster is sparse, so shares are expressed against village area from the land-cover raster, not against the wasteland total.",
+          "caveat": "The largest wasteland class in the Western Ghats — 4,431 km² across 2,496 villages. Treat the label with care: scrub in the Ghats includes savanna and open natural ecosystems that are habitats in their own right, not degraded forest. \"Wasteland\" is an administrative category, not an ecological verdict."
+        },
+        {
+          "key": "wl_degraded_pasture_pct",
+          "label": "Degraded pasture",
+          "unit": "% of area",
+          "what": "Grazing land classed as degraded.",
+          "how": "NRSC Wasteland Atlas 2015-16, class 7.",
+          "caveat": "Only 405 km² across 52 villages, so it is a local rather than a regional signal. Same labelling caution as scrub land."
+        },
+        {
+          "key": "wl_barren_rocky_pct",
+          "label": "Barren rocky",
+          "unit": "% of area",
+          "what": "Exposed rock and barren ground.",
+          "how": "NRSC Wasteland Atlas 2015-16, class 8.",
+          "caveat": "In the high Ghats this includes rocky plateaux and lateritic outcrops that carry endemic seasonal flora — genuinely bare ground and ecologically distinctive habitat are not separable here."
+        },
+        {
+          "key": "wl_mining_industrial_pct",
+          "label": "Mining / industrial wasteland",
+          "unit": "% of area",
+          "what": "Derelict mining and industrial land.",
+          "how": "NRSC Wasteland Atlas 2015-16, class 1.",
+          "caveat": "This is ABANDONED land as of 2015-16, not active leases. It totals 15 km² across the whole ESA — far too little to represent live extraction in the Goa–Sindhudurg belt. Do not read it as a map of mining activity. Excluded from the scores for the same reason."
+        },
+        {
+          "key": "wl_total_pct",
+          "label": "Classed as wasteland",
+          "unit": "% of area",
+          "what": "All Wasteland Atlas classes combined — how much of the selection the government’s wasteland mapping covers.",
+          "how": "Sum of every Wasteland Atlas 2015-16 class present, each measured against village area from the land-cover raster. Dominated by degraded forest (6,762 km²) and scrub land (4,431 km²); the remaining eight classes total under 800 km².",
+          "caveat": "11,973 km² — 21.3% of the proposed ESA — carries a \"wasteland\" label. That is a land-revenue classification with a long history of marking open natural ecosystems as unproductive, and it sits awkwardly beside the same ground being proposed for ecological protection. Published so the tension is visible, not because the label is endorsed. A different epoch from the land-cover layer (2015-16 against 2017-18)."
+        },
+        {
+          "key": "fsi_forest_pct",
+          "label": "Forest cover (FSI)",
+          "unit": "% of area",
+          "what": "Tree canopy cover of 10% or more, as the Forest Survey of India maps it.",
+          "how": "FSI forest-cover raster, ISFR 2019 cycle, at 24 m: open (10–40% canopy) plus moderately dense (40–70%) plus very dense (≥70%). Counted in the raster’s own projection so no pixels are resampled.",
+          "caveat": "A different question from \"natural forest\", not a better answer to the same one. FSI measures canopy density and counts plantations, coffee and rubber as forest; the NRSC land-cover measure separates them. Across the ESA the two agree closely — 72.1% against 71.8% — but they part company in 47 villages that average 59.5% plantation. Both are published so the disagreement is visible."
+        },
+        {
+          "key": "fsi_good_forest_pct",
+          "label": "Dense + moderate canopy",
+          "unit": "% of area",
+          "what": "Forest with a closed or near-closed canopy — 40% cover and above.",
+          "how": "FSI ISFR 2019 moderately dense (40–70%) plus very dense (≥70%) classes. Across the ESA: 22,479 km² moderately dense and 7,557 km² very dense, 53.4% of the area.",
+          "caveat": "This is the structural-condition half of the conservation score’s forest component. Before FSI was added the score could not tell 90% open forest from 90% very dense forest. It still counts plantation canopy as forest, which is why it is averaged with the natural-forest measure rather than used alone."
+        },
+        {
+          "key": "fsi_dense_pct",
+          "label": "Very dense forest",
+          "unit": "% of area",
+          "what": "Canopy cover of 70% or above.",
+          "how": "FSI ISFR 2019, class 6. 7,557 km² across the ESA, 13.4% of the area.",
+          "caveat": "Mapped at 24 m, so unlike the 1:250,000 land-cover layer this is dependable for small villages."
+        },
+        {
+          "key": "fsi_open_pct",
+          "label": "Open forest",
+          "unit": "% of area",
+          "what": "Canopy cover between 10% and 40%.",
+          "how": "FSI ISFR 2019, class 4. 10,533 km², 18.7% of the ESA.",
+          "caveat": "Open canopy can mean naturally open woodland or degraded closed forest; the class does not distinguish them."
+        },
+        {
+          "key": "landcover_reliable",
+          "label": "Land cover dependable here",
+          "unit": "villages",
+          "what": "How many villages in the selection are large enough for land-cover figures to be trusted.",
+          "how": "Villages of 1 km² or more. FSI 2019 is mapped at 24 m, so the size floor is about 1 km² rather than the 25 km² the 1:250,000 NRSC layer needed: 4,203 of 4,331 villages clear it, against 416 before.",
+          "caveat": "The NRSC-derived figures on this page — plantation, agriculture, built-up, grassland — still carry the coarser 1:250,000 limit, because no 24 m equivalent exists for those classes. Only the FSI canopy measures gain the finer floor."
         }
       ]
     },
@@ -194,7 +274,7 @@
           "label": "Conservation value",
           "unit": "of 100",
           "what": "How much forest a village holds and how much of it is already recorded forest. Read the caveat before calling it ecological value.",
-          "how": "Mean of two percentile-ranked components: natural forest % and Recorded Forest Area %.",
+          "how": "Mean of two percentile-ranked components. The first is forest, measured by two independent sensors and averaged: NRSC land cover for forest TYPE (evergreen and deciduous, excluding plantation) and FSI ISFR 2019 for canopy DENSITY (dense and moderately dense, including plantation). The second is Recorded Forest Area %, which is tenure.",
           "caveat": "A percentile rank against the other ESA villages, not an absolute measure. Understand what it does and does not contain. Both components describe forest: natural forest % is measured from imagery, Recorded Forest Area % is tenure status, so this is closer to \"forest cover and forest tenure\" than to a biodiversity score. It contains no measure of endemism, irreplaceability or spatial configuration, which is what systematic conservation prioritisation normally rests on. A band of \"low priority\" therefore means low forest cover and non-forest tenure — not low ecological value. Note also that natural forest % counts evergreen and deciduous forest only, so montane grassland (170 km² of the ESA), scrub forest (699 km²) and littoral swamp score zero on it, and the shola–grassland mosaic and Myristica swamps are under-valued despite being among the most endemic-rich habitats in the range; the broader forest_pct field is published for anyone who wants them included. A corridor component was removed in v3.11 after an audit — it was zero for 78% of villages, so percentile-ranking turned it into a flag, and being the complement of protection it pushed protected villages down while recorded forest pushed them up. Of the two survivors, natural forest % is a clean gradient (1.8% zeros, 3,347 distinct values) and Recorded Forest Area % carries a 17.5% tie block at zero."
         },
         {

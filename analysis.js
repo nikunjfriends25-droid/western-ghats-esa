@@ -12,6 +12,10 @@ const METRIC = {
   plantation_pct: ['Plantation', '%'],
   agri_pct: ['Agriculture', '%'],
   wl_degraded_forest_pct: ['Degraded forest', '%'],
+  wl_scrub_land_pct: ['Scrub land', '%'],
+  wl_total_pct: ['Classed as wasteland', '%'],
+  fsi_forest_pct: ['Forest cover (FSI)', '%'],
+  fsi_good_forest_pct: ['Dense + moderate canopy', '%'],
   protected_pct: ['Protected area / ESZ', '%'],
   connectivity_pct: ['Corridor outside protection', '%'],
   rfa_pct: ['Recorded Forest Area', '%'],
@@ -382,13 +386,30 @@ function renderInsights(rows, scopeLabel) {
 
     '<div class="ins-sec"><h3>Land cover</h3><div class="cards">' +
       card('Natural forest', num1(wmean(R, 'natural_forest_pct')), '% of area', { accent: true }) +
+      card('Forest cover (FSI)', num1(wmean(R, 'fsi_forest_pct')), '% of area',
+           { sub: 'Canopy \u226510% \u2014 includes plantation' }) +
+      card('Dense + moderate canopy', num1(wmean(R, 'fsi_good_forest_pct')), '% of area',
+           { sub: 'Canopy \u226540%' }) +
       card('Plantation', num1(wmean(R, 'plantation_pct')), '% of area') +
       card('Agriculture', num1(wmean(R, 'agri_pct')), '% of area') +
       card('Degraded forest', num1(wmean(R, 'wl_degraded_forest_pct')), '% of area') +
+      card('Scrub land', num1(wmean(R, 'wl_scrub_land_pct')), '% of area') +
       card('Built-up', num1(wmean(R, 'lulc_builtup_pct')), '% of area') +
-      card('Reliable at this scale', fmt(reliable), 'of ' + fmt(R.length) +
-           (official ? ' polygons' : ' villages'),
-           { sub: 'Mapped at 1:250,000 \u2014 units under 25 km\u00b2 are indicative only' }) +
+      card('Land cover dependable here', fmt(R.filter(r => r.landcover_reliable).length),
+           'of ' + fmt(R.length) + (official ? ' polygons' : ' villages'),
+           { wide: true, sub: 'FSI canopy is mapped at 24 m, so the floor is ~1 km\u00b2. The ' +
+             'NRSC classes below it still carry the 1:250,000 limit (' + fmt(reliable) +
+             ' units over 25 km\u00b2)' }) +
+    '</div></div>' +
+
+    '<div class="ins-sec"><h3>Classed as wasteland</h3><div class="cards">' +
+      card('Classed as wasteland', num1(wmean(R, 'wl_total_pct')), '% of area',
+           { wide: true, sub: 'Wasteland Atlas 2015-16, all classes \u2014 an administrative ' +
+             'land-revenue label, not an ecological verdict' }) +
+      card('Degraded pasture', num1(wmean(R, 'wl_degraded_pasture_pct')), '% of area') +
+      card('Barren rocky', num1(wmean(R, 'wl_barren_rocky_pct')), '% of area') +
+      card('Mining / industrial wasteland', num1(wmean(R, 'wl_mining_industrial_pct')), '% of area',
+           { wide: true, sub: 'Derelict land as of 2015-16, not active leases' }) +
     '</div></div>' +
 
     scores +
@@ -518,6 +539,7 @@ window.onSelectionChange = function (rows, scope) {
       fields.forEach(f => { if (slim[f]) r[f] = slim[f][i]; });
       r.priority = slim.priority[i];
       r.lulc_reliable = !!slim.lulc_reliable[i];
+      r.landcover_reliable = !!(slim.landcover_reliable && slim.landcover_reliable[i]);
       r.uninhabited = !!slim.uninhabited[i];
     });
     q('#an-limits').innerHTML = summ.limitations.map(l => '<li>' + esc(l) + '</li>').join('');
