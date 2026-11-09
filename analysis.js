@@ -23,7 +23,31 @@ const METRIC = {
   conservation_score: ['Conservation value', '0–100'],
   conflict_score: ['Human pressure', '0–100'],
 };
-const RAMP = ['#eef3e8', '#cfe0c3', '#a8c99a', '#7cb073', '#4f924f', '#2f6d3a'];
+/* One ramp per kind of quantity, so the hue carries meaning rather than decoration:
+   green = forest and conservation value, red = human pressure and land outside
+   forest, orange = cultivated and planted land, ochre = degraded/wasteland,
+   purple = people, blue = protection and tenure. All six-step sequential and
+   single-hue, so they stay readable in greyscale and to colour-blind viewers. */
+const RAMPS = {
+  green:  ['#eef3e8', '#cfe0c3', '#a8c99a', '#7cb073', '#4f924f', '#2f6d3a'],
+  red:    ['#fee5d9', '#fcbba1', '#fc9272', '#fb6a4a', '#de2d26', '#a50f15'],
+  orange: ['#feedde', '#fdd0a2', '#fdae6b', '#fd8d3c', '#e6550d', '#a63603'],
+  ochre:  ['#fff7bc', '#fee391', '#fec44f', '#fe9929', '#d95f0e', '#993404'],
+  purple: ['#f2f0f7', '#dadaeb', '#bcbddc', '#9e9ac8', '#756bb1', '#54278f'],
+  blue:   ['#eff3ff', '#c6dbef', '#9ecae1', '#6baed6', '#3182bd', '#08519c'],
+};
+const METRIC_RAMP = {
+  population: 'purple', pop_density: 'purple', st_pct: 'purple',
+  land_dependent_pct: 'purple',
+  natural_forest_pct: 'green', fsi_forest_pct: 'green',
+  fsi_good_forest_pct: 'green', conservation_score: 'green',
+  plantation_pct: 'orange', agri_pct: 'orange',
+  wl_degraded_forest_pct: 'ochre', wl_scrub_land_pct: 'ochre',
+  wl_total_pct: 'ochre',
+  protected_pct: 'blue', connectivity_pct: 'blue', rfa_pct: 'blue',
+  outside_rfa_pct: 'red', conflict_score: 'red',
+};
+const rampFor = k => RAMPS[METRIC_RAMP[k]] || RAMPS.green;
 const q = s => document.querySelector(s);
 
 /* ---------------- card definitions (the i buttons) ----------------
@@ -180,18 +204,19 @@ function applyMetric() {
       'Kerala\u2019s official boundary \u2014 switch to <b>Whole villages</b> to shade by it.</p>';
     return;
   }
-  const breaks = quantileBreaks(vals, RAMP.length);
+  const ramp = rampFor(k);
+  const breaks = quantileBreaks(vals, ramp.length);
   if (!breaks || breaks.length < 2) {
     legend.innerHTML = '<p class="hint">Not enough data to shade this metric.</p>'; return;
   }
-  const step = ['step', ['coalesce', ['get', k], -1], RAMP[0]];
-  breaks.forEach((b, i) => step.push(b, RAMP[Math.min(i + 1, RAMP.length - 1)]));
+  const step = ['step', ['coalesce', ['get', k], -1], ramp[0]];
+  breaks.forEach((b, i) => step.push(b, ramp[Math.min(i + 1, ramp.length - 1)]));
   if (!map.getLayer(target)) return;
   map.setPaintProperty(target, 'fill-color',
     ['case', ['==', ['coalesce', ['get', k], -1], -1], '#d0d0d0', step]);
   const [label, unit] = METRIC[k] || [k, ''];
   legend.innerHTML =
-    '<div class="ramp">' + RAMP.map(c => '<i style="background:' + c + '"></i>').join('') + '</div>' +
+    '<div class="ramp">' + ramp.map(c => '<i style="background:' + c + '"></i>').join('') + '</div>' +
     '<div class="ramp-lab"><span>' + (breaks[0] === Number.MIN_VALUE ? '0' : fmt(breaks[0])) +
     '</span><span>' + fmt(breaks[breaks.length - 1]) + '</span></div>' +
     '<p class="hint">' + esc(label) + ' (' + esc(unit) + ') — quantile breaks. Grey = no data.</p>';

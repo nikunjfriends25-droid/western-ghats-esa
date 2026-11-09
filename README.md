@@ -3,7 +3,7 @@
 Interactive atlas and open data for the **Western Ghats Ecologically Sensitive Area**
 draft notification **[S.O. 3060(E)](https://moef.gov.in/storage/tender/1723024218.pdf)** of 31 July 2024.
 
-**→ [Open the atlas](https://nikunjfriends25-droid.github.io/western-ghats-esa/)**
+**→ [Open the atlas](https://nikunjjambu.in/western-ghats-esa/)**
 
 The notification lists 4,402 villages across six states but publishes no boundaries.
 This reconstructs them: every village named in Annexure C matched to its polygon in the
@@ -45,7 +45,7 @@ api/v1/unmatched.json                gazette rows with no polygon, with reasons
 ```
 
 ```bash
-curl https://nikunjfriends25-droid.github.io/western-ghats-esa/api/v1/villages/626770.json
+curl https://nikunjjambu.in/western-ghats-esa/api/v1/villages/626770.json
 ```
 
 ## Important limits

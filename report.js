@@ -5,7 +5,7 @@
    Loaded after app.js and analysis.js; shares their top-level bindings. */
 'use strict';
 
-const REPORT_URL = 'https://nikunjfriends25-droid.github.io/western-ghats-esa/';
+const REPORT_URL = 'https://nikunjjambu.in/western-ghats-esa/';
 
 /** Snapshot of the live map. Requires preserveDrawingBuffer on the map. */
 function mapSnapshot() {

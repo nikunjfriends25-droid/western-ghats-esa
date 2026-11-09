@@ -3,7 +3,7 @@
 Project entry for nikunjjambu's own website. First person, portfolio framing.
 Figures current as of the v3.11 build, 20 September 2026.
 
-**Live:** https://nikunjfriends25-droid.github.io/western-ghats-esa/
+**Live:** https://nikunjjambu.in/western-ghats-esa/
 
 ---
 

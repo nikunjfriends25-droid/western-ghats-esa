@@ -6,15 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>API — Western Ghats ESA Atlas</title>
 <meta name="description" content="Free static JSON API for the Western Ghats Ecologically Sensitive Area village boundaries. No key, no rate limit, CORS enabled. Endpoints for state summaries, individual village geometry, boundary points and unmapped rows.">
-<link rel="canonical" href="https://nikunjfriends25-droid.github.io/western-ghats-esa/api.html">
+<link rel="canonical" href="https://nikunjjambu.in/western-ghats-esa/api.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Western Ghats ESA Atlas">
 <meta property="og:title" content="API — Western Ghats ESA Atlas">
 <meta property="og:description" content="Free static JSON API for the Western Ghats ESA village boundaries. No key, no rate limit, CORS enabled.">
-<meta property="og:url" content="https://nikunjfriends25-droid.github.io/western-ghats-esa/api.html">
-<meta property="og:image" content="https://nikunjfriends25-droid.github.io/western-ghats-esa/og.png">
+<meta property="og:url" content="https://nikunjjambu.in/western-ghats-esa/api.html">
+<meta property="og:image" content="https://nikunjjambu.in/western-ghats-esa/og.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://nikunjfriends25-droid.github.io/western-ghats-esa/og.png">
+<meta name="twitter:image" content="https://nikunjjambu.in/western-ghats-esa/og.png">
 <meta name="author" content="Nikunj Jambu">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='13' font-size='13'>🏞️</text></svg>">
 <link href="style.css" rel="stylesheet">
@@ -56,7 +56,7 @@
   something that cannot go down under load, cannot rotate a key on you, and is cached on a CDN.</p>
 
   <p>Base URL:</p>
-  <pre><code>https://nikunjfriends25-droid.github.io/western-ghats-esa/</code></pre>
+  <pre><code>https://nikunjjambu.in/western-ghats-esa/</code></pre>
 
   <h2 id="endpoints">Endpoints</h2>
   <table>
@@ -106,7 +106,7 @@
   OpenLayers, Mapbox, QGIS or GeoPandas with no conversion.</p>
 
   <p>MapLibre or Mapbox:</p>
-  <pre><code>const base = 'https://nikunjfriends25-droid.github.io/western-ghats-esa/';
+  <pre><code>const base = 'https://nikunjjambu.in/western-ghats-esa/';
 
 map.addSource('esa', { type: 'geojson', data: base + 'api/v1/outline.json' });
 map.addLayer({ id: 'esa-fill', type: 'fill', source: 'esa',
@@ -125,12 +125,12 @@ map.addLayer({ id: 'esa-line', type: 'line', source: 'esa',
   <p>QGIS — add these as a vector layer straight from the URL
   (<em>Layer ▸ Add Layer ▸ Add Vector Layer ▸ Protocol: HTTP</em>), or in the Python console:</p>
   <pre><code>iface.addVectorLayer(
-    "https://nikunjfriends25-droid.github.io/western-ghats-esa/api/v1/outline.json",
+    "https://nikunjjambu.in/western-ghats-esa/api/v1/outline.json",
     "Western Ghats ESA", "ogr")</code></pre>
 
   <p>Intersect the ESA with your own points, in GeoPandas:</p>
   <pre><code>import geopandas as gpd
-base = "https://nikunjfriends25-droid.github.io/western-ghats-esa/"
+base = "https://nikunjjambu.in/western-ghats-esa/"
 esa   = gpd.read_file(base + "api/v1/outline.json")
 sites = gpd.read_file("my_sites.geojson").to_crs(esa.crs)
 inside = gpd.sjoin(sites, esa, predicate="within")
@@ -146,22 +146,22 @@ print(len(inside), "of", len(sites), "sites fall inside the draft ESA")</code></
 
   <h2 id="examples">Examples</h2>
   <p>One village, by 2011 Census code:</p>
-  <pre><code>curl https://nikunjfriends25-droid.github.io/western-ghats-esa/api/v1/villages/626770.json</code></pre>
+  <pre><code>curl https://nikunjjambu.in/western-ghats-esa/api/v1/villages/626770.json</code></pre>
 
   <p>Every Kerala village that the gazette marks as bifurcated:</p>
-  <pre><code>const base = 'https://nikunjfriends25-droid.github.io/western-ghats-esa/';
+  <pre><code>const base = 'https://nikunjjambu.in/western-ghats-esa/';
 const kl = await fetch(base + 'api/v1/states/KL.json').then(r =&gt; r.json());
 const partial = kl.rows.filter(r =&gt; r.bifurcated);
 console.log(partial.map(r =&gt; r.gz_village));</code></pre>
 
   <p>Load a whole state into GeoPandas:</p>
   <pre><code>import geopandas as gpd
-base = "https://nikunjfriends25-droid.github.io/western-ghats-esa/"
+base = "https://nikunjjambu.in/western-ghats-esa/"
 ka = gpd.read_file(base + "downloads/WG_ESA_2024_KA.geojson")
 print(ka.area_km2.sum(), "km2 across", len(ka), "villages")</code></pre>
 
   <p>Total mapped area against what was notified:</p>
-  <pre><code>curl -s https://nikunjfriends25-droid.github.io/western-ghats-esa/api/v1/summary.json \
+  <pre><code>curl -s https://nikunjjambu.in/western-ghats-esa/api/v1/summary.json \
   | jq '.states[] | {state, area_km2, notified_km2, ratio}'</code></pre>
 
   <div class="callout">
